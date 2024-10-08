@@ -1,0 +1,25 @@
+.status {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem;
+}
+
+.status > div {
+  display: flex;
+}
+
+.status > div:last-child {
+  justify-content: flex-end;
+}
+
+.status__col > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-items: flex-start;
+  margin: 0 0.2rem;
+}
+
+.status__signal-cellular > img {
+  width: 20px;
+}

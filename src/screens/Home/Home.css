@@ -1,0 +1,36 @@
+.home {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.home__row {
+  display: flex;
+  margin: 1rem 0;
+}
+
+.home__col {
+  flex: 1;
+  margin: 0 1rem;
+}
+
+.home__col > button {
+  background-color: inherit;
+  border-style: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+.home__col > button:hover {
+  background-color: rgb(230, 230, 230);
+}
+
+.home__col > button:hover > svg {
+  fill: rgb(30, 30, 30);
+}
+
+.home__col > button > svg {
+  width: 30px;
+  fill: rgb(247, 247, 247);
+}

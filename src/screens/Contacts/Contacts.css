@@ -1,0 +1,87 @@
+.contacts {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.contacts__navigation {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 8px;
+}
+
+.contacts__navigation > button {
+  background-color: inherit;
+  fill: rgb(247, 247, 247);
+  border-style: none;
+  width: 40px;
+}
+
+.contacts__list {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  list-style-type: none;
+  padding: 0 16px;
+}
+
+.contacts__contact {
+  margin: 8px 0;
+}
+
+.contacts__contact > button {
+  width: 100%;
+  text-align: left;
+  padding: 8px 16px;
+  border-style: none;
+  background-color: rgb(247, 247, 247);
+  color: rgb(5, 5, 5);
+  font-weight: 900;
+  border-radius: 8px;
+}
+
+.contacts__add-contact {
+  justify-content: space-between;
+}
+
+.contacts__form {
+  margin: 0 16px;
+}
+
+.contacts__form__back {
+  margin: 0 8px;
+}
+
+.contacts__form__back > button {
+  background-color: inherit;
+  fill: rgb(247, 247, 247);
+  border-style: none;
+  width: 40px;
+}
+
+.contacts__form__label {
+  display: flex;
+  flex-direction: column;
+  margin: 8px 0;
+}
+
+.contacts__form__input {
+  background-color: rgb(247, 247, 247);
+  border-style: none;
+  padding: 8px;
+  border-bottom-style: solid;
+  border-bottom-color: rgb(5, 5, 5);
+  border-bottom-width: 4px;
+  border-top-right-radius: 8px;
+  margin: 8px 0;
+}
+
+.contacts__form__button--primary {
+  background-color: rgb(247, 247, 247);
+  border-style: none;
+  padding: 8px 0;
+  width: 100%;
+  font-weight: 800;
+  color: rgb(5, 5, 5);
+  border-radius: 8px;
+}

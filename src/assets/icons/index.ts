@@ -1,0 +1,47 @@
+export {ReactComponent as Account} from './account/account.svg'
+
+export {ReactComponent as AlterOctagon} from './alert/alert-octagon.svg'
+export {ReactComponent as Alert} from './alert/alert.svg'
+
+export {ReactComponent as ArrowDownBoldCircleOutline} from './arrow/arrow-down-bold-circle-outline.svg'
+export {ReactComponent as ArrowLeftBoldCircleOutline} from './arrow/arrow-left-bold-circle-outline.svg'
+export {ReactComponent as ArrowUpBoldCircleOutline} from './arrow/arrow-up-bold-circle-outline.svg'
+
+export {ReactComponent as BackSpaceOutline} from './backspace/backspace-outline.svg'
+
+export {ReactComponent as Chat} from './chat/chat.svg'
+
+export {ReactComponent as CloseCircle} from'./close/close-circle.svg'
+
+export {ReactComponent as Cog} from './cog/cog.svg'
+
+export {ReactComponent as FolderOpenOutline} from './folder/folder-open-outline.svg'
+
+export {ReactComponent as HomeCircleOutline} from './home/home-circle-outline.svg'
+
+export {ReactComponent as Information} from './information/information.svg'
+
+export {ReactComponent as MusicCircleOutline} from './music/music-circle-outline.svg'
+export {ReactComponent as MusicClefTreble} from './music/music-clef-treble.svg'
+
+export {ReactComponent as Phone} from './phone/phone.svg'
+export {ReactComponent as PhoneHangUp} from './phone/phone-hangup.svg'
+
+export {ReactComponent as Plus} from './plus/plus.svg'
+
+export {ReactComponent as Power} from './power/power.svg'
+
+export {ReactComponent as SignalCellularNone} from './signal-cellular/signal-cellular-outline.svg'
+export {ReactComponent as SignalCellular1} from './signal-cellular/signal-cellular-1.svg'
+export {ReactComponent as SignalCellular2} from './signal-cellular/signal-cellular-2.svg'
+export {ReactComponent as SignalCellular3} from './signal-cellular/signal-cellular-3.svg'
+
+export {ReactComponent as Snake} from './snake/snake.svg'
+
+export {ReactComponent as VideoBox} from './video/video-box.svg'
+
+export {ReactComponent as WifiStrengthNone} from './wifi-strength/wifi-strength-outline.svg'
+export {ReactComponent as WifiStrength1} from './wifi-strength/wifi-strength-1.svg'
+export {ReactComponent as WifiStrength2} from './wifi-strength/wifi-strength-2.svg'
+export {ReactComponent as WifiStrength3} from './wifi-strength/wifi-strength-3.svg'
+export {ReactComponent as WifiStrength4} from './wifi-strength/wifi-strength-4.svg'

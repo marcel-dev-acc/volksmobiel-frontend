@@ -1,0 +1,83 @@
+:root {
+  --red: rgb(255, 69, 69);
+  --red-light: rgb(255, 196, 196);
+  --yellow: rgb(200, 177, 0);
+  --yellow-light: rgb(255, 251, 218);
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.25);
+  color: rgb(0, 0, 0);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-inner {
+  background-color: rgb(255, 255, 255);
+  width: 80%;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.modal--warn {
+  background-color: var(--yellow-light);
+}
+
+.modal--error {
+  background-color: var(--red-light);
+}
+
+.modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal__header__state-icon {
+  width: 25px;
+  margin-right: 0.5rem;
+}
+
+.modal__header__state-icon--warn {
+  fill: var(--yellow);
+}
+
+.modal__header__state-icon--error {
+  fill: var(--red);
+}
+
+.modal__header > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal__header__title {
+  margin: 0;
+}
+
+.modal__header__title--warn {
+  color: var(--yellow);
+}
+
+.modal__header__title--error {
+  color: var(--red);
+}
+
+.modal__header > button {
+  padding: 0;
+  background-color: unset;
+  border-style: unset;
+  cursor: pointer;
+}
+
+.modal__header__btn-icon {
+  fill: black;
+  width: 25px;
+}

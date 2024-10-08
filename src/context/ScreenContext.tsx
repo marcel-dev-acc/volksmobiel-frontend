@@ -1,0 +1,110 @@
+import React, { createContext, MutableRefObject, useContext, useMemo, useRef, useState } from 'react';
+import { Modal } from '../components';
+import interfacesFn, { type Interfaces } from './interfaces';
+import type { Contact } from './interfaces/types';
+import serverHandler from './interfaces/server-handler';
+
+interface ModalHandler {
+  info: (msg: string) => void
+  warn: (msg: string) => void
+  error: (msg: string) => void
+  close: () => void
+}
+
+export interface ScreenContextProps {
+  screen: Screens
+  setScreen: (screen: Screens) => void
+  modal: ModalHandler
+  interfaces: MutableRefObject<Interfaces>
+  contacts: Array<Contact>
+}
+
+export const ScreenContext = createContext<
+ScreenContextProps | undefined
+>(undefined);
+
+export const useScreenContext = (): ScreenContextProps => {
+  const context = useContext(ScreenContext);
+
+  if (context === undefined) {
+    throw new Error(
+      'useScreenContext must be used within a ScreenProvider',
+    );
+  }
+
+  return context;
+};
+
+export enum Screens {
+  welcome,
+  home,
+  phone,
+  messenger,
+  contacts,
+  settings,
+}
+
+export const ScreenProvider = ({ children }: React.PropsWithChildren) => {
+  const socket = useRef(new WebSocket("ws://localhost:8081"))
+  const interfaces = useRef(interfacesFn(socket.current))
+
+  const [screen, setScreen] = useState(Screens.home)
+  const [modalState, setModalState] = useState<'info' | 'warn' | 'error' | undefined>()
+  const [modalMsg, setModalMsg] = useState('')
+  const [contacts, setContacts] = useState<Array<Contact>>([])
+
+  const modal = useMemo(() => ({
+    info: (msg: string) => {
+      setModalState('info')
+      setModalMsg(msg)
+    },
+    warn: (msg: string) => {
+      setModalState('warn')
+      setModalMsg(msg)
+    },
+    error: (msg: string) => {
+      setModalState('error')
+      setModalMsg(msg)
+    },
+    close: () => {
+      setModalState(undefined)
+      setModalMsg('')
+    }
+  }), [])
+
+  const memoProviderValues = useMemo(
+    () => ({
+      screen,
+      setScreen,
+      modal,
+      interfaces,
+      contacts,
+    }),
+    [
+      screen,
+      setScreen,
+      modal,
+      interfaces,
+      contacts,
+    ],
+  );
+  
+  socket.current.addEventListener("message", event => {
+    try {
+      serverHandler(
+        JSON.parse(event.data),
+        {
+          setContacts
+        }
+      )
+    } catch {}
+    console.log("Message from server ", event.data)
+  });
+
+  return (
+    <ScreenContext.Provider value={memoProviderValues}>
+      {modalState && <Modal state={modalState} msg={modalMsg} />}
+      {children}
+    </ScreenContext.Provider>
+  );
+};

@@ -1,0 +1,21 @@
+:root {
+  font-family: Arial, Helvetica, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  display: flex;
+  flex: 1;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  background-color: rgb(88, 88, 88);
+  color: rgb(247, 247, 247);
+  height: 100vh;
+}
