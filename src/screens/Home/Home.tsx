@@ -35,6 +35,7 @@ const Home = () => {
 
   return (
     <div className="home">
+      <img className="home__background" src="/assets/images/system/pixabay-woman-8359670_960_720.webp" alt="home-background" />
       {apps.map(row => (
         <div className="home__row">
           {row.map(app => {

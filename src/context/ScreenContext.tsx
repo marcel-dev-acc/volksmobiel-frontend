@@ -1,4 +1,4 @@
-import React, { createContext, MutableRefObject, useContext, useMemo, useRef, useState } from 'react';
+import React, { createContext, MutableRefObject, useCallback, useContext, useMemo, useRef, useState } from 'react';
 import { Modal } from '../components';
 import interfacesFn, { type Interfaces } from './interfaces';
 import type { Contact } from './interfaces/types';
@@ -14,6 +14,8 @@ interface ModalHandler {
 export interface ScreenContextProps {
   screen: Screens
   setScreen: (screen: Screens) => void
+  darkMode: 'light' | 'dark'
+  toggleDarkMode: () => void
   modal: ModalHandler
   interfaces: MutableRefObject<Interfaces>
   contacts: Array<Contact>
@@ -49,6 +51,7 @@ export const ScreenProvider = ({ children }: React.PropsWithChildren) => {
   const interfaces = useRef(interfacesFn(socket.current))
 
   const [screen, setScreen] = useState(Screens.home)
+  const [darkMode, setDarkMode] = useState<'light' | 'dark'>('light')
   const [modalState, setModalState] = useState<'info' | 'warn' | 'error' | undefined>()
   const [modalMsg, setModalMsg] = useState('')
   const [contacts, setContacts] = useState<Array<Contact>>([])
@@ -72,10 +75,16 @@ export const ScreenProvider = ({ children }: React.PropsWithChildren) => {
     }
   }), [])
 
+  const toggleDarkMode = useCallback(() => {
+    setDarkMode(darkMode === 'light' ? 'dark' : 'light')
+  }, [darkMode])
+
   const memoProviderValues = useMemo(
     () => ({
       screen,
       setScreen,
+      darkMode,
+      toggleDarkMode,
       modal,
       interfaces,
       contacts,
@@ -83,6 +92,8 @@ export const ScreenProvider = ({ children }: React.PropsWithChildren) => {
     [
       screen,
       setScreen,
+      darkMode,
+      toggleDarkMode,
       modal,
       interfaces,
       contacts,

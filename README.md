@@ -9,7 +9,6 @@ __Commands__
 Run commands are found in `package.json/scripts`
 
 ```bash
-cd ui
 yarn start
 ```
 

@@ -8,10 +8,10 @@ import { Navigation } from './components';
 
 const App = () => {
 
-  const {screen} = useScreenContext()
+  const {screen, darkMode} = useScreenContext()
 
   return (
-    <main>
+    <main className={darkMode}>
       <Status />
       {screen === Screens.welcome && <p>Welcome [not implemented]</p>}
       {screen === Screens.home && <Home />}

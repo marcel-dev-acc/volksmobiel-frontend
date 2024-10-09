@@ -6,31 +6,19 @@
 
 .settings__row {
   display: flex;
-  margin: 1rem 0;
+  margin: 1rem;
+  justify-content: flex-start;
+  align-items: center;
 }
 
-.settings__col {
-  flex: 1;
-  margin: 0 1rem;
-}
-
-.settings__col > button {
+.settings__row > button {
   background-color: inherit;
   border-style: none;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
 }
 
-.settings__col > button:hover {
-  background-color: rgb(230, 230, 230);
-}
-
-.settings__col > button:hover > svg {
-  fill: rgb(30, 30, 30);
-}
-
-.settings__col > button > svg {
+.settings__row > button > svg {
   width: 30px;
-  fill: rgb(247, 247, 247);
 }

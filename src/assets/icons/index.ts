@@ -15,6 +15,8 @@ export {ReactComponent as CloseCircle} from'./close/close-circle.svg'
 
 export {ReactComponent as Cog} from './cog/cog.svg'
 
+export {ReactComponent as DockWindow} from './dock/dock-window.svg'
+
 export {ReactComponent as FolderOpenOutline} from './folder/folder-open-outline.svg'
 
 export {ReactComponent as HomeCircleOutline} from './home/home-circle-outline.svg'
@@ -37,6 +39,8 @@ export {ReactComponent as SignalCellular2} from './signal-cellular/signal-cellul
 export {ReactComponent as SignalCellular3} from './signal-cellular/signal-cellular-3.svg'
 
 export {ReactComponent as Snake} from './snake/snake.svg'
+
+export {ReactComponent as ThemeLightDark} from './theme/theme-light-dark.svg'
 
 export {ReactComponent as VideoBox} from './video/video-box.svg'
 

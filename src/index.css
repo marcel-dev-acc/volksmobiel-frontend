@@ -15,7 +15,18 @@ body {
   margin: 0;
   padding: 0;
   display: flex;
-  background-color: rgb(88, 88, 88);
-  color: rgb(247, 247, 247);
   height: 100vh;
+  font-weight: 800;
+}
+
+.light > * {
+  background-color: rgb(255, 255, 255);
+  color: rgb(5, 5, 5);
+  fill: rgb(5, 5, 5);
+}
+
+.dark > * {
+  background-color: rgb(5, 5, 5);
+  color: rgb(247, 247, 247);
+  fill: rgb(247, 247, 247);
 }
