@@ -1,0 +1,32 @@
+.video-player {
+  display: flex;
+  flex: 1;
+}
+
+.video-player__player-container {
+  margin: 16px;
+}
+
+.video-player__fake-player {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(250, 250, 250);
+  background-color: rgb(5, 5, 5);
+  width: 100%;
+  height: 150px;
+}
+
+.video-player__fake-player > button {
+  background-color: inherit;
+  border-style: none;
+  border-radius: 50%;
+}
+
+.video-player__fake-player > button > svg {
+  width: 50px;
+  height: 50px;
+  fill: rgb(250, 250, 250);
+}

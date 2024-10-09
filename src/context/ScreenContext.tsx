@@ -44,6 +44,7 @@ export enum Screens {
   messenger,
   contacts,
   settings,
+  videoPlayer,
 }
 
 export const ScreenProvider = ({ children }: React.PropsWithChildren) => {

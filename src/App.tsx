@@ -1,6 +1,6 @@
 import Status from './components/Status/Status';
 
-import {Contacts, Home, Messenger, Phone, Settings} from './screens';
+import {Contacts, Home, Messenger, Phone, Settings, VideoPlayer} from './screens';
 import { Screens, useScreenContext } from './context/ScreenContext';
 
 import './App.css'
@@ -19,6 +19,7 @@ const App = () => {
       {screen === Screens.messenger && <Messenger />}
       {screen === Screens.contacts && <Contacts />}
       {screen === Screens.settings && <Settings />}
+      {screen === Screens.videoPlayer && <VideoPlayer />}
       {screen !== Screens.home && <Navigation />}
     </main>
   )

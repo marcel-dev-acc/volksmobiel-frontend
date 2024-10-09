@@ -29,6 +29,8 @@ export {ReactComponent as MusicClefTreble} from './music/music-clef-treble.svg'
 export {ReactComponent as Phone} from './phone/phone.svg'
 export {ReactComponent as PhoneHangUp} from './phone/phone-hangup.svg'
 
+export {ReactComponent as Play} from './play/play.svg'
+
 export {ReactComponent as Plus} from './plus/plus.svg'
 
 export {ReactComponent as Power} from './power/power.svg'
