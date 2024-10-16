@@ -20,6 +20,10 @@
   margin: 0 0.2rem;
 }
 
-.status__signal-cellular > img {
+.status__signal-cellular > svg {
+  width: 20px;
+}
+
+.status__sleep-in > svg {
   width: 20px;
 }

@@ -1,5 +1,5 @@
 
-import { Account, Chat, Cog, FolderOpenOutline, MusicCircleOutline, MusicClefTreble, Phone, Snake, VideoBox } from '../../assets/icons'
+import { Account, Chat, ClockOutline, Cog, FolderOpenOutline, MusicCircleOutline, MusicClefTreble, Phone, Snake, VideoBox } from '../../assets/icons'
 import { Screens, useScreenContext } from '../../context/ScreenContext'
 import './Home.css'
 
@@ -23,7 +23,7 @@ const Home = () => {
     [
       { id: 'c7a14894-21e5-4257-9196-80c9b81b751d', icon: MusicCircleOutline, click: () => setScreen(Screens.messenger) },
       { id: '3078cd19-1c07-4cd0-b8f4-8dada1ef288a', icon: VideoBox, click: () => setScreen(Screens.videoPlayer) },
-      { id: 'ad1c1b9d-f47f-48d7-8659-a2453ffb4a77', icon: undefined, click: undefined },
+      { id: 'ad1c1b9d-f47f-48d7-8659-a2453ffb4a77', icon: ClockOutline, click: () => setScreen(Screens.clock) },
       { id: 'baedb4ac-61c0-4d9f-a696-0fd3b1282be0', icon: Cog, click: () => setScreen(Screens.settings) },
     ],
     [

@@ -11,3 +11,7 @@ export interface ExploredItem {
   type: string | null
   isFolder: boolean
 }
+
+export interface UsbDevice {
+  [key: string]: string
+}

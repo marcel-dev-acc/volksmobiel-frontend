@@ -1,0 +1,52 @@
+.clock {
+  display: flex;
+  flex: 1;
+}
+
+.clock__navigation {
+  padding: 16px;
+}
+
+.clock__navigation__row {
+  display: flex;
+  justify-content: space-around;
+}
+
+.clock__navigation__row > button {
+  border-style: none;
+  background-color: inherit;
+  border-radius: 50%;
+  padding: 8px;
+}
+
+.clock__navigation__row > button > svg {
+  width: 30px;
+}
+
+.clock__set-sleep {
+  padding: 16px;
+  width: 100%;
+}
+
+.clock__set-sleep__list {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  list-style-type: none;
+  padding: 8px 0;
+  margin: 0;
+  width: 100%;
+}
+
+.clock__set-sleep__list__item {
+  margin: 8px 0;
+  width: 100%;
+}
+
+.clock__set-sleep__list__item > button {
+  border-style: none;
+  padding: 8px 0;
+  width: 100%;
+  font-weight: 800;
+  border-radius: 8px;
+}

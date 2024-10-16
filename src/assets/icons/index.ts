@@ -9,9 +9,13 @@ export {ReactComponent as ArrowUpBoldCircleOutline} from './arrow/arrow-up-bold-
 
 export {ReactComponent as BackSpaceOutline} from './backspace/backspace-outline.svg'
 
+export {ReactComponent as BedClock} from './bed/bed-clock.svg'
+
 export {ReactComponent as Chat} from './chat/chat.svg'
 
 export {ReactComponent as ChevronLeft} from './chevron/chevron-left.svg'
+
+export {ReactComponent as ClockOutline} from './clock/clock-outline.svg'
 
 export {ReactComponent as CloseCircle} from'./close/close-circle.svg'
 
@@ -26,6 +30,8 @@ export {ReactComponent as FolderOpenOutline} from './folder/folder-open-outline.
 export {ReactComponent as HomeCircleOutline} from './home/home-circle-outline.svg'
 
 export {ReactComponent as Information} from './information/information.svg'
+
+export {ReactComponent as Minus} from './minus/minus.svg'
 
 export {ReactComponent as MusicCircleOutline} from './music/music-circle-outline.svg'
 export {ReactComponent as MusicClefTreble} from './music/music-clef-treble.svg'
@@ -47,6 +53,8 @@ export {ReactComponent as SignalCellular3} from './signal-cellular/signal-cellul
 export {ReactComponent as Snake} from './snake/snake.svg'
 
 export {ReactComponent as ThemeLightDark} from './theme/theme-light-dark.svg'
+
+export {ReactComponent as Usb} from './usb/usb.svg'
 
 export {ReactComponent as VideoBox} from './video/video-box.svg'
 

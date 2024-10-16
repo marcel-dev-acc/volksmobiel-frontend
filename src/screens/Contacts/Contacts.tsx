@@ -1,6 +1,6 @@
 
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './Contacts.css'
 import { useScreenContext } from '../../context/ScreenContext'
 import { ArrowUpBoldCircleOutline, ArrowDownBoldCircleOutline, Plus, ArrowLeftBoldCircleOutline } from '../../assets/icons'
@@ -20,6 +20,8 @@ const Contacts = () => {
   const visibleItems = 5;
 
   const { interfaces, contacts } = useScreenContext()
+
+  const initRef = useRef(false)
 
   const [state, setState] = useState<'contact-list' | 'contact-form--create' | 'contact-form--edit'>('contact-list')
   const [listIndex, setListIndex] = useState(0)
@@ -58,7 +60,10 @@ const Contacts = () => {
   }
 
   useEffect(() => {
-    interfaces.current.contacts.get()
+    if (!initRef.current) {
+      initRef.current = true
+      interfaces.current.contacts.get()
+    }
   }, [interfaces])
 
   return (

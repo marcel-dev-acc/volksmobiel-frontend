@@ -1,6 +1,6 @@
 
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './Explorer.css'
 import { Screens, useScreenContext } from '../../context/ScreenContext'
 import { ArrowDownBoldCircleOutline, ArrowUpBoldCircleOutline, ChevronLeft, FileOutline, FolderOpenOutline, VideoBox } from '../../assets/icons'
@@ -15,7 +15,8 @@ const Explorer = ({ setActiveVideo }: ExplorerProps) => {
 
   const { interfaces, explorePath, exploredItems, darkMode, setScreen } = useScreenContext()
 
-  const [init, setInit] = useState(false)
+  const initRef = useRef(false)
+
   const [listIndex, setListIndex] = useState(0)
 
   const handleListUp = () => {
@@ -49,11 +50,11 @@ const Explorer = ({ setActiveVideo }: ExplorerProps) => {
   }
 
   useEffect(() => {
-    if (!init) {
-      setInit(true)
+    if (!initRef.current) {
+      initRef.current = true
       interfaces.current.explorer.list([])
     }
-  }, [init, interfaces])
+  }, [interfaces])
 
   return (
     <div className="explorer">

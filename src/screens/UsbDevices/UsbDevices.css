@@ -1,0 +1,70 @@
+.usb-devices {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 0 8px;
+}
+
+.usb-devices > h1 {
+  font-size: 20px;
+}
+
+.usb-devices__form__label {
+  display: flex;
+  flex-direction: column;
+  margin: 8px 0;
+}
+
+.usb-devices__form__input {
+  border-style: none;
+  padding: 8px;
+  border-bottom-style: solid;
+  border-bottom-width: 4px;
+  border-top-right-radius: 8px;
+  margin: 8px 0;
+}
+
+.usb-devices__form__button--primary {
+  border-style: none;
+  padding: 8px 0;
+  width: 100%;
+  font-weight: 800;
+  border-radius: 8px;
+}
+
+.usb-devices__list {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  list-style-type: none;
+  padding: 8px 0;
+  margin: 0;
+}
+
+.usb-devices__list__item {
+  margin: 4px 0;
+}
+
+.usb-devices__list__item > button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 30px;
+  border-style: solid;
+  background-color: inherit;
+}
+
+.usb-devices__list__item > button > svg {
+  width: 20px;
+  height: 20px;
+}
+
+.usb-devices__list__item > button > span {
+  margin: 0 4px;
+  font-size: 12px;
+}
+
+.usb-devices__list__item > button > span:first-of-type {
+  width: 40px;
+  font-size: 16px;
+}

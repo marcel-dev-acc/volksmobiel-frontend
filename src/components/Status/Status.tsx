@@ -3,8 +3,9 @@ import { useEffect, useState } from 'react'
 
 
 import './Status.css'
-import { SignalCellular1, SignalCellular2, SignalCellular3, SignalCellularNone } from '../../assets/icons'
+import { BedClock, SignalCellular1, SignalCellular2, SignalCellular3, SignalCellularNone } from '../../assets/icons'
 import dayjs from 'dayjs'
+import { useScreenContext } from '../../context/ScreenContext'
 
 enum SignalCellular {
   none,
@@ -13,9 +14,13 @@ enum SignalCellular {
   three
 }
 
-const Status = () => {
+interface StatusProps {
+  sleepIn?: number
+}
 
-  const [battery, setBattery] = useState(100)
+const Status = ({ sleepIn }: StatusProps) => {
+
+  // const [battery, setBattery] = useState(100)
   const [signalCellular, setSignalCellular] = useState(SignalCellular.none)
   const [time, setTime] = useState(dayjs().unix())
 
@@ -42,6 +47,11 @@ const Status = () => {
         {/* <div className="status__battery">
           <span>{battery}%</span>
         </div> */}
+        {sleepIn !== undefined && (
+          <div className='status__sleep-in'>
+            <BedClock />
+          </div>
+        )}
       </div>
     </div>
   )

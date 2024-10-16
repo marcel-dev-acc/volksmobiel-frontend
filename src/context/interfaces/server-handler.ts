@@ -1,4 +1,4 @@
-import { Contact, ExploredItem } from "./types"
+import { Contact, ExploredItem, UsbDevice } from "./types"
 
 interface Message {
   domain: string;
@@ -7,9 +7,10 @@ interface Message {
 }
 
 interface States {
-  setContacts: React.Dispatch<React.SetStateAction<Contact[]>>
-  setExplorePath: React.Dispatch<React.SetStateAction<string[]>>
-  setExploredItems: React.Dispatch<React.SetStateAction<ExploredItem[]>>
+  setContacts: React.Dispatch<React.SetStateAction<Array<Contact>>>
+  setExplorePath: React.Dispatch<React.SetStateAction<Array<string>>>
+  setExploredItems: React.Dispatch<React.SetStateAction<Array<ExploredItem>>>
+  setUsbDevices: React.Dispatch<React.SetStateAction<Array<UsbDevice>>>
 }
 
 const serverHandler = (message: Message, states: States) => {
@@ -43,6 +44,16 @@ const serverHandler = (message: Message, states: States) => {
           break
         default:
           console.warn('[PHONE] Server sent an unknown message, topic', message.topic)
+      }
+      break
+
+    case 'system':
+      switch(message.topic) {
+        case 'list-usb':
+          states.setUsbDevices(message.value)
+          break
+        default:
+          console.warn('[SYSTEM] Server sent an unknown message, topic', message.topic)
       }
       break
 

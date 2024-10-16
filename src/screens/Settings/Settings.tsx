@@ -1,13 +1,13 @@
 
 
-import { DockWindow, Power, ThemeLightDark } from '../../assets/icons'
-import { useScreenContext } from '../../context/ScreenContext'
+import { DockWindow, Power, ThemeLightDark, Usb } from '../../assets/icons'
+import { Screens, useScreenContext } from '../../context/ScreenContext'
 import './Settings.css'
 
 
 const Settings = () => {
 
-  const { interfaces, toggleDarkMode } = useScreenContext()
+  const { interfaces, toggleDarkMode, setScreen } = useScreenContext()
 
   const handlePowerOff = () => {
     interfaces.current.settings.powerOff()
@@ -17,35 +17,42 @@ const Settings = () => {
     alert("Feature not implemented")
   }
 
+  const utilities = [
+    {
+      label: 'Toggle dark mode',
+      icon: ThemeLightDark,
+      action: toggleDarkMode,
+    },
+    {
+      label: 'Power off device',
+      icon: Power,
+      action: handlePowerOff,
+    },
+    {
+      label: 'Toggle display output',
+      icon: DockWindow,
+      action: handleToggleDisplayOutput,
+    },
+    {
+      label: 'View USB devices',
+      icon: Usb,
+      action: () => setScreen(Screens.usbDevices)
+    }
+  ]
+
   return (
     <div className="settings">
-      <div className="settings__row">
-        <button
-          onClick={toggleDarkMode}
-          aria-label='toggle-light-dark-mode'
-        >
-          <ThemeLightDark />
-        </button>
-        <p>Toggle dark mode</p>
-      </div>
-      <div className="settings__row">
-        <button
-          onClick={handlePowerOff}
-          aria-label='power-off'
-        >
-          <Power />
-        </button>
-        <p>Power off device</p>
-      </div>
-      <div className="settings__row">
-        <button
-          onClick={handleToggleDisplayOutput}
-          aria-label='toggle-display'
-        >
-          <DockWindow />
-        </button>
-        <p>Toggle display output</p>
-      </div>
+      {utilities.map(utility => (
+        <div key={utility.label} className="settings__row">
+          <button
+            onClick={utility.action}
+            aria-label={utility.label}
+          >
+            <utility.icon />
+          </button>
+          <p>{utility.label}</p>
+        </div>
+      ))}
     </div>
   )
 }
