@@ -1,14 +1,17 @@
 import Status from './components/Status/Status';
 
-import {Contacts, Home, Messenger, Phone, Settings, VideoPlayer} from './screens';
+import {Contacts, Home, Messenger, Phone, Settings, VideoPlayer, Explorer} from './screens';
 import { Screens, useScreenContext } from './context/ScreenContext';
 
 import './App.css'
 import { Navigation } from './components';
+import { useState } from 'react';
 
 const App = () => {
 
   const {screen, darkMode} = useScreenContext()
+
+  const [activeVideo, setActiveVideo] = useState<Array<string> | undefined>()
 
   return (
     <main className={darkMode}>
@@ -19,7 +22,9 @@ const App = () => {
       {screen === Screens.messenger && <Messenger />}
       {screen === Screens.contacts && <Contacts />}
       {screen === Screens.settings && <Settings />}
-      {screen === Screens.videoPlayer && <VideoPlayer />}
+      {screen === Screens.videoPlayer && <VideoPlayer activeVideo={activeVideo} />}
+      {screen === Screens.explorer && <Explorer setActiveVideo={setActiveVideo} />}
+
       {screen !== Screens.home && <Navigation />}
     </main>
   )

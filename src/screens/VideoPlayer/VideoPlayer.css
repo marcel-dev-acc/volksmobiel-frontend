@@ -5,6 +5,15 @@
 
 .video-player__player-container {
   margin: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.video-player__player-container > h1 {
+  font-size: 16px;
 }
 
 .video-player__fake-player {
@@ -29,4 +38,20 @@
   width: 50px;
   height: 50px;
   fill: rgb(250, 250, 250);
+}
+
+.video-player__information {
+  margin: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.video-player__information > button {
+  border-style: none;
+  padding: 8px 0;
+  width: 100%;
+  font-weight: 800;
+  border-radius: 8px;
 }

@@ -11,11 +11,15 @@ export {ReactComponent as BackSpaceOutline} from './backspace/backspace-outline.
 
 export {ReactComponent as Chat} from './chat/chat.svg'
 
+export {ReactComponent as ChevronLeft} from './chevron/chevron-left.svg'
+
 export {ReactComponent as CloseCircle} from'./close/close-circle.svg'
 
 export {ReactComponent as Cog} from './cog/cog.svg'
 
 export {ReactComponent as DockWindow} from './dock/dock-window.svg'
+
+export {ReactComponent as FileOutline} from './file/file-outline.svg'
 
 export {ReactComponent as FolderOpenOutline} from './folder/folder-open-outline.svg'
 

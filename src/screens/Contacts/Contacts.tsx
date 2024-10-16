@@ -6,14 +6,18 @@ import { useScreenContext } from '../../context/ScreenContext'
 import { ArrowUpBoldCircleOutline, ArrowDownBoldCircleOutline, Plus, ArrowLeftBoldCircleOutline } from '../../assets/icons'
 import { Contact } from '../../context/interfaces/types'
 
-const initialForm: Omit<Contact, 'id'> = {
-  firstName: '',
-  lastName: '',
-  mobile: '',
-  email: '',
-}
+
 
 const Contacts = () => {
+
+  const initialForm: Omit<Contact, 'id'> = {
+    firstName: '',
+    lastName: '',
+    mobile: '',
+    email: '',
+  }
+
+  const visibleItems = 5;
 
   const { interfaces, contacts } = useScreenContext()
 
@@ -29,7 +33,7 @@ const Contacts = () => {
   }
 
   const handleListDown = () => {
-    if (listIndex + 5 >= contacts.length) {
+    if (listIndex + visibleItems >= contacts.length) {
       return
     }
     setListIndex(listIndex + 1)
@@ -74,8 +78,9 @@ const Contacts = () => {
               <ArrowUpBoldCircleOutline />
             </button>
           </div>
+          {(listIndex + visibleItems) > visibleItems && <i className='contacts__list__hint'>Scroll up to see more...</i>}
           <ul className="contacts__list">
-            {contacts.filter((_, index) => index >= listIndex && index < (listIndex + 5)).map(contact => (
+            {contacts.filter((_, index) => index >= listIndex && index < (listIndex + visibleItems)).map(contact => (
               <li key={contact.id} className='contacts__contact'>
                 <button
                   onClick={() => {
@@ -88,6 +93,7 @@ const Contacts = () => {
               </li>
             ))}
           </ul>
+          {(listIndex + visibleItems) < contacts.length && <i className='contacts__list__hint'>Scroll down to see more...</i>}
           <div className="contacts__navigation">
             <button onClick={handleListDown}>
               <ArrowDownBoldCircleOutline />

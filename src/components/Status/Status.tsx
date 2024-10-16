@@ -39,9 +39,9 @@ const Status = () => {
           {signalCellular === SignalCellular.two && <SignalCellular2 />}
           {signalCellular === SignalCellular.three && <SignalCellular3 />}
         </div>
-        <div className="status__battery">
+        {/* <div className="status__battery">
           <span>{battery}%</span>
-        </div>
+        </div> */}
       </div>
     </div>
   )

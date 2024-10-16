@@ -5,3 +5,9 @@ export interface Contact {
   firstName: string
   lastName: string
 }
+
+export interface ExploredItem {
+  name: string
+  type: string | null
+  isFolder: boolean
+}

@@ -24,6 +24,12 @@
   padding: 0 16px;
 }
 
+.contacts__list__hint {
+  font-size: 12px;
+  text-align: center;
+  color: rgb(126, 126, 126);
+}
+
 .contacts__contact {
   margin: 8px 0;
 }

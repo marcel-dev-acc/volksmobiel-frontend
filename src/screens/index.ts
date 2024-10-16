@@ -1,4 +1,5 @@
 export {default as Contacts} from './Contacts/Contacts'
+export {default as Explorer} from './Explorer/Explorer'
 export {default as Home} from './Home/Home'
 export {default as Messenger} from './Messenger/Messenger'
 export {default as Phone} from './Phone/Phone'

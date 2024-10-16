@@ -1,0 +1,91 @@
+.explorer {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.explorer__navigation {
+  display: flex;
+  justify-content: flex-end;
+  padding: 4px 8px;
+}
+
+.explorer__header__path {
+  display: flex;
+  align-items: center;
+}
+
+.explorer__header__path > button {
+  background-color: inherit;
+  border-style: none;
+  height: 24px;
+}
+
+.explorer__header__path > button > svg {
+  width: 20px;
+  height: 20px;
+}
+
+.explorer__header__spacer{
+  margin: 0 8px;
+}
+
+.explorer__navigation > button {
+  background-color: inherit;
+  border-style: none;
+  width: 40px;
+}
+
+.explorer__header {
+  justify-content: space-between;
+}
+
+.explorer__list {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  list-style-type: none;
+  padding: 0 8px;
+  margin: 0;
+}
+
+.explorer__list__hint {
+  font-size: 12px;
+  text-align: center;
+}
+
+.explorer__list__hint--light {
+  color: rgb(120, 120, 120);
+}
+
+.explorer__list__hint--dark {
+  color: rgb(220, 220, 220);
+}
+
+.explorer__list__item {
+  display: flex;
+  margin: 4px 0;
+}
+
+.explorer__list__item__icon {
+  width: 40px;
+}
+
+.explorer__list__item__icon > svg {
+  width: 30px;
+}
+
+.explorer__list__item__icon > button {
+  background-color: inherit;
+  border-style: none; 
+}
+
+.explorer__list__item__icon > button > svg {
+  width: 30px;
+}
+
+.explorer__list__item > p {
+  padding: 0 8px;
+  margin: 0;
+  align-self: center;
+}

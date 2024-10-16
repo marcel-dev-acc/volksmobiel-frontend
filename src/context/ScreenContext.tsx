@@ -1,7 +1,7 @@
 import React, { createContext, MutableRefObject, useCallback, useContext, useMemo, useRef, useState } from 'react';
 import { Modal } from '../components';
 import interfacesFn, { type Interfaces } from './interfaces';
-import type { Contact } from './interfaces/types';
+import type { Contact, ExploredItem } from './interfaces/types';
 import serverHandler from './interfaces/server-handler';
 
 interface ModalHandler {
@@ -19,6 +19,8 @@ export interface ScreenContextProps {
   modal: ModalHandler
   interfaces: MutableRefObject<Interfaces>
   contacts: Array<Contact>
+  explorePath: Array<string>
+  exploredItems: Array<ExploredItem>
 }
 
 export const ScreenContext = createContext<
@@ -45,6 +47,7 @@ export enum Screens {
   contacts,
   settings,
   videoPlayer,
+  explorer,
 }
 
 export const ScreenProvider = ({ children }: React.PropsWithChildren) => {
@@ -56,6 +59,8 @@ export const ScreenProvider = ({ children }: React.PropsWithChildren) => {
   const [modalState, setModalState] = useState<'info' | 'warn' | 'error' | undefined>()
   const [modalMsg, setModalMsg] = useState('')
   const [contacts, setContacts] = useState<Array<Contact>>([])
+  const [explorePath, setExplorePath] = useState<Array<string>>([])
+  const [exploredItems, setExploredItems] = useState<Array<ExploredItem>>([])
 
   const modal = useMemo(() => ({
     info: (msg: string) => {
@@ -89,6 +94,8 @@ export const ScreenProvider = ({ children }: React.PropsWithChildren) => {
       modal,
       interfaces,
       contacts,
+      explorePath,
+      exploredItems,
     }),
     [
       screen,
@@ -98,6 +105,8 @@ export const ScreenProvider = ({ children }: React.PropsWithChildren) => {
       modal,
       interfaces,
       contacts,
+      explorePath,
+      exploredItems,
     ],
   );
   
@@ -106,7 +115,9 @@ export const ScreenProvider = ({ children }: React.PropsWithChildren) => {
       serverHandler(
         JSON.parse(event.data),
         {
-          setContacts
+          setContacts,
+          setExplorePath,
+          setExploredItems,
         }
       )
     } catch {}

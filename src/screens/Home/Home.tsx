@@ -11,12 +11,14 @@ interface App {
 
 const Home = () => {
 
+  const {setScreen, darkMode} = useScreenContext()
+
   const apps: App[][] = [
     [
       { id: 'b6596337-6481-4a79-9644-7027bd00b008', icon: Phone, click: () => setScreen(Screens.phone) },
       { id: 'a2685411-5c21-4019-ac71-c9ebf744ac0d', icon: Chat, click: () => setScreen(Screens.messenger) },
       { id: 'd4c13908-f8f5-4c7e-851a-705b1e3a76a1', icon: Account, click: () => setScreen(Screens.contacts) },
-      { id: '6796c35a-edfe-4989-9a3c-b40f439147ae', icon: FolderOpenOutline, click: () => setScreen(Screens.messenger) },
+      { id: '6796c35a-edfe-4989-9a3c-b40f439147ae', icon: FolderOpenOutline, click: () => setScreen(Screens.explorer) },
     ],
     [
       { id: 'c7a14894-21e5-4257-9196-80c9b81b751d', icon: MusicCircleOutline, click: () => setScreen(Screens.messenger) },
@@ -31,8 +33,6 @@ const Home = () => {
       { id: 'b92cf6fe-cc46-40b0-86ab-fafa29c161dd', icon: undefined, click: undefined },
     ],
   ]
-
-  const {setScreen, darkMode} = useScreenContext()
 
   return (
     <div className="home">
