@@ -91,14 +91,17 @@ const Explorer = ({ setActiveVideo }: ExplorerProps) => {
       </div>
       {(listIndex + visibleItems) > visibleItems && <i className={`explorer__list__hint explorer__list__hint--${darkMode}`}>Scroll up to see more...</i>}
       <ul className='explorer__list'>
-        {exploredItems.filter((_, index) => index >= listIndex && index < (listIndex + visibleItems)).map(item => (
+        {exploredItems
+          .sort((a, b) => a.name > b.name ? 1 : -1)
+          .filter(item => !item.name.startsWith('.'))
+          .filter((_, index) => index >= listIndex && index < (listIndex + visibleItems))
+          .map(item => (
           <li key={item.name} className='explorer__list__item'>
             <div className='explorer__list__item__icon'>
               {item.isFolder && <button onClick={() => handleFolderClick(item.name)}><FolderOpenOutline /></button>}
               {!item.isFolder && (() => {
                 if (
-                  item.name.endsWith('.avi') ||
-                  item.name.endsWith('.mp4')
+                  item.type === "video"
                 ) {
                   return (
                     <button onClick={() => handleVideoFileClick(item.name)}>

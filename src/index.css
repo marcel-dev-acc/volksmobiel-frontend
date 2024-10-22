@@ -17,6 +17,7 @@ body {
   display: flex;
   height: 100vh;
   font-weight: 800;
+  cursor: none;
 }
 
 .light > * {

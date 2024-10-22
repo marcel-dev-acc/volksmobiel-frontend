@@ -15,3 +15,7 @@ yarn start
 __Icons__
 
 https://pictogrammers.com/library/mdi/
+
+## Deployment
+
+`yarn build`
