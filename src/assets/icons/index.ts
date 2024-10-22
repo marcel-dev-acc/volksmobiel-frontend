@@ -23,6 +23,8 @@ export {ReactComponent as Cog} from './cog/cog.svg'
 
 export {ReactComponent as DockWindow} from './dock/dock-window.svg'
 
+export {ReactComponent as DotsVertical} from './dots/dots-vertical.svg'
+
 export {ReactComponent as FileOutline} from './file/file-outline.svg'
 
 export {ReactComponent as FolderOpenOutline} from './folder/folder-open-outline.svg'

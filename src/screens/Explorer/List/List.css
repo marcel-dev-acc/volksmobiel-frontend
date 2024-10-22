@@ -1,0 +1,49 @@
+.explorer__list {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  list-style-type: none;
+  padding: 0 8px;
+  margin: 0;
+}
+
+.explorer__list__hint {
+  font-size: 12px;
+  text-align: center;
+}
+
+.explorer__list__hint--light {
+  color: rgb(120, 120, 120);
+}
+
+.explorer__list__hint--dark {
+  color: rgb(220, 220, 220);
+}
+
+.explorer__list__item {
+  display: flex;
+  margin: 4px 0;
+}
+
+.explorer__list__item__icon {
+  width: 40px;
+}
+
+.explorer__list__item__icon > svg {
+  width: 30px;
+}
+
+.explorer__list__item__icon > button {
+  background-color: inherit;
+  border-style: none; 
+}
+
+.explorer__list__item__icon > button > svg {
+  width: 30px;
+}
+
+.explorer__list__item > p {
+  padding: 0 8px;
+  margin: 0;
+  align-self: center;
+}

@@ -1,10 +1,10 @@
 export interface Explorer {
-  list: (items: Array<string>) => void
+  list: (items: Array<string> | string) => void
 }
 
 const explorer = (socket: WebSocket): Explorer => ({
-  list: (items: Array<string>) => {
-    socket.send(JSON.stringify({ domain: 'explorer', topic: 'list', value: items }))
+  list: (value: Array<string> | string) => {
+    socket.send(JSON.stringify({ domain: 'explorer', topic: 'list', value }))
   },
 })
 

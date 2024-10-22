@@ -36,7 +36,7 @@ const Home = () => {
 
   return (
     <div className="home">
-      <img className="home__background" src="/assets/images/system/pixabay-woman-8359670_960_720.webp" alt="home-background" />
+      <img className="home__background" src="/assets/images/system/jeremy-bishop-EwKXn5CapA4-unsplash.jpg" alt="home-background" />
       {apps.map((row, idx) => (
         <div key={idx} className="home__row">
           {row.map(app => {

@@ -1,0 +1,5 @@
+.explorer__options {
+  display: flex;
+  flex: 1;
+  padding: 0 8px;
+}
