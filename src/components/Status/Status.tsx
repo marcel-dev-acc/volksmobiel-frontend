@@ -1,38 +1,38 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React from 'react'
+import {useEffect, useState} from 'react'
 
-import './Status.css';
+import './Status.css'
 import {
   BedClock,
   SignalCellular1,
   SignalCellular2,
   SignalCellular3,
-  SignalCellularNone,
-} from '../../assets/icons';
-import dayjs from 'dayjs';
+  SignalCellularNone
+} from '../../assets/icons'
+import dayjs from 'dayjs'
 
 enum SignalCellular {
   none,
   one,
   two,
-  three,
+  three
 }
 
 interface StatusProps {
-  sleepIn?: number;
+  sleepIn?: number
 }
 
-const Status = ({ sleepIn }: StatusProps): JSX.Element => {
+const Status = ({sleepIn}: StatusProps): JSX.Element => {
   // const [battery, setBattery] = useState(100)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [signalCellular, setSignalCellular] = useState(SignalCellular.none);
-  const [time, setTime] = useState(dayjs().unix());
+  const [signalCellular, setSignalCellular] = useState(SignalCellular.none)
+  const [time, setTime] = useState(dayjs().unix())
 
   useEffect(() => {
     setInterval(() => {
-      setTime(dayjs().unix());
-    }, 2500);
-  }, []);
+      setTime(dayjs().unix())
+    }, 2500)
+  }, [])
 
   return (
     <div className="status">
@@ -43,7 +43,9 @@ const Status = ({ sleepIn }: StatusProps): JSX.Element => {
       </div>
       <div className="status__col">
         <div className="status__signal-cellular">
-          {signalCellular === SignalCellular.none && <SignalCellularNone />}
+          {signalCellular === SignalCellular.none && (
+            <SignalCellularNone />
+          )}
           {signalCellular === SignalCellular.one && <SignalCellular1 />}
           {signalCellular === SignalCellular.two && <SignalCellular2 />}
           {signalCellular === SignalCellular.three && <SignalCellular3 />}
@@ -58,7 +60,7 @@ const Status = ({ sleepIn }: StatusProps): JSX.Element => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Status;
+export default Status

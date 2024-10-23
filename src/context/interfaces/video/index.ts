@@ -1,5 +1,5 @@
 export interface Video {
-  play: (filePathArray: Array<string>) => void;
+  play: (filePathArray: Array<string>) => void
 }
 
 const video = (socket: WebSocket): Video => ({
@@ -8,10 +8,10 @@ const video = (socket: WebSocket): Video => ({
       JSON.stringify({
         domain: 'video',
         topic: 'play',
-        value: 'file:////' + filePathArray.join('/'),
-      }),
-    );
-  },
-});
+        value: 'file:////' + filePathArray.join('/')
+      })
+    )
+  }
+})
 
-export default video;
+export default video

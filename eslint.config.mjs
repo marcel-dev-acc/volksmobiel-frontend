@@ -20,6 +20,16 @@ export default [
       "dot-notation": 0,
       "@typescript-eslint/no-floating-promises": 0,
       "@typescript-eslint/no-misused-promises": 0,
+      "sort-imports": [
+        "error",
+        {
+          "ignoreCase": true,
+          "ignoreDeclarationSort": true,
+          "ignoreMemberSort": true,
+          "memberSyntaxSortOrder": ["single", "multiple", "all", "none"],
+          "allowSeparatedGroups": true,
+        },
+      ],
     },
     settings: {
       react: {

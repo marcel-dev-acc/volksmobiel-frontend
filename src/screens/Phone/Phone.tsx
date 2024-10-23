@@ -1,61 +1,61 @@
-import React from 'react';
+import React from 'react'
 
-import { useEffect, useState } from 'react';
-import './Phone.css';
+import {useEffect, useState} from 'react'
+import './Phone.css'
 import {
   BackSpaceOutline,
   PhoneHangUp,
-  Phone as PhoneIcon,
-} from '../../assets/icons';
-import { useScreenContext } from '../../context/ScreenContext';
-import dayjs from 'dayjs';
+  Phone as PhoneIcon
+} from '../../assets/icons'
+import {useScreenContext} from '../../context/ScreenContext'
+import dayjs from 'dayjs'
 
 const Phone = (): JSX.Element => {
   const pad = [
     [1, 2, 3],
     [4, 5, 6],
     [7, 8, 9],
-    ['*', 0, '#'],
-  ];
+    ['*', 0, '#']
+  ]
 
-  const { interfaces } = useScreenContext();
+  const {interfaces} = useScreenContext()
 
-  const [number, setNumber] = useState('0044');
-  const [status, setStatus] = useState<'call' | 'hang-up'>('call');
-  const [keep, setKeep] = useState(dayjs().unix());
-  const [time, setTime] = useState(dayjs().unix());
+  const [number, setNumber] = useState('0044')
+  const [status, setStatus] = useState<'call' | 'hang-up'>('call')
+  const [keep, setKeep] = useState(dayjs().unix())
+  const [time, setTime] = useState(dayjs().unix())
 
   const handleClearPress = (): void => {
-    setNumber((prev) => prev.slice(0, -1));
-  };
+    setNumber(prev => prev.slice(0, -1))
+  }
 
   const handleKeyPress = (key: string): void => {
     if (number.length >= 14) {
-      return;
+      return
     }
-    setNumber((prev) => `${prev}${key}`);
-  };
+    setNumber(prev => `${prev}${key}`)
+  }
 
   const handleCallPress = (): void => {
     if (status === 'call') {
-      interfaces.current.phone.startCall(number);
-      setStatus('hang-up');
+      interfaces.current.phone.startCall(number)
+      setStatus('hang-up')
     } else {
-      interfaces.current.phone.endCall(number);
-      setStatus('call');
+      interfaces.current.phone.endCall(number)
+      setStatus('call')
     }
-  };
+  }
 
   useEffect(() => {
-    setKeep(dayjs().unix());
-    setTime(dayjs().unix());
+    setKeep(dayjs().unix())
+    setTime(dayjs().unix())
 
     if (status === 'hang-up') {
       setInterval(() => {
-        setTime(dayjs().unix());
-      }, 1000);
+        setTime(dayjs().unix())
+      }, 1000)
     }
-  }, [status]);
+  }, [status])
 
   return (
     <div className="phone">
@@ -79,8 +79,7 @@ const Phone = (): JSX.Element => {
               <button
                 key={idy}
                 className="phone__pad__button"
-                onClick={() => handleKeyPress(item.toString())}
-              >
+                onClick={() => handleKeyPress(item.toString())}>
                 {item.toString()}
               </button>
             ))}
@@ -89,15 +88,14 @@ const Phone = (): JSX.Element => {
         <div className="phone__pad__row">
           <button
             className={`phone__pad__button phone__pad__call phone__pad__call--${status}`}
-            onClick={handleCallPress}
-          >
+            onClick={handleCallPress}>
             {status === 'call' && <PhoneIcon />}
             {status === 'hang-up' && <PhoneHangUp />}
           </button>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Phone;
+export default Phone

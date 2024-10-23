@@ -1,18 +1,20 @@
-import React from 'react';
+import React from 'react'
 
-import { useState } from 'react';
-import type { State } from '../Explorer';
-import './Options.css';
-import ExplorerOptionsPlaylist from './Playlist/Playlist';
+import {useState} from 'react'
+import type {State} from '../Explorer'
+import './Options.css'
+import ExplorerOptionsPlaylist from './Playlist/Playlist'
 
-export type OptionsState = 'menu' | 'playlist';
+export type OptionsState = 'menu' | 'playlist'
 
 interface ExplorerOptionsProps {
-  setState: React.Dispatch<React.SetStateAction<State>>;
+  setState: React.Dispatch<React.SetStateAction<State>>
 }
 
-const ExplorerOptions = ({ setState }: ExplorerOptionsProps): JSX.Element => {
-  const [optionsState, setOptionsState] = useState<OptionsState>('menu');
+const ExplorerOptions = ({
+  setState
+}: ExplorerOptionsProps): JSX.Element => {
+  const [optionsState, setOptionsState] = useState<OptionsState>('menu')
 
   return (
     <div className="explorer__options">
@@ -21,8 +23,7 @@ const ExplorerOptions = ({ setState }: ExplorerOptionsProps): JSX.Element => {
           <div className="explorer__options__navigation">
             <button
               className="explorer__options__navigation-btn"
-              onClick={() => setState('list')}
-            >
+              onClick={() => setState('list')}>
               Back
             </button>
           </div>
@@ -30,8 +31,7 @@ const ExplorerOptions = ({ setState }: ExplorerOptionsProps): JSX.Element => {
             <li className="explorer__options__list__item">
               <button
                 className="explorer__options__list__item-btn"
-                onClick={() => setOptionsState('playlist')}
-              >
+                onClick={() => setOptionsState('playlist')}>
                 Add to playlist
               </button>
             </li>
@@ -42,7 +42,7 @@ const ExplorerOptions = ({ setState }: ExplorerOptionsProps): JSX.Element => {
         <ExplorerOptionsPlaylist setOptionsState={setOptionsState} />
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ExplorerOptions;
+export default ExplorerOptions

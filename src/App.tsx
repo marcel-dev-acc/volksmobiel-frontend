@@ -1,28 +1,30 @@
-import React from 'react';
+import React from 'react'
 
-import Status from './components/Status/Status';
+import Status from './components/Status/Status'
 
 import {
+  Clock,
   Contacts,
+  Explorer,
   Home,
   Messenger,
   Phone,
   Settings,
-  VideoPlayer,
-  Explorer,
   UsbDevices,
-  Clock,
-} from './screens';
-import { Screens, useScreenContext } from './context/ScreenContext';
+  VideoPlayer
+} from './screens'
+import {Screens, useScreenContext} from './context/ScreenContext'
 
-import './App.css';
-import { Navigation } from './components';
-import { useState } from 'react';
+import './App.css'
+import {Navigation} from './components'
+import {useState} from 'react'
 
 const App = (): JSX.Element => {
-  const { screen, darkMode, sleepIn } = useScreenContext();
+  const {screen, darkMode, sleepIn} = useScreenContext()
 
-  const [activeVideo, setActiveVideo] = useState<Array<string> | undefined>();
+  const [activeVideo, setActiveVideo] = useState<
+    Array<string> | undefined
+  >()
 
   return (
     <main className={darkMode}>
@@ -44,7 +46,7 @@ const App = (): JSX.Element => {
 
       {screen !== Screens.home && <Navigation />}
     </main>
-  );
-};
+  )
+}
 
-export default App;
+export default App

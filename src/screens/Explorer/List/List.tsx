@@ -1,7 +1,7 @@
-import React from 'react';
-import { useEffect, useRef, useState } from 'react';
-import './List.css';
-import { Screens, useScreenContext } from '../../../context/ScreenContext';
+import React from 'react'
+import {useEffect, useRef, useState} from 'react'
+import './List.css'
+import {Screens, useScreenContext} from '../../../context/ScreenContext'
 import {
   ArrowDownBoldCircleOutline,
   ArrowUpBoldCircleOutline,
@@ -9,64 +9,64 @@ import {
   DotsVertical,
   FileOutline,
   FolderOpenOutline,
-  VideoBox,
-} from '../../../assets/icons';
-import type { State } from '../Explorer';
+  VideoBox
+} from '../../../assets/icons'
+import type {State} from '../Explorer'
 
 interface ExplorerProps {
-  setActiveVideo: (filePathArray?: Array<string>) => void;
-  setState: React.Dispatch<React.SetStateAction<State>>;
+  setActiveVideo: (filePathArray?: Array<string>) => void
+  setState: React.Dispatch<React.SetStateAction<State>>
 }
 
 const ExplorerList = ({
   setActiveVideo,
-  setState,
+  setState
 }: ExplorerProps): JSX.Element => {
-  const visibleItems = 5;
+  const visibleItems = 5
 
-  const { interfaces, explorePath, exploredItems, darkMode, setScreen } =
-    useScreenContext();
+  const {interfaces, explorePath, exploredItems, darkMode, setScreen} =
+    useScreenContext()
 
-  const initRef = useRef(false);
+  const initRef = useRef(false)
 
-  const [listIndex, setListIndex] = useState(0);
+  const [listIndex, setListIndex] = useState(0)
 
   const handleListUp = (): void => {
     if (listIndex <= 0) {
-      return;
+      return
     }
-    setListIndex(listIndex - 1);
-  };
+    setListIndex(listIndex - 1)
+  }
 
   const handleListDown = (): void => {
     if (listIndex + visibleItems >= exploredItems.length) {
-      return;
+      return
     }
-    setListIndex(listIndex + 1);
-  };
+    setListIndex(listIndex + 1)
+  }
 
   const handleFolderClick = (item?: string): void => {
     if (item) {
-      interfaces.current.explorer.list([...explorePath, item]);
+      interfaces.current.explorer.list([...explorePath, item])
     } else {
-      const listToPop = [...explorePath];
-      listToPop.pop();
-      interfaces.current.explorer.list(listToPop);
+      const listToPop = [...explorePath]
+      listToPop.pop()
+      interfaces.current.explorer.list(listToPop)
     }
-    setListIndex(0);
-  };
+    setListIndex(0)
+  }
 
   const handleVideoFileClick = (item: string): void => {
-    setActiveVideo([...explorePath, item]);
-    setScreen(Screens.videoPlayer);
-  };
+    setActiveVideo([...explorePath, item])
+    setScreen(Screens.videoPlayer)
+  }
 
   useEffect(() => {
     if (!initRef.current) {
-      initRef.current = true;
-      interfaces.current.explorer.list('home');
+      initRef.current = true
+      interfaces.current.explorer.list('home')
     }
-  }, [interfaces]);
+  }, [interfaces])
 
   return (
     <div className="explorer__list__container">
@@ -74,8 +74,7 @@ const ExplorerList = ({
         <div className="explorer__header__options">
           <button
             className="explorer__header__options-btn"
-            onClick={() => setState('options')}
-          >
+            onClick={() => setState('options')}>
             <DotsVertical />
           </button>
         </div>
@@ -84,8 +83,7 @@ const ExplorerList = ({
             {explorePath.length > 0 && (
               <button
                 className="explorer__header__path-btn"
-                onClick={() => handleFolderClick()}
-              >
+                onClick={() => handleFolderClick()}>
                 <ChevronLeft />
               </button>
             )}
@@ -109,25 +107,28 @@ const ExplorerList = ({
               )}
             </p>
           </div>
-          <button className="explorer__navigation-btn" onClick={handleListUp}>
+          <button
+            className="explorer__navigation-btn"
+            onClick={handleListUp}>
             <ArrowUpBoldCircleOutline />
           </button>
         </div>
       </div>
       {listIndex + visibleItems > visibleItems && (
-        <i className={`explorer__list__hint explorer__list__hint--${darkMode}`}>
+        <i
+          className={`explorer__list__hint explorer__list__hint--${darkMode}`}>
           Scroll up to see more...
         </i>
       )}
       <ul className="explorer__list">
         {exploredItems
           .sort((a, b) => (a.name > b.name ? 1 : -1))
-          .filter((item) => !item.name.startsWith('.'))
+          .filter(item => !item.name.startsWith('.'))
           .filter(
             (_, index) =>
-              index >= listIndex && index < listIndex + visibleItems,
+              index >= listIndex && index < listIndex + visibleItems
           )
-          .map((item) => (
+          .map(item => (
             <li key={item.name} className="explorer__list__item">
               <div className="explorer__list__item__icon">
                 {item.isFolder && (
@@ -152,17 +153,20 @@ const ExplorerList = ({
           ))}
       </ul>
       {listIndex + visibleItems < exploredItems.length && (
-        <i className={`explorer__list__hint explorer__list__hint--${darkMode}`}>
+        <i
+          className={`explorer__list__hint explorer__list__hint--${darkMode}`}>
           Scroll down to see more...
         </i>
       )}
       <div className="explorer__navigation">
-        <button className="explorer__navigation-btn" onClick={handleListDown}>
+        <button
+          className="explorer__navigation-btn"
+          onClick={handleListDown}>
           <ArrowDownBoldCircleOutline />
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ExplorerList;
+export default ExplorerList

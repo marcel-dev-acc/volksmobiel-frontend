@@ -1,16 +1,16 @@
-import React from 'react';
+import React from 'react'
 
-import { useState } from 'react';
-import './Clock.css';
-import { BedClock } from '../../assets/icons';
-import { useScreenContext } from '../../context/ScreenContext';
+import {useState} from 'react'
+import './Clock.css'
+import {BedClock} from '../../assets/icons'
+import {useScreenContext} from '../../context/ScreenContext'
 
-type states = 'navigation' | 'set-system-time' | 'set-sleep';
+type states = 'navigation' | 'set-system-time' | 'set-sleep'
 
 const Clock = (): JSX.Element => {
-  const { handleSleepTimer, sleepIn } = useScreenContext();
+  const {handleSleepTimer, sleepIn} = useScreenContext()
 
-  const [state, setState] = useState<states>('navigation');
+  const [state, setState] = useState<states>('navigation')
 
   return (
     <div className="clock">
@@ -67,7 +67,7 @@ const Clock = (): JSX.Element => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Clock;
+export default Clock

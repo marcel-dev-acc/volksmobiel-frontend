@@ -1,21 +1,21 @@
-import React from 'react';
+import React from 'react'
 import {
   Alert,
   AlterOctagon,
   CloseCircle,
-  Information,
-} from '../../assets/icons';
-import { useScreenContext } from '../../context/ScreenContext';
-import { capitalize, trunc } from '../../utils/text';
-import './Modal.css';
+  Information
+} from '../../assets/icons'
+import {useScreenContext} from '../../context/ScreenContext'
+import {capitalize, trunc} from '../../utils/text'
+import './Modal.css'
 
 interface ModalProps {
-  state: 'info' | 'warn' | 'error';
-  msg: string;
+  state: 'info' | 'warn' | 'error'
+  msg: string
 }
 
-const Modal = ({ state, msg }: ModalProps): JSX.Element => {
-  const { modal } = useScreenContext();
+const Modal = ({state, msg}: ModalProps): JSX.Element => {
+  const {modal} = useScreenContext()
   return (
     <div className="modal">
       <div className={`modal-inner modal--${state}`}>
@@ -31,8 +31,7 @@ const Modal = ({ state, msg }: ModalProps): JSX.Element => {
               <AlterOctagon className="modal__header__state-icon modal__header__state-icon--error" />
             )}
             <h2
-              className={`modal__header__title modal__header__title--${state}`}
-            >
+              className={`modal__header__title modal__header__title--${state}`}>
               {capitalize(state)}
             </h2>
           </div>
@@ -45,7 +44,7 @@ const Modal = ({ state, msg }: ModalProps): JSX.Element => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Modal;
+export default Modal

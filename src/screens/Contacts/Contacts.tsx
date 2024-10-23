@@ -1,74 +1,78 @@
-import React from 'react';
+import React from 'react'
 
-import { useEffect, useRef, useState } from 'react';
-import './Contacts.css';
-import { useScreenContext } from '../../context/ScreenContext';
+import {useEffect, useRef, useState} from 'react'
+import './Contacts.css'
+import {useScreenContext} from '../../context/ScreenContext'
 import {
-  ArrowUpBoldCircleOutline,
   ArrowDownBoldCircleOutline,
-  Plus,
   ArrowLeftBoldCircleOutline,
-} from '../../assets/icons';
-import type { Contact } from '../../context/interfaces/types';
+  ArrowUpBoldCircleOutline,
+  Plus
+} from '../../assets/icons'
+import type {Contact} from '../../context/interfaces/types'
 
 const Contacts = (): JSX.Element => {
   const initialForm: Omit<Contact, 'id'> = {
     firstName: '',
     lastName: '',
     mobile: '',
-    email: '',
-  };
+    email: ''
+  }
 
-  const visibleItems = 5;
+  const visibleItems = 5
 
-  const { interfaces, contacts } = useScreenContext();
+  const {interfaces, contacts} = useScreenContext()
 
-  const initRef = useRef(false);
+  const initRef = useRef(false)
 
   const [state, setState] = useState<
     'contact-list' | 'contact-form--create' | 'contact-form--edit'
-  >('contact-list');
-  const [listIndex, setListIndex] = useState(0);
-  const [form, setForm] = useState(initialForm);
+  >('contact-list')
+  const [listIndex, setListIndex] = useState(0)
+  const [form, setForm] = useState(initialForm)
 
   const handleListUp = (): void => {
     if (listIndex <= 0) {
-      return;
+      return
     }
-    setListIndex(listIndex - 1);
-  };
+    setListIndex(listIndex - 1)
+  }
 
   const handleListDown = (): void => {
     if (listIndex + visibleItems >= contacts.length) {
-      return;
+      return
     }
-    setListIndex(listIndex + 1);
-  };
+    setListIndex(listIndex + 1)
+  }
 
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setForm((prev) => {
-      const currentForm = { ...prev };
-      const key = e.target.id as keyof Omit<Contact, 'id'>;
-      currentForm[key] = e.target.value;
-      return currentForm;
-    });
-  };
+  const handleFormChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    setForm(prev => {
+      const currentForm = {...prev}
+      const key = e.target.id as keyof Omit<Contact, 'id'>
+      currentForm[key] = e.target.value
+      return currentForm
+    })
+  }
 
   const handleSubmit = (): void => {
-    if (Object.values(form).filter((value) => value.length === 0).length > 0) {
-      return;
+    if (
+      Object.values(form).filter(value => value.length === 0).length > 0
+    ) {
+      return
     }
-    interfaces.current.contacts.create(form);
-    interfaces.current.contacts.get();
-    setState('contact-list');
-  };
+    interfaces.current.contacts.create(form)
+    interfaces.current.contacts.get()
+    setState('contact-list')
+  }
 
   useEffect(() => {
     if (!initRef.current) {
-      initRef.current = true;
-      interfaces.current.contacts.get();
+      initRef.current = true
+      interfaces.current.contacts.get()
     }
-  }, [interfaces]);
+  }, [interfaces])
 
   return (
     <div className="contacts">
@@ -77,10 +81,9 @@ const Contacts = (): JSX.Element => {
           <div className="contacts__navigation contacts__add-contact">
             <button
               onClick={() => {
-                setForm(initialForm);
-                setState('contact-form--create');
-              }}
-            >
+                setForm(initialForm)
+                setState('contact-form--create')
+              }}>
               <Plus />
             </button>
             <button onClick={handleListUp}>
@@ -88,29 +91,32 @@ const Contacts = (): JSX.Element => {
             </button>
           </div>
           {listIndex + visibleItems > visibleItems && (
-            <i className="contacts__list__hint">Scroll up to see more...</i>
+            <i className="contacts__list__hint">
+              Scroll up to see more...
+            </i>
           )}
           <ul className="contacts__list">
             {contacts
               .filter(
                 (_, index) =>
-                  index >= listIndex && index < listIndex + visibleItems,
+                  index >= listIndex && index < listIndex + visibleItems
               )
-              .map((contact) => (
+              .map(contact => (
                 <li key={contact.id} className="contacts__contact">
                   <button
                     onClick={() => {
-                      setForm(contact);
-                      setState('contact-form--edit');
-                    }}
-                  >
+                      setForm(contact)
+                      setState('contact-form--edit')
+                    }}>
                     {contact.firstName} {contact.lastName}
                   </button>
                 </li>
               ))}
           </ul>
           {listIndex + visibleItems < contacts.length && (
-            <i className="contacts__list__hint">Scroll down to see more...</i>
+            <i className="contacts__list__hint">
+              Scroll down to see more...
+            </i>
           )}
           <div className="contacts__navigation">
             <button onClick={handleListDown}>
@@ -119,15 +125,15 @@ const Contacts = (): JSX.Element => {
           </div>
         </>
       )}
-      {(state === 'contact-form--create' || state === 'contact-form--edit') && (
+      {(state === 'contact-form--create' ||
+        state === 'contact-form--edit') && (
         <>
           <div className="contacts__form__back">
             <button
               onClick={() => {
-                interfaces.current.contacts.get();
-                setState('contact-list');
-              }}
-            >
+                interfaces.current.contacts.get()
+                setState('contact-list')
+              }}>
               <ArrowLeftBoldCircleOutline />
             </button>
           </div>
@@ -182,15 +188,14 @@ const Contacts = (): JSX.Element => {
             </label>
             <button
               className="contacts__form__button--primary"
-              onClick={handleSubmit}
-            >
+              onClick={handleSubmit}>
               {state === 'contact-form--create' ? 'Create' : 'Update'}
             </button>
           </form>
         </>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Contacts;
+export default Contacts

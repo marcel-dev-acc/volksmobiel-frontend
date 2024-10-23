@@ -1,17 +1,19 @@
-import type { Contact, ExploredItem, UsbDevice } from './types';
+import type {Contact, ExploredItem, UsbDevice} from './types'
 
 interface Message {
-  domain: string;
-  topic: string;
+  domain: string
+  topic: string
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-  value: any;
+  value: any
 }
 
 interface States {
-  setContacts: React.Dispatch<React.SetStateAction<Array<Contact>>>;
-  setExplorePath: React.Dispatch<React.SetStateAction<Array<string>>>;
-  setExploredItems: React.Dispatch<React.SetStateAction<Array<ExploredItem>>>;
-  setUsbDevices: React.Dispatch<React.SetStateAction<Array<UsbDevice>>>;
+  setContacts: React.Dispatch<React.SetStateAction<Array<Contact>>>
+  setExplorePath: React.Dispatch<React.SetStateAction<Array<string>>>
+  setExploredItems: React.Dispatch<
+    React.SetStateAction<Array<ExploredItem>>
+  >
+  setUsbDevices: React.Dispatch<React.SetStateAction<Array<UsbDevice>>>
 }
 
 const serverHandler = (message: Message, states: States): void => {
@@ -19,60 +21,63 @@ const serverHandler = (message: Message, states: States): void => {
     case 'contacts':
       switch (message.topic) {
         case 'get-contacts':
-          states.setContacts(message.value);
-          break;
+          states.setContacts(message.value)
+          break
         case 'create-contact':
-          break;
+          break
         default:
           console.warn(
             '[CONTACTS] Server sent an unknown message, topic',
-            message.topic,
-          );
+            message.topic
+          )
       }
-      break;
+      break
 
     case 'explorer':
       switch (message.topic) {
         case 'list':
-          states.setExploredItems(message.value['items']);
-          states.setExplorePath(message.value['pathItems']);
-          break;
+          states.setExploredItems(message.value['items'])
+          states.setExplorePath(message.value['pathItems'])
+          break
         default:
           console.warn(
             '[EXPLORER] Server sent an unknown message, topic',
-            message.topic,
-          );
+            message.topic
+          )
       }
-      break;
+      break
 
     case 'phone':
       switch (message.topic) {
         case 'start-call':
-          break;
+          break
         default:
           console.warn(
             '[PHONE] Server sent an unknown message, topic',
-            message.topic,
-          );
+            message.topic
+          )
       }
-      break;
+      break
 
     case 'system':
       switch (message.topic) {
         case 'list-usb':
-          states.setUsbDevices(message.value);
-          break;
+          states.setUsbDevices(message.value)
+          break
         default:
           console.warn(
             '[SYSTEM] Server sent an unknown message, topic',
-            message.topic,
-          );
+            message.topic
+          )
       }
-      break;
+      break
 
     default:
-      console.warn('Server sent an unknown message, domain', message.domain);
+      console.warn(
+        'Server sent an unknown message, domain',
+        message.domain
+      )
   }
-};
+}
 
-export default serverHandler;
+export default serverHandler
