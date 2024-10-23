@@ -1,77 +1,90 @@
+import React from 'react';
 
+import './UsbDevices.css';
+import { useScreenContext } from '../../context/ScreenContext';
+import { Minus, Plus, Usb } from '../../assets/icons';
+import { useState } from 'react';
 
-import './UsbDevices.css'
-import { useScreenContext } from '../../context/ScreenContext'
-import { Minus, Plus, Usb } from '../../assets/icons'
-import { useState } from 'react'
+const UsbDevices = (): JSX.Element => {
+  const { usbDevices, interfaces } = useScreenContext();
 
+  const [password, setPassword] = useState('');
 
-const UsbDevices = () => {
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>): void =>
+    setPassword(e.target.value);
 
-  const { usbDevices, interfaces } = useScreenContext()
-
-  const [password, setPassword] = useState('')
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)
-
-  const handleSubmit = () => {
+  const handleSubmit = (): void => {
     if (!password) {
-      return
+      return;
     }
-    interfaces.current.settings.listUsb(password)
-  }
+    interfaces.current.settings.listUsb(password);
+  };
 
-  const handleToggleMount = (mounted: boolean, device: string, deviceUuid: string) => {
+  const handleToggleMount = (
+    mounted: boolean,
+    device: string,
+    deviceUuid: string,
+  ): void => {
     if (!password) {
-      return
+      return;
     }
     if (mounted) {
-      interfaces.current.settings.unmountUsb(password, deviceUuid)
+      interfaces.current.settings.unmountUsb(password, deviceUuid);
     } else {
-      interfaces.current.settings.mountUsb(password, device, deviceUuid)
+      interfaces.current.settings.mountUsb(password, device, deviceUuid);
     }
-    interfaces.current.settings.listUsb(password)
-  }
+    interfaces.current.settings.listUsb(password);
+  };
 
   return (
     <div className="usb-devices">
       <h1>Devices</h1>
-      <form action='#'>
-        <label className='usb-devices__form__label'>
+      <form action="#">
+        <label className="usb-devices__form__label">
           System password
           <input
-            id='password'
+            id="password"
             type="password"
             required
             value={password}
             onChange={handlePasswordChange}
-            placeholder='System password'
-            className='usb-devices__form__input'
+            placeholder="System password"
+            className="usb-devices__form__input"
           />
         </label>
         <button
-          className='usb-devices__form__button--primary'
+          className="usb-devices__form__button--primary"
           onClick={handleSubmit}
         >
           List devices
         </button>
       </form>
-      <ul className='usb-devices__list'>
-        {usbDevices.map(usbDevice => (
-          <li key={usbDevice.name} className='usb-devices__list__item'>
+      <ul className="usb-devices__list">
+        {usbDevices.map((usbDevice) => (
+          <li key={usbDevice.name} className="usb-devices__list__item">
             <button
-              onClick={() => handleToggleMount(usbDevice.mounted as unknown as boolean, usbDevice.name, usbDevice.UUID)}
+              onClick={() =>
+                handleToggleMount(
+                  usbDevice.mounted as unknown as boolean,
+                  usbDevice.name,
+                  usbDevice.UUID,
+                )
+              }
             >
               {usbDevice.mounted ? <Minus /> : <Plus />}
               <Usb />
               <span>{usbDevice.name}</span>
-              <span>{usbDevice.UUID.length > 26 ? usbDevice.UUID.substring(0, 26) + '...' : usbDevice.UUID}</span>
+              <span>
+                {usbDevice.UUID.length > 26
+                  ? usbDevice.UUID.substring(0, 26) + '...'
+                  : usbDevice.UUID}
+              </span>
             </button>
           </li>
         ))}
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default UsbDevices
+export default UsbDevices;

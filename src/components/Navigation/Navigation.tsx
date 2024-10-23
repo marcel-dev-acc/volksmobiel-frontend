@@ -1,11 +1,10 @@
-import './Navigation.css'
-import { HomeCircleOutline } from '../../assets/icons'
-import { Screens, useScreenContext } from '../../context/ScreenContext'
+import React from 'react';
+import './Navigation.css';
+import { HomeCircleOutline } from '../../assets/icons';
+import { Screens, useScreenContext } from '../../context/ScreenContext';
 
-
-
-const Navigation = () => {
-  const {setScreen} = useScreenContext()
+const Navigation = (): JSX.Element => {
+  const { setScreen } = useScreenContext();
 
   return (
     <div className="navigation">
@@ -13,7 +12,7 @@ const Navigation = () => {
         <HomeCircleOutline />
       </button>
     </div>
-  )
-}
+  );
+};
 
-export default Navigation
+export default Navigation;

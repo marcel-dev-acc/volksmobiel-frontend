@@ -1,23 +1,39 @@
 export interface Settings {
-  powerOff: () => void
-  listUsb: (password: string) => void
-  mountUsb: (password: string, device: string, deviceUuid: string) => void
-  unmountUsb: (password: string, deviceUuid: string) => void
+  powerOff: () => void;
+  listUsb: (password: string) => void;
+  mountUsb: (password: string, device: string, deviceUuid: string) => void;
+  unmountUsb: (password: string, deviceUuid: string) => void;
 }
 
 const settings = (socket: WebSocket): Settings => ({
-  powerOff: () => {
-    socket.send(JSON.stringify({ domain: 'system', topic: 'power-off', value: '' }))
+  powerOff: (): void => {
+    socket.send(
+      JSON.stringify({ domain: 'system', topic: 'power-off', value: '' }),
+    );
   },
-  listUsb: (password: string) => {
-    socket.send(JSON.stringify({ domain: 'system', topic: 'list-usb', value: password }))
+  listUsb: (password: string): void => {
+    socket.send(
+      JSON.stringify({ domain: 'system', topic: 'list-usb', value: password }),
+    );
   },
-  mountUsb: (password: string, device: string, deviceUuid: string) => {
-    socket.send(JSON.stringify({ domain: 'system', topic: 'mount-usb', value: { password, device, deviceUuid } }))
+  mountUsb: (password: string, device: string, deviceUuid: string): void => {
+    socket.send(
+      JSON.stringify({
+        domain: 'system',
+        topic: 'mount-usb',
+        value: { password, device, deviceUuid },
+      }),
+    );
   },
-  unmountUsb: (password: string, deviceUuid: string) => {
-    socket.send(JSON.stringify({ domain: 'system', topic: 'unmount-usb', value: { password, deviceUuid } }))
-  }
-})
+  unmountUsb: (password: string, deviceUuid: string): void => {
+    socket.send(
+      JSON.stringify({
+        domain: 'system',
+        topic: 'unmount-usb',
+        value: { password, deviceUuid },
+      }),
+    );
+  },
+});
 
-export default settings
+export default settings;

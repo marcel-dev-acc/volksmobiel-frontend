@@ -1,3 +1,61 @@
+.explorer__list__container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.explorer__navigation {
+  display: flex;
+  justify-content: flex-end;
+  padding: 4px 8px;
+}
+
+.explorer__header__path {
+  display: flex;
+  align-items: center;
+}
+
+.explorer__header__path-btn {
+  background-color: inherit;
+  border-style: none;
+  height: 24px;
+}
+
+.explorer__header__path-btn > svg {
+  width: 20px;
+  height: 20px;
+}
+
+.explorer__header__spacer {
+  margin: 0 8px;
+}
+
+.explorer__navigation-btn {
+  background-color: inherit;
+  border-style: none;
+  width: 40px;
+}
+
+.explorer__header__options {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.explorer__header__options-btn {
+  background-color: inherit;
+  border-style: none;
+  width: 40px;
+}
+
+.explorer__header__information {
+  display: flex;
+  justify-content: space-between;
+}
+
+.explorer__header {
+  flex-direction: column;
+}
+
 .explorer__list {
   display: flex;
   flex-direction: column;
@@ -35,7 +93,7 @@
 
 .explorer__list__item__icon > button {
   background-color: inherit;
-  border-style: none; 
+  border-style: none;
 }
 
 .explorer__list__item__icon > button > svg {

@@ -1,52 +1,48 @@
-import { FileOutline, FolderOpenOutline, VideoBox } from '../../../assets/icons'
-import { ExploredItem } from '../../../context/interfaces/types'
-import './List.css'
+import React from 'react';
 
-interface ExplorerListProps {
-  listIndex: number
-  visibleItems: number
-  exploredItems: ExploredItem[]
-  handleFolderClick: (item?: string) => void
-  handleVideoFileClick: (item: string) => void
+import { useState } from 'react';
+import type { State } from '../Explorer';
+import './Options.css';
+import ExplorerOptionsPlaylist from './Playlist/Playlist';
+
+export type OptionsState = 'menu' | 'playlist';
+
+interface ExplorerOptionsProps {
+  setState: React.Dispatch<React.SetStateAction<State>>;
 }
 
-const ExplorerList = ({
-    listIndex,
-    visibleItems,
-    exploredItems,
-    handleFolderClick,
-    handleVideoFileClick
-}: ExplorerListProps) => {
+const ExplorerOptions = ({ setState }: ExplorerOptionsProps): JSX.Element => {
+  const [optionsState, setOptionsState] = useState<OptionsState>('menu');
+
   return (
-    <ul className='explorer__list'>
-      {exploredItems
-        .sort((a, b) => a.name > b.name ? 1 : -1)
-        .filter(item => !item.name.startsWith('.'))
-        .filter((_, index) => index >= listIndex && index < (listIndex + visibleItems))
-        .map((item, idx) => (
-        <li key={item.name} className='explorer__list__item'>
-          <div className='explorer__list__item__icon'>
-            {item.isFolder && <button onClick={() => handleFolderClick(item.name)}><FolderOpenOutline /></button>}
-            {!item.isFolder && (() => {
-              if (
-                item.type === "video"
-              ) {
-                return (
-                  <button onClick={() => handleVideoFileClick(item.name)}>
-                    <VideoBox />
-                  </button>
-                )
-              }
-              return <FileOutline />
-            })()}
+    <div className="explorer__options">
+      {optionsState === 'menu' && (
+        <>
+          <div className="explorer__options__navigation">
+            <button
+              className="explorer__options__navigation-btn"
+              onClick={() => setState('list')}
+            >
+              Back
+            </button>
           </div>
-          <p>
-            {item.name.length > 20 ? `${item.name.substring(0, 17)}...` : item.name}
-          </p>
-        </li>
-      ))}
-    </ul>
-  )
-}
+          <ul>
+            <li className="explorer__options__list__item">
+              <button
+                className="explorer__options__list__item-btn"
+                onClick={() => setOptionsState('playlist')}
+              >
+                Add to playlist
+              </button>
+            </li>
+          </ul>
+        </>
+      )}
+      {optionsState === 'playlist' && (
+        <ExplorerOptionsPlaylist setOptionsState={setOptionsState} />
+      )}
+    </div>
+  );
+};
 
-export default ExplorerList
+export default ExplorerOptions;

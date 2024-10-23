@@ -1,34 +1,38 @@
-import { useEffect, useState } from 'react'
+import React from 'react';
+import { useEffect, useState } from 'react';
 
-
-
-import './Status.css'
-import { BedClock, SignalCellular1, SignalCellular2, SignalCellular3, SignalCellularNone } from '../../assets/icons'
-import dayjs from 'dayjs'
-import { useScreenContext } from '../../context/ScreenContext'
+import './Status.css';
+import {
+  BedClock,
+  SignalCellular1,
+  SignalCellular2,
+  SignalCellular3,
+  SignalCellularNone,
+} from '../../assets/icons';
+import dayjs from 'dayjs';
 
 enum SignalCellular {
   none,
   one,
   two,
-  three
+  three,
 }
 
 interface StatusProps {
-  sleepIn?: number
+  sleepIn?: number;
 }
 
-const Status = ({ sleepIn }: StatusProps) => {
-
+const Status = ({ sleepIn }: StatusProps): JSX.Element => {
   // const [battery, setBattery] = useState(100)
-  const [signalCellular, setSignalCellular] = useState(SignalCellular.none)
-  const [time, setTime] = useState(dayjs().unix())
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [signalCellular, setSignalCellular] = useState(SignalCellular.none);
+  const [time, setTime] = useState(dayjs().unix());
 
   useEffect(() => {
     setInterval(() => {
-      setTime(dayjs().unix())
-    }, 2500)
-  }, [])
+      setTime(dayjs().unix());
+    }, 2500);
+  }, []);
 
   return (
     <div className="status">
@@ -48,13 +52,13 @@ const Status = ({ sleepIn }: StatusProps) => {
           <span>{battery}%</span>
         </div> */}
         {sleepIn !== undefined && (
-          <div className='status__sleep-in'>
+          <div className="status__sleep-in">
             <BedClock />
           </div>
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Status
+export default Status;

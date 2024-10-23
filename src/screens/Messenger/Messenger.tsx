@@ -1,17 +1,13 @@
+import React from 'react';
 
+import './Messenger.css';
 
-import './Messenger.css'
-
-
-const Messenger = () => {
-
-  
-
+const Messenger = (): JSX.Element => {
   return (
     <div className="messenger">
       <p>Messenger</p>
     </div>
-  )
-}
+  );
+};
 
-export default Messenger
+export default Messenger;

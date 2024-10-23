@@ -1,21 +1,21 @@
+import React from 'react';
 
+import { DockWindow, Power, ThemeLightDark, Usb } from '../../assets/icons';
+import { Screens, useScreenContext } from '../../context/ScreenContext';
+import './Settings.css';
 
-import { DockWindow, Power, ThemeLightDark, Usb } from '../../assets/icons'
-import { Screens, useScreenContext } from '../../context/ScreenContext'
-import './Settings.css'
+const Settings = (): JSX.Element => {
+  const { interfaces, toggleDarkMode, setScreen } = useScreenContext();
 
+  const handlePowerOff = (): void => {
+    interfaces.current.settings.powerOff();
+  };
 
-const Settings = () => {
+  const handleToggleDisplayOutput = (): void => {
+    alert('Feature not implemented');
+  };
 
-  const { interfaces, toggleDarkMode, setScreen } = useScreenContext()
-
-  const handlePowerOff = () => {
-    interfaces.current.settings.powerOff()
-  }
-
-  const handleToggleDisplayOutput = () => {
-    alert("Feature not implemented")
-  }
+  const handleSetScreenToUsb = (): void => setScreen(Screens.usbDevices);
 
   const utilities = [
     {
@@ -36,25 +36,22 @@ const Settings = () => {
     {
       label: 'View USB devices',
       icon: Usb,
-      action: () => setScreen(Screens.usbDevices)
-    }
-  ]
+      action: handleSetScreenToUsb,
+    },
+  ];
 
   return (
     <div className="settings">
-      {utilities.map(utility => (
+      {utilities.map((utility) => (
         <div key={utility.label} className="settings__row">
-          <button
-            onClick={utility.action}
-            aria-label={utility.label}
-          >
+          <button onClick={utility.action} aria-label={utility.label}>
             <utility.icon />
           </button>
           <p>{utility.label}</p>
         </div>
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default Settings
+export default Settings;

@@ -1,70 +1,74 @@
+import React from 'react';
 
+import { useEffect, useRef, useState } from 'react';
+import './Contacts.css';
+import { useScreenContext } from '../../context/ScreenContext';
+import {
+  ArrowUpBoldCircleOutline,
+  ArrowDownBoldCircleOutline,
+  Plus,
+  ArrowLeftBoldCircleOutline,
+} from '../../assets/icons';
+import type { Contact } from '../../context/interfaces/types';
 
-import { useEffect, useRef, useState } from 'react'
-import './Contacts.css'
-import { useScreenContext } from '../../context/ScreenContext'
-import { ArrowUpBoldCircleOutline, ArrowDownBoldCircleOutline, Plus, ArrowLeftBoldCircleOutline } from '../../assets/icons'
-import { Contact } from '../../context/interfaces/types'
-
-
-
-const Contacts = () => {
-
+const Contacts = (): JSX.Element => {
   const initialForm: Omit<Contact, 'id'> = {
     firstName: '',
     lastName: '',
     mobile: '',
     email: '',
-  }
+  };
 
   const visibleItems = 5;
 
-  const { interfaces, contacts } = useScreenContext()
+  const { interfaces, contacts } = useScreenContext();
 
-  const initRef = useRef(false)
+  const initRef = useRef(false);
 
-  const [state, setState] = useState<'contact-list' | 'contact-form--create' | 'contact-form--edit'>('contact-list')
-  const [listIndex, setListIndex] = useState(0)
-  const [form, setForm] = useState(initialForm)
+  const [state, setState] = useState<
+    'contact-list' | 'contact-form--create' | 'contact-form--edit'
+  >('contact-list');
+  const [listIndex, setListIndex] = useState(0);
+  const [form, setForm] = useState(initialForm);
 
-  const handleListUp = () => {
+  const handleListUp = (): void => {
     if (listIndex <= 0) {
-      return
+      return;
     }
-    setListIndex(listIndex - 1)
-  }
+    setListIndex(listIndex - 1);
+  };
 
-  const handleListDown = () => {
+  const handleListDown = (): void => {
     if (listIndex + visibleItems >= contacts.length) {
-      return
+      return;
     }
-    setListIndex(listIndex + 1)
-  }
+    setListIndex(listIndex + 1);
+  };
 
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm(prev => {
-      const currentForm = {...prev}
-      const key = e.target.id as keyof Omit<Contact, 'id'>
-      currentForm[key] = e.target.value
-      return currentForm
-    })
-  }
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setForm((prev) => {
+      const currentForm = { ...prev };
+      const key = e.target.id as keyof Omit<Contact, 'id'>;
+      currentForm[key] = e.target.value;
+      return currentForm;
+    });
+  };
 
-  const handleSubmit = () => {
-    if (Object.values(form).filter(value => value.length === 0).length > 0) {
-      return
+  const handleSubmit = (): void => {
+    if (Object.values(form).filter((value) => value.length === 0).length > 0) {
+      return;
     }
-    interfaces.current.contacts.create(form)
-    interfaces.current.contacts.get()
-    setState('contact-list')
-  }
+    interfaces.current.contacts.create(form);
+    interfaces.current.contacts.get();
+    setState('contact-list');
+  };
 
   useEffect(() => {
     if (!initRef.current) {
-      initRef.current = true
-      interfaces.current.contacts.get()
+      initRef.current = true;
+      interfaces.current.contacts.get();
     }
-  }, [interfaces])
+  }, [interfaces]);
 
   return (
     <div className="contacts">
@@ -73,8 +77,8 @@ const Contacts = () => {
           <div className="contacts__navigation contacts__add-contact">
             <button
               onClick={() => {
-                setForm(initialForm)
-                setState('contact-form--create')
+                setForm(initialForm);
+                setState('contact-form--create');
               }}
             >
               <Plus />
@@ -83,22 +87,31 @@ const Contacts = () => {
               <ArrowUpBoldCircleOutline />
             </button>
           </div>
-          {(listIndex + visibleItems) > visibleItems && <i className='contacts__list__hint'>Scroll up to see more...</i>}
+          {listIndex + visibleItems > visibleItems && (
+            <i className="contacts__list__hint">Scroll up to see more...</i>
+          )}
           <ul className="contacts__list">
-            {contacts.filter((_, index) => index >= listIndex && index < (listIndex + visibleItems)).map(contact => (
-              <li key={contact.id} className='contacts__contact'>
-                <button
-                  onClick={() => {
-                    setForm(contact)
-                    setState('contact-form--edit')
-                  }}
-                >
-                  {contact.firstName} {contact.lastName}
-                </button>
-              </li>
-            ))}
+            {contacts
+              .filter(
+                (_, index) =>
+                  index >= listIndex && index < listIndex + visibleItems,
+              )
+              .map((contact) => (
+                <li key={contact.id} className="contacts__contact">
+                  <button
+                    onClick={() => {
+                      setForm(contact);
+                      setState('contact-form--edit');
+                    }}
+                  >
+                    {contact.firstName} {contact.lastName}
+                  </button>
+                </li>
+              ))}
           </ul>
-          {(listIndex + visibleItems) < contacts.length && <i className='contacts__list__hint'>Scroll down to see more...</i>}
+          {listIndex + visibleItems < contacts.length && (
+            <i className="contacts__list__hint">Scroll down to see more...</i>
+          )}
           <div className="contacts__navigation">
             <button onClick={handleListDown}>
               <ArrowDownBoldCircleOutline />
@@ -108,67 +121,67 @@ const Contacts = () => {
       )}
       {(state === 'contact-form--create' || state === 'contact-form--edit') && (
         <>
-          <div className='contacts__form__back'>
+          <div className="contacts__form__back">
             <button
               onClick={() => {
-                interfaces.current.contacts.get()
-                setState('contact-list')
+                interfaces.current.contacts.get();
+                setState('contact-list');
               }}
             >
               <ArrowLeftBoldCircleOutline />
             </button>
           </div>
-          <form className='contacts__form' action='#'>
-            <label className='contacts__form__label'>
+          <form className="contacts__form" action="#">
+            <label className="contacts__form__label">
               First name
               <input
-                id='firstName'
+                id="firstName"
                 type="text"
                 required
                 value={form.firstName}
                 onChange={handleFormChange}
-                placeholder='First name'
-                className='contacts__form__input'
+                placeholder="First name"
+                className="contacts__form__input"
               />
             </label>
-            <label className='contacts__form__label'>
+            <label className="contacts__form__label">
               Last name
               <input
-                id='lastName'
+                id="lastName"
                 type="text"
                 required
                 value={form.lastName}
                 onChange={handleFormChange}
-                placeholder='Last name'
-                className='contacts__form__input'
+                placeholder="Last name"
+                className="contacts__form__input"
               />
             </label>
-            <label className='contacts__form__label'>
+            <label className="contacts__form__label">
               Mobile
               <input
-                id='mobile'
+                id="mobile"
                 type="text"
                 required
                 value={form.mobile}
                 onChange={handleFormChange}
-                placeholder='Mobile'
-                className='contacts__form__input'
+                placeholder="Mobile"
+                className="contacts__form__input"
               />
             </label>
-            <label className='contacts__form__label'>
+            <label className="contacts__form__label">
               Email
               <input
-                id='email'
+                id="email"
                 type="email"
                 required
                 value={form.email}
                 onChange={handleFormChange}
-                placeholder='Email'
-                className='contacts__form__input'
+                placeholder="Email"
+                className="contacts__form__input"
               />
             </label>
             <button
-              className='contacts__form__button--primary'
+              className="contacts__form__button--primary"
               onClick={handleSubmit}
             >
               {state === 'contact-form--create' ? 'Create' : 'Update'}
@@ -177,7 +190,7 @@ const Contacts = () => {
         </>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Contacts
+export default Contacts;

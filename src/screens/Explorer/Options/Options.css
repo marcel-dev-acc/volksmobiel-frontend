@@ -1,5 +1,14 @@
 .explorer__options {
   display: flex;
   flex: 1;
+  flex-direction: column;
   padding: 0 8px;
+}
+
+.explorer__options-btn {
+  border-style: none;
+  padding: 8px 0;
+  width: 100%;
+  font-weight: 800;
+  border-radius: 8px;
 }

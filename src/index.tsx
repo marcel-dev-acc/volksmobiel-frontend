@@ -6,14 +6,14 @@ import reportWebVitals from './reportWebVitals';
 import { ScreenProvider } from './context/ScreenContext';
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById('root') as HTMLElement,
 );
 root.render(
   <React.StrictMode>
     <ScreenProvider>
       <App />
     </ScreenProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function
