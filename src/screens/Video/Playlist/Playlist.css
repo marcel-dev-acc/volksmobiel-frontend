@@ -1,0 +1,38 @@
+.video-playlist {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 8px;
+}
+
+.video-playlist__play-all-btn {
+  border-style: none;
+  padding: 8px 0;
+  width: 100%;
+  font-weight: 800;
+  border-radius: 8px;
+}
+
+.video-playlist__list {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  list-style-type: none;
+  padding: 0 8px;
+  margin: 0;
+}
+
+.video-playlist__list__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.video-playlist__list__item > button {
+  background-color: inherit;
+  border-style: none;
+}
+
+.video-playlist__list__item > button > svg {
+  width: 30px;
+}

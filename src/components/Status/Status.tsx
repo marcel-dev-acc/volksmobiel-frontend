@@ -3,20 +3,20 @@ import {useEffect, useState} from 'react'
 
 import './Status.css'
 import {
-  BedClock,
-  SignalCellular1,
-  SignalCellular2,
-  SignalCellular3,
-  SignalCellularNone
+  BedClock
+  // SignalCellular1,
+  // SignalCellular2,
+  // SignalCellular3,
+  // SignalCellularNone
 } from '../../assets/icons'
 import dayjs from 'dayjs'
 
-enum SignalCellular {
-  none,
-  one,
-  two,
-  three
-}
+// enum SignalCellular {
+//   none,
+//   one,
+//   two,
+//   three
+// }
 
 interface StatusProps {
   sleepIn?: number
@@ -24,8 +24,7 @@ interface StatusProps {
 
 const Status = ({sleepIn}: StatusProps): JSX.Element => {
   // const [battery, setBattery] = useState(100)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [signalCellular, setSignalCellular] = useState(SignalCellular.none)
+  // const [signalCellular, setSignalCellular] = useState(SignalCellular.none)
   const [time, setTime] = useState(dayjs().unix())
 
   useEffect(() => {
@@ -42,14 +41,14 @@ const Status = ({sleepIn}: StatusProps): JSX.Element => {
         </div>
       </div>
       <div className="status__col">
-        <div className="status__signal-cellular">
+        {/* <div className="status__signal-cellular">
           {signalCellular === SignalCellular.none && (
             <SignalCellularNone />
           )}
           {signalCellular === SignalCellular.one && <SignalCellular1 />}
           {signalCellular === SignalCellular.two && <SignalCellular2 />}
           {signalCellular === SignalCellular.three && <SignalCellular3 />}
-        </div>
+        </div> */}
         {/* <div className="status__battery">
           <span>{battery}%</span>
         </div> */}

@@ -5,7 +5,30 @@
   padding: 0 8px;
 }
 
-.explorer__options-btn {
+.explorer__options__navigation-btn {
+  background-color: inherit;
+  border-style: none;
+  width: 40px;
+}
+
+.explorer__options__title {
+  font-size: 16px;
+  text-align: center;
+}
+
+.explorer__options__list {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  list-style-type: none;
+  padding: 8px;
+  margin: 0;
+}
+
+.explorer__options__list__item {
+}
+
+.explorer__options__list__item-btn {
   border-style: none;
   padding: 8px 0;
   width: 100%;

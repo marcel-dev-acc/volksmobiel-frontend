@@ -7,7 +7,7 @@
 .explorer__navigation {
   display: flex;
   justify-content: flex-end;
-  padding: 4px 8px;
+  padding: 0 8px;
 }
 
 .explorer__header__path {
@@ -44,7 +44,8 @@
 .explorer__header__options-btn {
   background-color: inherit;
   border-style: none;
-  width: 40px;
+  width: 30px;
+  margin-right: 5px;
 }
 
 .explorer__header__information {
@@ -80,7 +81,12 @@
 
 .explorer__list__item {
   display: flex;
-  margin: 4px 0;
+  justify-content: space-between;
+}
+
+.explorer__list__item__col {
+  display: flex;
+  align-items: center;
 }
 
 .explorer__list__item__icon {
@@ -91,12 +97,12 @@
   width: 30px;
 }
 
-.explorer__list__item__icon > button {
+.explorer__list__item__icon-btn {
   background-color: inherit;
   border-style: none;
 }
 
-.explorer__list__item__icon > button > svg {
+.explorer__list__item__icon-btn > svg {
   width: 30px;
 }
 

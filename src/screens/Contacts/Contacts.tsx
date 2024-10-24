@@ -80,13 +80,16 @@ const Contacts = (): JSX.Element => {
         <>
           <div className="contacts__navigation contacts__add-contact">
             <button
+              className="contacts__navigation-btn"
               onClick={() => {
                 setForm(initialForm)
                 setState('contact-form--create')
               }}>
               <Plus />
             </button>
-            <button onClick={handleListUp}>
+            <button
+              onClick={handleListUp}
+              className="contacts__navigation-btn">
               <ArrowUpBoldCircleOutline />
             </button>
           </div>

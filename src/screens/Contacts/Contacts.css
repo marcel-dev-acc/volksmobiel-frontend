@@ -10,7 +10,7 @@
   margin: 0 8px;
 }
 
-.contacts__navigation > button {
+.contacts__navigation-btn {
   background-color: inherit;
   border-style: none;
   width: 40px;

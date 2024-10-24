@@ -9,7 +9,12 @@ import React, {
 } from 'react'
 import {Modal} from '../components'
 import interfacesFn, {type Interfaces} from './interfaces'
-import type {Contact, ExploredItem, UsbDevice} from './interfaces/types'
+import type {
+  Contact,
+  ExploredItem,
+  Playlist,
+  UsbDevice
+} from './interfaces/types'
 import serverHandler from './interfaces/server-handler'
 
 interface ModalHandler {
@@ -32,6 +37,7 @@ export interface ScreenContextProps {
   usbDevices: Array<UsbDevice>
   handleSleepTimer: (timeRemaining?: number) => void
   sleepIn: number | undefined
+  playlist: Playlist
 }
 
 export const ScreenContext = createContext<ScreenContextProps | undefined>(
@@ -72,7 +78,7 @@ export const ScreenProvider = ({
   const sleepInRef = useRef<number | undefined>()
 
   const [screen, setScreen] = useState(Screens.home)
-  const [darkMode, setDarkMode] = useState<'light' | 'dark'>('light')
+  const [darkMode, setDarkMode] = useState<'light' | 'dark'>('dark')
   const [modalState, setModalState] = useState<
     'info' | 'warn' | 'error' | undefined
   >()
@@ -83,6 +89,10 @@ export const ScreenProvider = ({
     []
   )
   const [usbDevices, setUsbDevices] = useState<Array<UsbDevice>>([])
+  const [playlist, setPlaylist] = useState<Playlist>({
+    music: [],
+    video: []
+  })
   const [sleepIn, setSleepIn] = useState<number | undefined>()
 
   const modal = useMemo(
@@ -153,7 +163,8 @@ export const ScreenProvider = ({
       exploredItems,
       usbDevices,
       handleSleepTimer,
-      sleepIn
+      sleepIn,
+      playlist
     }),
     [
       screen,
@@ -167,7 +178,8 @@ export const ScreenProvider = ({
       exploredItems,
       usbDevices,
       handleSleepTimer,
-      sleepIn
+      sleepIn,
+      playlist
     ]
   )
 
@@ -177,7 +189,8 @@ export const ScreenProvider = ({
         setContacts,
         setExplorePath,
         setExploredItems,
-        setUsbDevices
+        setUsbDevices,
+        setPlaylist
       })
     } catch {
       console.error('Message from server ', event.data)

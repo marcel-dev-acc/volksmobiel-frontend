@@ -11,7 +11,7 @@ import {
   Phone,
   Settings,
   UsbDevices,
-  VideoPlayer
+  Video
 } from './screens'
 import {Screens, useScreenContext} from './context/ScreenContext'
 
@@ -36,7 +36,7 @@ const App = (): JSX.Element => {
       {screen === Screens.contacts && <Contacts />}
       {screen === Screens.settings && <Settings />}
       {screen === Screens.videoPlayer && (
-        <VideoPlayer activeVideo={activeVideo} />
+        <Video activeVideo={activeVideo} />
       )}
       {screen === Screens.explorer && (
         <Explorer setActiveVideo={setActiveVideo} />

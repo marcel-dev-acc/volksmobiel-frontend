@@ -1,46 +1,59 @@
 import React from 'react'
 
-import {useState} from 'react'
 import type {State} from '../Explorer'
 import './Options.css'
-import ExplorerOptionsPlaylist from './Playlist/Playlist'
+import {ArrowLeftBoldCircleOutline} from '../../../assets/icons'
+import {useScreenContext} from '../../../context/ScreenContext'
+import type {ExploredItem} from '../../../context/interfaces/types'
 
 export type OptionsState = 'menu' | 'playlist'
 
 interface ExplorerOptionsProps {
+  item?: ExploredItem
+  type: 'file' | 'folder'
   setState: React.Dispatch<React.SetStateAction<State>>
 }
 
 const ExplorerOptions = ({
+  item,
+  type,
   setState
 }: ExplorerOptionsProps): JSX.Element => {
-  const [optionsState, setOptionsState] = useState<OptionsState>('menu')
+  const {interfaces, explorePath} = useScreenContext()
+
+  const handleAddFileToPlayList = (): void => {
+    if (item) {
+      interfaces.current.video.addToPlaylist(item.name, [
+        ...explorePath,
+        item.name
+      ])
+    }
+    setState('list')
+  }
 
   return (
     <div className="explorer__options">
-      {optionsState === 'menu' && (
-        <>
-          <div className="explorer__options__navigation">
+      <div className="explorer__options__navigation">
+        <button
+          className="explorer__options__navigation-btn"
+          onClick={() => setState('list')}>
+          <ArrowLeftBoldCircleOutline />
+        </button>
+      </div>
+      <div>
+        <h1 className="explorer__options__title">{item?.name}</h1>
+      </div>
+      <ul className="explorer__options__list">
+        {type === 'file' && (
+          <li className="explorer__options__list__item">
             <button
-              className="explorer__options__navigation-btn"
-              onClick={() => setState('list')}>
-              Back
+              className="explorer__options__list__item-btn"
+              onClick={handleAddFileToPlayList}>
+              Add to playlist
             </button>
-          </div>
-          <ul>
-            <li className="explorer__options__list__item">
-              <button
-                className="explorer__options__list__item-btn"
-                onClick={() => setOptionsState('playlist')}>
-                Add to playlist
-              </button>
-            </li>
-          </ul>
-        </>
-      )}
-      {optionsState === 'playlist' && (
-        <ExplorerOptionsPlaylist setOptionsState={setOptionsState} />
-      )}
+          </li>
+        )}
+      </ul>
     </div>
   )
 }

@@ -15,3 +15,12 @@ export interface ExploredItem {
 export interface UsbDevice {
   [key: string]: string
 }
+
+export interface Playlist {
+  music: Array<unknown>
+  video: Array<{
+    id: string
+    name: string
+    path: string
+  }>
+}

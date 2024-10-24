@@ -4,6 +4,7 @@ import {useState} from 'react'
 import './Explorer.css'
 import ExplorerList from './List/List'
 import ExplorerOptions from './Options/Options'
+import type {ExploredItem} from '../../context/interfaces/types'
 
 export type State = 'list' | 'options'
 
@@ -13,6 +14,8 @@ interface ExplorerProps {
 
 const Explorer = ({setActiveVideo}: ExplorerProps): JSX.Element => {
   const [state, setState] = useState<State>('list')
+  const [type, setType] = useState<'file' | 'folder'>('file')
+  const [item, setItem] = useState<ExploredItem | undefined>()
 
   return (
     <div className="explorer">
@@ -20,9 +23,13 @@ const Explorer = ({setActiveVideo}: ExplorerProps): JSX.Element => {
         <ExplorerList
           setActiveVideo={setActiveVideo}
           setState={setState}
+          setType={setType}
+          setItem={setItem}
         />
       )}
-      {state === 'options' && <ExplorerOptions setState={setState} />}
+      {state === 'options' && (
+        <ExplorerOptions item={item} type={type} setState={setState} />
+      )}
     </div>
   )
 }

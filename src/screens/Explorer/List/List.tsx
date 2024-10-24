@@ -6,21 +6,27 @@ import {
   ArrowDownBoldCircleOutline,
   ArrowUpBoldCircleOutline,
   ChevronLeft,
+  DotsHorizontal,
   DotsVertical,
   FileOutline,
   FolderOpenOutline,
   VideoBox
 } from '../../../assets/icons'
 import type {State} from '../Explorer'
+import type {ExploredItem} from '../../../context/interfaces/types'
 
 interface ExplorerProps {
   setActiveVideo: (filePathArray?: Array<string>) => void
   setState: React.Dispatch<React.SetStateAction<State>>
+  setType: React.Dispatch<React.SetStateAction<'file' | 'folder'>>
+  setItem: React.Dispatch<React.SetStateAction<ExploredItem | undefined>>
 }
 
 const ExplorerList = ({
   setActiveVideo,
-  setState
+  setState,
+  setType,
+  setItem
 }: ExplorerProps): JSX.Element => {
   const visibleItems = 5
 
@@ -62,6 +68,10 @@ const ExplorerList = ({
   }
 
   useEffect(() => {
+    if (!initRef.current && explorePath.length > 0) {
+      initRef.current = true
+      interfaces.current.explorer.list(explorePath)
+    }
     if (!initRef.current) {
       initRef.current = true
       interfaces.current.explorer.list('home')
@@ -74,7 +84,15 @@ const ExplorerList = ({
         <div className="explorer__header__options">
           <button
             className="explorer__header__options-btn"
-            onClick={() => setState('options')}>
+            onClick={() => {
+              setType('folder')
+              setState('options')
+              setItem({
+                name: `.../${explorePath[explorePath.length - 1]}`,
+                type: null,
+                isFolder: false
+              })
+            }}>
             <DotsVertical />
           </button>
         </div>
@@ -130,25 +148,47 @@ const ExplorerList = ({
           )
           .map(item => (
             <li key={item.name} className="explorer__list__item">
-              <div className="explorer__list__item__icon">
-                {item.isFolder && (
-                  <button onClick={() => handleFolderClick(item.name)}>
-                    <FolderOpenOutline />
+              <div className="explorer__list__item__col">
+                <div className="explorer__list__item__icon">
+                  {item.isFolder ? (
+                    <button
+                      onClick={() => handleFolderClick(item.name)}
+                      className="explorer__list__item__icon-btn">
+                      <FolderOpenOutline />
+                    </button>
+                  ) : (
+                    <>
+                      {item.type === 'video' ? (
+                        <button
+                          onClick={() => handleVideoFileClick(item.name)}
+                          className="explorer__list__item__icon-btn">
+                          <VideoBox />
+                        </button>
+                      ) : (
+                        <FileOutline />
+                      )}
+                    </>
+                  )}
+                </div>
+                <p>
+                  {item.name.length > 20
+                    ? `${item.name.substring(0, 17)}...`
+                    : item.name}
+                </p>
+              </div>
+              <div className="explorer__list__item__col">
+                {!item.isFolder && (
+                  <button
+                    className="explorer__list__item__icon-btn"
+                    onClick={() => {
+                      setType('file')
+                      setState('options')
+                      setItem(item)
+                    }}>
+                    <DotsHorizontal />
                   </button>
-                )}
-                {!item.isFolder && item.type === 'video' ? (
-                  <button onClick={() => handleVideoFileClick(item.name)}>
-                    <VideoBox />
-                  </button>
-                ) : (
-                  <FileOutline />
                 )}
               </div>
-              <p>
-                {item.name.length > 20
-                  ? `${item.name.substring(0, 17)}...`
-                  : item.name}
-              </p>
             </li>
           ))}
       </ul>

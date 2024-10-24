@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react'
 
-import './VideoPlayer.css'
-import {Play} from '../../assets/icons'
-import {Screens, useScreenContext} from '../../context/ScreenContext'
+import './Player.css'
+import {Play} from '../../../assets/icons'
+import {Screens, useScreenContext} from '../../../context/ScreenContext'
 
 interface VideoPlayerProps {
   activeVideo?: Array<string>

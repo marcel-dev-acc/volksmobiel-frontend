@@ -17,12 +17,14 @@ export {ReactComponent as ChevronLeft} from './chevron/chevron-left.svg'
 
 export {ReactComponent as ClockOutline} from './clock/clock-outline.svg'
 
+export {ReactComponent as Close} from './close/close.svg'
 export {ReactComponent as CloseCircle} from './close/close-circle.svg'
 
 export {ReactComponent as Cog} from './cog/cog.svg'
 
 export {ReactComponent as DockWindow} from './dock/dock-window.svg'
 
+export {ReactComponent as DotsHorizontal} from './dots/dots-horizontal.svg'
 export {ReactComponent as DotsVertical} from './dots/dots-vertical.svg'
 
 export {ReactComponent as FileOutline} from './file/file-outline.svg'

@@ -1,4 +1,4 @@
-import type {Contact, ExploredItem, UsbDevice} from './types'
+import type {Contact, ExploredItem, Playlist, UsbDevice} from './types'
 
 interface Message {
   domain: string
@@ -14,6 +14,7 @@ interface States {
     React.SetStateAction<Array<ExploredItem>>
   >
   setUsbDevices: React.Dispatch<React.SetStateAction<Array<UsbDevice>>>
+  setPlaylist: React.Dispatch<React.SetStateAction<Playlist>>
 }
 
 const serverHandler = (message: Message, states: States): void => {
@@ -67,6 +68,22 @@ const serverHandler = (message: Message, states: States): void => {
         default:
           console.warn(
             '[SYSTEM] Server sent an unknown message, topic',
+            message.topic
+          )
+      }
+      break
+
+    case 'video':
+      switch (message.topic) {
+        case 'get-playlist':
+          states.setPlaylist(prev => ({
+            ...prev,
+            video: message.value
+          }))
+          break
+        default:
+          console.warn(
+            '[VIDEO] Server sent an unknown message, topic',
             message.topic
           )
       }
