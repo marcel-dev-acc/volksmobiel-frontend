@@ -84,7 +84,7 @@ const Home = (): JSX.Element => {
       {
         id: 'ecc4fb15-4e84-415b-8b20-9bd2b6707dea',
         icon: MusicClefTreble,
-        click: () => setScreen(Screens.messenger)
+        click: () => setScreen(Screens.guessThatSong)
       },
       {
         id: 'b92cf6fe-cc46-40b0-86ab-fafa29c161dd',

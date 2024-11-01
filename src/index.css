@@ -17,11 +17,11 @@ body {
   display: flex;
   height: 100vh;
   font-weight: 800;
-  cursor: none;
+  /* cursor: none; */
 }
 
 button {
-  cursor: none;
+  /* cursor: none; */
 }
 
 .light > * {

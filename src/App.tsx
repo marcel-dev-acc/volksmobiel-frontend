@@ -6,6 +6,7 @@ import {
   Clock,
   Contacts,
   Explorer,
+  GuessThatSong,
   Home,
   Messenger,
   Phone,
@@ -43,6 +44,7 @@ const App = (): JSX.Element => {
       )}
       {screen === Screens.usbDevices && <UsbDevices />}
       {screen === Screens.clock && <Clock />}
+      {screen === Screens.guessThatSong && <GuessThatSong />}
 
       {screen !== Screens.home && <Navigation />}
     </main>

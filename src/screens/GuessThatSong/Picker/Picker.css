@@ -1,0 +1,31 @@
+.guess-that-song__picker {
+  display: flex;
+  flex: 1;
+}
+
+.guess-that-song__picker-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.guess-that-song__option {
+  background-color: inherit;
+  border-style: none;
+  color: inherit;
+  margin: 16px;
+}
+
+.guess-that-song__option > img {
+  width: 100px;
+  height: 80px;
+  object-fit: fill;
+}
+
+.guess-that-song__option > p {
+  font-size: 20px;
+  margin: 0;
+  padding: 4px;
+}

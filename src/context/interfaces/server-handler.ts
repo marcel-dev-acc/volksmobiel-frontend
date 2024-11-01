@@ -1,10 +1,12 @@
 import type {Contact, ExploredItem, Playlist, UsbDevice} from './types'
 
+interface Value {
+  [key: string]: unknown
+}
 interface Message {
   domain: string
   topic: string
-  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-  value: any
+  value: unknown
 }
 
 interface States {
@@ -22,7 +24,7 @@ const serverHandler = (message: Message, states: States): void => {
     case 'contacts':
       switch (message.topic) {
         case 'get-contacts':
-          states.setContacts(message.value)
+          states.setContacts(message.value as Array<Contact>)
           break
         case 'create-contact':
           break
@@ -37,8 +39,12 @@ const serverHandler = (message: Message, states: States): void => {
     case 'explorer':
       switch (message.topic) {
         case 'list':
-          states.setExploredItems(message.value['items'])
-          states.setExplorePath(message.value['pathItems'])
+          states.setExploredItems(
+            (message.value as Value)['items'] as Array<ExploredItem>
+          )
+          states.setExplorePath(
+            (message.value as Value)['pathItems'] as Array<string>
+          )
           break
         default:
           console.warn(
@@ -63,7 +69,7 @@ const serverHandler = (message: Message, states: States): void => {
     case 'system':
       switch (message.topic) {
         case 'list-usb':
-          states.setUsbDevices(message.value)
+          states.setUsbDevices(message.value as Array<UsbDevice>)
           break
         default:
           console.warn(
@@ -78,7 +84,7 @@ const serverHandler = (message: Message, states: States): void => {
         case 'get-playlist':
           states.setPlaylist(prev => ({
             ...prev,
-            video: message.value
+            video: message.value as Playlist['video']
           }))
           break
         default:

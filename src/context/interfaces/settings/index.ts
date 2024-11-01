@@ -1,8 +1,9 @@
 export interface Settings {
   powerOff: () => void
-  listUsb: (password: string) => void
-  mountUsb: (password: string, device: string, deviceUuid: string) => void
-  unmountUsb: (password: string, deviceUuid: string) => void
+  listUsb: () => void
+  mountUsb: (device: string, deviceUuid: string) => void
+  unmountUsb: (deviceUuid: string) => void
+  getHostname: () => void
 }
 
 const settings = (socket: WebSocket): Settings => ({
@@ -11,17 +12,16 @@ const settings = (socket: WebSocket): Settings => ({
       JSON.stringify({domain: 'system', topic: 'power-off', value: ''})
     )
   },
-  listUsb: (password: string): void => {
+  listUsb: (): void => {
     socket.send(
       JSON.stringify({
         domain: 'system',
         topic: 'list-usb',
-        value: password
+        value: ''
       })
     )
   },
   mountUsb: (
-    password: string,
     device: string,
     deviceUuid: string
   ): void => {
@@ -29,16 +29,25 @@ const settings = (socket: WebSocket): Settings => ({
       JSON.stringify({
         domain: 'system',
         topic: 'mount-usb',
-        value: {password, device, deviceUuid}
+        value: {device, deviceUuid}
       })
     )
   },
-  unmountUsb: (password: string, deviceUuid: string): void => {
+  unmountUsb: (deviceUuid: string): void => {
     socket.send(
       JSON.stringify({
         domain: 'system',
         topic: 'unmount-usb',
-        value: {password, deviceUuid}
+        value: {deviceUuid}
+      })
+    )
+  },
+  getHostname: (): void => {
+    socket.send(
+      JSON.stringify({
+        domain: 'system',
+        topic: 'get-hostname',
+        value: ''
       })
     )
   }

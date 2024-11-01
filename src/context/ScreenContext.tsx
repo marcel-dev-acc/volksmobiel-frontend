@@ -66,7 +66,8 @@ export enum Screens {
   videoPlayer,
   explorer,
   usbDevices,
-  clock
+  clock,
+  guessThatSong
 }
 
 export const ScreenProvider = ({

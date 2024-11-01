@@ -1,0 +1,12 @@
+.guess-that-song__splash {
+  display: flex;
+  flex: 1;
+}
+
+.guess-that-song__splash__container {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
