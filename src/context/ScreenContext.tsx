@@ -38,6 +38,7 @@ export interface ScreenContextProps {
   handleSleepTimer: (timeRemaining?: number) => void
   sleepIn: number | undefined
   playlist: Playlist
+  systemDetails: Array<string>
 }
 
 export const ScreenContext = createContext<ScreenContextProps | undefined>(
@@ -67,7 +68,8 @@ export enum Screens {
   explorer,
   usbDevices,
   clock,
-  guessThatSong
+  guessThatSong,
+  systemDetails
 }
 
 export const ScreenProvider = ({
@@ -95,6 +97,7 @@ export const ScreenProvider = ({
     video: []
   })
   const [sleepIn, setSleepIn] = useState<number | undefined>()
+  const [systemDetails, setSystemDetails] = useState<Array<string>>([])
 
   const modal = useMemo(
     () => ({
@@ -165,7 +168,8 @@ export const ScreenProvider = ({
       usbDevices,
       handleSleepTimer,
       sleepIn,
-      playlist
+      playlist,
+      systemDetails
     }),
     [
       screen,
@@ -180,7 +184,8 @@ export const ScreenProvider = ({
       usbDevices,
       handleSleepTimer,
       sleepIn,
-      playlist
+      playlist,
+      systemDetails
     ]
   )
 
@@ -191,7 +196,8 @@ export const ScreenProvider = ({
         setExplorePath,
         setExploredItems,
         setUsbDevices,
-        setPlaylist
+        setPlaylist,
+        setSystemDetails
       })
     } catch {
       console.error('Message from server ', event.data)

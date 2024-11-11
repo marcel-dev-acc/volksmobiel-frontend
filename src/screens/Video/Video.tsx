@@ -6,9 +6,12 @@ import VideoPlaylist from './Playlist/Playlist'
 
 interface VideoProps {
   activeVideo?: Array<string>
+  setActiveVideo: React.Dispatch<
+    React.SetStateAction<string[] | undefined>
+  >
 }
 
-const Video = ({activeVideo}: VideoProps): JSX.Element => {
+const Video = ({activeVideo, setActiveVideo}: VideoProps): JSX.Element => {
   const [state, setState] = React.useState<'playlist' | 'player'>(
     'playlist'
   )
@@ -22,7 +25,12 @@ const Video = ({activeVideo}: VideoProps): JSX.Element => {
   return (
     <div className="video">
       {state === 'playlist' && <VideoPlaylist />}
-      {state === 'player' && <VideoPlayer activeVideo={activeVideo} />}
+      {state === 'player' && (
+        <VideoPlayer
+          activeVideo={activeVideo}
+          setActiveVideo={setActiveVideo}
+        />
+      )}
     </div>
   )
 }

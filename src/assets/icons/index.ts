@@ -11,6 +11,8 @@ export {ReactComponent as BackSpaceOutline} from './backspace/backspace-outline.
 
 export {ReactComponent as BedClock} from './bed/bed-clock.svg'
 
+export {ReactComponent as CardAccountDetailsOutline} from './card/card-account-details-outline.svg'
+
 export {ReactComponent as Chat} from './chat/chat.svg'
 
 export {ReactComponent as ChevronLeft} from './chevron/chevron-left.svg'

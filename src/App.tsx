@@ -11,6 +11,7 @@ import {
   Messenger,
   Phone,
   Settings,
+  SystemDetails,
   UsbDevices,
   Video
 } from './screens'
@@ -18,14 +19,21 @@ import {Screens, useScreenContext} from './context/ScreenContext'
 
 import './App.css'
 import {Navigation} from './components'
-import {useState} from 'react'
+import {handleKeyPress} from './utils/navigation'
 
 const App = (): JSX.Element => {
   const {screen, darkMode, sleepIn} = useScreenContext()
 
-  const [activeVideo, setActiveVideo] = useState<
+  const [activeVideo, setActiveVideo] = React.useState<
     Array<string> | undefined
   >()
+
+  React.useEffect(() => {
+    window.addEventListener('keydown', handleKeyPress)
+    return (): void => {
+      window.removeEventListener('keydown', handleKeyPress)
+    }
+  }, [])
 
   return (
     <main className={darkMode}>
@@ -37,7 +45,7 @@ const App = (): JSX.Element => {
       {screen === Screens.contacts && <Contacts />}
       {screen === Screens.settings && <Settings />}
       {screen === Screens.videoPlayer && (
-        <Video activeVideo={activeVideo} />
+        <Video activeVideo={activeVideo} setActiveVideo={setActiveVideo} />
       )}
       {screen === Screens.explorer && (
         <Explorer setActiveVideo={setActiveVideo} />
@@ -45,6 +53,7 @@ const App = (): JSX.Element => {
       {screen === Screens.usbDevices && <UsbDevices />}
       {screen === Screens.clock && <Clock />}
       {screen === Screens.guessThatSong && <GuessThatSong />}
+      {screen === Screens.systemDetails && <SystemDetails />}
 
       {screen !== Screens.home && <Navigation />}
     </main>

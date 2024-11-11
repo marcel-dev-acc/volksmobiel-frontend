@@ -3,7 +3,7 @@ export interface Settings {
   listUsb: () => void
   mountUsb: (device: string, deviceUuid: string) => void
   unmountUsb: (deviceUuid: string) => void
-  getHostname: () => void
+  getSystemDetails: () => void
 }
 
 const settings = (socket: WebSocket): Settings => ({
@@ -42,11 +42,11 @@ const settings = (socket: WebSocket): Settings => ({
       })
     )
   },
-  getHostname: (): void => {
+  getSystemDetails: (): void => {
     socket.send(
       JSON.stringify({
         domain: 'system',
-        topic: 'get-hostname',
+        topic: 'get-system-details',
         value: ''
       })
     )

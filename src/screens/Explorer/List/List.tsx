@@ -28,14 +28,14 @@ const ExplorerList = ({
   setType,
   setItem
 }: ExplorerProps): JSX.Element => {
-  const visibleItems = 5
-
   const {interfaces, explorePath, exploredItems, darkMode, setScreen} =
     useScreenContext()
 
   const initRef = useRef(false)
 
   const [listIndex, setListIndex] = useState(0)
+  const [visibleItems, setVisibleItems] = useState(5)
+  const [nameTruncLength, setNameTruncLength] = useState(20)
 
   const handleListUp = (): void => {
     if (listIndex <= 0) {
@@ -45,7 +45,10 @@ const ExplorerList = ({
   }
 
   const handleListDown = (): void => {
-    if (listIndex + visibleItems >= exploredItems.length) {
+    if (
+      listIndex + visibleItems >=
+      exploredItems.filter(item => !item.name.startsWith('.')).length
+    ) {
       return
     }
     setListIndex(listIndex + 1)
@@ -77,6 +80,18 @@ const ExplorerList = ({
       interfaces.current.explorer.list('home')
     }
   }, [interfaces])
+
+  const handleWindowResize = (): void => {
+    setNameTruncLength(Math.floor(window.innerWidth * 0.5 * 0.1))
+    setVisibleItems(Math.floor(window.innerHeight * 0.01))
+  }
+
+  useEffect(() => {
+    handleWindowResize()
+    window.addEventListener('resize', handleWindowResize)
+    return (): void =>
+      window.removeEventListener('resize', handleWindowResize)
+  }, [])
 
   return (
     <div className="explorer__list__container">
@@ -171,8 +186,8 @@ const ExplorerList = ({
                   )}
                 </div>
                 <p>
-                  {item.name.length > 20
-                    ? `${item.name.substring(0, 17)}...`
+                  {item.name.length > nameTruncLength
+                    ? `${item.name.substring(0, nameTruncLength - 3)}...`
                     : item.name}
                 </p>
               </div>
@@ -192,7 +207,9 @@ const ExplorerList = ({
             </li>
           ))}
       </ul>
-      {listIndex + visibleItems < exploredItems.length && (
+      {listIndex + visibleItems <
+        exploredItems.filter(item => !item.name.startsWith('.'))
+          .length && (
         <i
           className={`explorer__list__hint explorer__list__hint--${darkMode}`}>
           Scroll down to see more...

@@ -1,6 +1,12 @@
 import React from 'react'
 
-import {DockWindow, Power, ThemeLightDark, Usb} from '../../assets/icons'
+import {
+  CardAccountDetailsOutline,
+  DockWindow,
+  Power,
+  ThemeLightDark,
+  Usb
+} from '../../assets/icons'
 import {Screens, useScreenContext} from '../../context/ScreenContext'
 import './Settings.css'
 
@@ -16,6 +22,8 @@ const Settings = (): JSX.Element => {
   }
 
   const handleSetScreenToUsb = (): void => setScreen(Screens.usbDevices)
+  const handleSetScreenToSystemDetails = (): void =>
+    setScreen(Screens.systemDetails)
 
   const utilities = [
     {
@@ -37,6 +45,11 @@ const Settings = (): JSX.Element => {
       label: 'View USB devices',
       icon: Usb,
       action: handleSetScreenToUsb
+    },
+    {
+      label: 'System details',
+      icon: CardAccountDetailsOutline,
+      action: handleSetScreenToSystemDetails
     }
   ]
 

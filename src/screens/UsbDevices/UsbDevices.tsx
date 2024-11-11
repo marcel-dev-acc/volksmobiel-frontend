@@ -27,8 +27,7 @@ const UsbDevices = (): JSX.Element => {
       initRef.current = true
       interfaces.current.settings.listUsb()
     }
-    console.log(usbDevices)
-  }, [usbDevices])
+  }, [])
 
   return (
     <div className="usb-devices">

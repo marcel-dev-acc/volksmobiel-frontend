@@ -17,6 +17,7 @@ interface States {
   >
   setUsbDevices: React.Dispatch<React.SetStateAction<Array<UsbDevice>>>
   setPlaylist: React.Dispatch<React.SetStateAction<Playlist>>
+  setSystemDetails: React.Dispatch<React.SetStateAction<Array<string>>>
 }
 
 const serverHandler = (message: Message, states: States): void => {
@@ -70,6 +71,9 @@ const serverHandler = (message: Message, states: States): void => {
       switch (message.topic) {
         case 'list-usb':
           states.setUsbDevices(message.value as Array<UsbDevice>)
+          break
+        case 'get-system-details':
+          states.setSystemDetails(message.value as Array<string>)
           break
         default:
           console.warn(

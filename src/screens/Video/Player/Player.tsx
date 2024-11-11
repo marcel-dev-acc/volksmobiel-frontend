@@ -6,9 +6,15 @@ import {Screens, useScreenContext} from '../../../context/ScreenContext'
 
 interface VideoPlayerProps {
   activeVideo?: Array<string>
+  setActiveVideo: React.Dispatch<
+    React.SetStateAction<string[] | undefined>
+  >
 }
 
-const VideoPlayer = ({activeVideo}: VideoPlayerProps): JSX.Element => {
+const VideoPlayer = ({
+  activeVideo,
+  setActiveVideo
+}: VideoPlayerProps): JSX.Element => {
   const {interfaces, setScreen} = useScreenContext()
 
   const [title, setTitle] = React.useState('')
@@ -16,6 +22,7 @@ const VideoPlayer = ({activeVideo}: VideoPlayerProps): JSX.Element => {
   const handlePlayClick = (): void => {
     if (activeVideo) {
       interfaces.current.video.play(activeVideo)
+      setActiveVideo(undefined)
     }
   }
 
