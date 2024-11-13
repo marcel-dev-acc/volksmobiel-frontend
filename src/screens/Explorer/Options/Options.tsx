@@ -31,6 +31,13 @@ const ExplorerOptions = ({
     setState('list')
   }
 
+  const handleAutoPlay = (): void => {
+    if (item) {
+      interfaces.current.video.autoPlay([...explorePath, item.name])
+    }
+    setState('list')
+  }
+
   return (
     <div className="explorer__options">
       <div className="explorer__options__navigation">
@@ -45,13 +52,22 @@ const ExplorerOptions = ({
       </div>
       <ul className="explorer__options__list">
         {type === 'file' && (
-          <li className="explorer__options__list__item">
-            <button
-              className="explorer__options__list__item-btn"
-              onClick={handleAddFileToPlayList}>
-              Add to playlist
-            </button>
-          </li>
+          <>
+            <li className="explorer__options__list__item">
+              <button
+                className="explorer__options__list__item-btn"
+                onClick={handleAddFileToPlayList}>
+                Add to playlist
+              </button>
+            </li>
+            <li className="explorer__options__list__item">
+              <button
+                className="explorer__options__list__item-btn"
+                onClick={handleAutoPlay}>
+                Auto play from here
+              </button>
+            </li>
+          </>
         )}
       </ul>
     </div>

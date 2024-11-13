@@ -26,6 +26,7 @@
 }
 
 .explorer__options__list__item {
+  margin: 4px 0;
 }
 
 .explorer__options__list__item-btn {
