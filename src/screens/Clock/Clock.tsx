@@ -8,9 +8,14 @@ import {useScreenContext} from '../../context/ScreenContext'
 type states = 'navigation' | 'set-system-time' | 'set-sleep'
 
 const Clock = (): JSX.Element => {
-  const {handleSleepTimer, sleepIn} = useScreenContext()
+  const {setSleepIn, interfaces} = useScreenContext()
 
   const [state, setState] = useState<states>('navigation')
+
+  const handleSleepTimer = (time: number): void => {
+    setSleepIn(time)
+    interfaces.current.settings.powerOffAfterDelay(time)
+  }
 
   return (
     <div className="clock">
@@ -26,13 +31,6 @@ const Clock = (): JSX.Element => {
       {state === 'set-sleep' && (
         <div className="clock__set-sleep">
           <ul className="clock__set-sleep__list">
-            {sleepIn !== undefined && (
-              <li className="clock__set-sleep__list__item">
-                <button onClick={() => handleSleepTimer(undefined)}>
-                  Cancel sleep in
-                </button>
-              </li>
-            )}
             <li className="clock__set-sleep__list__item">
               <button onClick={() => handleSleepTimer(120 * 60)}>
                 Shutdown in 2 hours

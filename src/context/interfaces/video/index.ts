@@ -1,5 +1,6 @@
 export interface Video {
   play: (filePathArray: Array<string>) => void
+  playDvd: (folderPathArray: Array<string>) => void
   autoPlay: (filePathArray: Array<string>) => void
   playPlaylist: () => void
   getPlaylist: () => void
@@ -14,6 +15,15 @@ const video = (socket: WebSocket): Video => ({
         domain: 'video',
         topic: 'play',
         value: 'file:////' + filePathArray.join('/')
+      })
+    )
+  },
+  playDvd: (folderPathArray: Array<string>): void => {
+    socket.send(
+      JSON.stringify({
+        domain: 'video',
+        topic: 'play-dvd',
+        value: folderPathArray.join('/')
       })
     )
   },

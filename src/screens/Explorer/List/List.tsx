@@ -192,17 +192,15 @@ const ExplorerList = ({
                 </p>
               </div>
               <div className="explorer__list__item__col">
-                {!item.isFolder && (
-                  <button
-                    className="explorer__list__item__icon-btn"
-                    onClick={() => {
-                      setType('file')
-                      setState('options')
-                      setItem(item)
-                    }}>
-                    <DotsHorizontal />
-                  </button>
-                )}
+                <button
+                  className="explorer__list__item__icon-btn"
+                  onClick={() => {
+                    setType(item.isFolder ? 'folder' : 'file')
+                    setState('options')
+                    setItem(item)
+                  }}>
+                  <DotsHorizontal />
+                </button>
               </div>
             </li>
           ))}

@@ -35,8 +35,8 @@ export interface ScreenContextProps {
   explorePath: Array<string>
   exploredItems: Array<ExploredItem>
   usbDevices: Array<UsbDevice>
-  handleSleepTimer: (timeRemaining?: number) => void
   sleepIn: number | undefined
+  setSleepIn: (time: number | undefined) => void
   playlist: Playlist
   systemDetails: Array<string>
 }
@@ -77,8 +77,6 @@ export const ScreenProvider = ({
 }: React.PropsWithChildren): JSX.Element => {
   const socket = useRef(new WebSocket('ws://localhost:8081'))
   const interfaces = useRef(interfacesFn(socket.current))
-
-  const sleepInRef = useRef<number | undefined>()
 
   const [screen, setScreen] = useState(Screens.home)
   const [darkMode, setDarkMode] = useState<'light' | 'dark'>('dark')
@@ -125,35 +123,6 @@ export const ScreenProvider = ({
     setDarkMode(darkMode === 'light' ? 'dark' : 'light')
   }, [darkMode])
 
-  /**
-   * handleSleepTime
-   * Tracks the amount of time remaining before the devices
-   * shuts down.
-   */
-  const handleSleepTimer = useCallback((timeRemaining?: number) => {
-    if (timeRemaining === undefined) {
-      sleepInRef.current = undefined
-      setSleepIn(undefined)
-      return
-    }
-    if (!sleepInRef.current) {
-      sleepInRef.current = timeRemaining
-    }
-    if (sleepInRef.current === 0) {
-      console.log('Timer finished')
-      sleepInRef.current = undefined
-      return
-    }
-    console.log('Time remaining', sleepInRef.current)
-    sleepInRef.current = sleepInRef.current - 1
-    setSleepIn(sleepInRef.current)
-    setTimeout(() => {
-      if (sleepInRef.current) {
-        handleSleepTimer(-1)
-      }
-    }, 1000)
-  }, [])
-
   const memoProviderValues = useMemo(
     () => ({
       screen,
@@ -166,8 +135,8 @@ export const ScreenProvider = ({
       explorePath,
       exploredItems,
       usbDevices,
-      handleSleepTimer,
       sleepIn,
+      setSleepIn,
       playlist,
       systemDetails
     }),
@@ -182,8 +151,8 @@ export const ScreenProvider = ({
       explorePath,
       exploredItems,
       usbDevices,
-      handleSleepTimer,
       sleepIn,
+      setSleepIn,
       playlist,
       systemDetails
     ]

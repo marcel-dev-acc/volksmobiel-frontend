@@ -38,6 +38,13 @@ const ExplorerOptions = ({
     setState('list')
   }
 
+  const handlePlayAsDvd = (): void => {
+    if (item) {
+      interfaces.current.video.playDvd([...explorePath, item.name])
+    }
+    setState('list')
+  }
+
   return (
     <div className="explorer__options">
       <div className="explorer__options__navigation">
@@ -65,6 +72,17 @@ const ExplorerOptions = ({
                 className="explorer__options__list__item-btn"
                 onClick={handleAutoPlay}>
                 Auto play from here
+              </button>
+            </li>
+          </>
+        )}
+        {type === 'folder' && (
+          <>
+            <li className="explorer__options__list__item">
+              <button
+                className="explorer__options__list__item-btn"
+                onClick={handlePlayAsDvd}>
+                Play as DVD
               </button>
             </li>
           </>

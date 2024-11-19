@@ -4,6 +4,7 @@ import {
   CardAccountDetailsOutline,
   DockWindow,
   Power,
+  Restart,
   ThemeLightDark,
   Usb
 } from '../../assets/icons'
@@ -15,6 +16,10 @@ const Settings = (): JSX.Element => {
 
   const handlePowerOff = (): void => {
     interfaces.current.settings.powerOff()
+  }
+
+  const handleReboot = (): void => {
+    interfaces.current.settings.reboot()
   }
 
   const handleToggleDisplayOutput = (): void => {
@@ -35,6 +40,11 @@ const Settings = (): JSX.Element => {
       label: 'Power off device',
       icon: Power,
       action: handlePowerOff
+    },
+    {
+      label: 'Reboot device',
+      icon: Restart,
+      action: handleReboot
     },
     {
       label: 'Toggle display output',

@@ -1,5 +1,4 @@
 import React from 'react'
-import {useEffect, useState} from 'react'
 
 import './Status.css'
 import {
@@ -10,6 +9,7 @@ import {
   // SignalCellularNone
 } from '../../assets/icons'
 import dayjs from 'dayjs'
+// import { useScreenContext } from '../../context/ScreenContext'
 
 // enum SignalCellular {
 //   none,
@@ -23,15 +23,31 @@ interface StatusProps {
 }
 
 const Status = ({sleepIn}: StatusProps): JSX.Element => {
+  const sleepInCountRef = React.useRef(0)
+
   // const [battery, setBattery] = useState(100)
   // const [signalCellular, setSignalCellular] = useState(SignalCellular.none)
-  const [time, setTime] = useState(dayjs().unix())
+  const [time, setTime] = React.useState(dayjs().unix())
+  const [sleepInCount, setSleepInCount] = React.useState(0)
 
-  useEffect(() => {
+  React.useEffect(() => {
     setInterval(() => {
       setTime(dayjs().unix())
     }, 2500)
   }, [])
+
+  React.useEffect(() => {
+    if (sleepIn !== undefined) {
+      sleepInCountRef.current = sleepIn
+      setSleepInCount(sleepIn)
+      setInterval(() => {
+        if (sleepInCountRef.current > 0) {
+          sleepInCountRef.current = sleepInCountRef.current - 1
+          setSleepInCount(sleepInCountRef.current)
+        }
+      }, 1000)
+    }
+  }, [sleepIn])
 
   return (
     <div className="status">
@@ -52,9 +68,13 @@ const Status = ({sleepIn}: StatusProps): JSX.Element => {
         {/* <div className="status__battery">
           <span>{battery}%</span>
         </div> */}
-        {sleepIn !== undefined && (
+        {sleepIn !== undefined && sleepInCount > 0 && (
           <div className="status__sleep-in">
             <BedClock />
+            <p style={{margin: '0', padding: '0', marginLeft: '0.25rem'}}>
+              {Math.floor(sleepInCount / 60)}m{' '}
+              {sleepInCount - Math.floor(sleepInCount / 60) * 60}s
+            </p>
           </div>
         )}
       </div>

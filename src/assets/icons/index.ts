@@ -51,6 +51,8 @@ export {ReactComponent as Plus} from './plus/plus.svg'
 
 export {ReactComponent as Power} from './power/power.svg'
 
+export {ReactComponent as Restart} from './restart/restart.svg'
+
 export {ReactComponent as SignalCellularNone} from './signal-cellular/signal-cellular-outline.svg'
 export {ReactComponent as SignalCellular1} from './signal-cellular/signal-cellular-1.svg'
 export {ReactComponent as SignalCellular2} from './signal-cellular/signal-cellular-2.svg'
