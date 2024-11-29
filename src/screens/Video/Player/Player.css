@@ -4,12 +4,11 @@
 }
 
 .video-player__player-container {
-  margin: 16px;
+  margin: 16px auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
 }
 
 .video-player__player-container > h1 {
@@ -41,7 +40,7 @@
 }
 
 .video-player__information {
-  margin: 16px;
+  margin: 16px auto;
   display: flex;
   flex-direction: column;
   justify-content: center;

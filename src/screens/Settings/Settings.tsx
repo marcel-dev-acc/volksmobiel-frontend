@@ -60,6 +60,11 @@ const Settings = (): JSX.Element => {
       label: 'System details',
       icon: CardAccountDetailsOutline,
       action: handleSetScreenToSystemDetails
+    },
+    {
+      label: 'Reload app',
+      icon: Restart,
+      action: (): void => window.location.reload()
     }
   ]
 

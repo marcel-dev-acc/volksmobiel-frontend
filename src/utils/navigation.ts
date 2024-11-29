@@ -67,7 +67,6 @@ const causeOnClick = (): void => {
 }
 
 export const handleKeyPress = (event: KeyboardEvent): void => {
-  console.log(event)
   switch (event.key) {
     case Arrows.down:
       focusForward()
@@ -82,7 +81,6 @@ export const handleKeyPress = (event: KeyboardEvent): void => {
       focusBack()
       break
     case Page.up:
-      console.log('H')
       causeOnClick()
       break
     case Page.down:

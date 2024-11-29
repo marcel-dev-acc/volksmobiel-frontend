@@ -101,11 +101,12 @@ const Home = (): JSX.Element => {
 
   return (
     <div className="home">
-      <img
+      {/* <img
         className="home__background"
         src="/assets/images/system/jeremy-bishop-EwKXn5CapA4-unsplash.jpg"
         alt="home-background"
-      />
+      /> */}
+      <div className="home__background" />
       {apps.map((row, idx) => (
         <div key={idx} className="home__row">
           {row.map(app => {
