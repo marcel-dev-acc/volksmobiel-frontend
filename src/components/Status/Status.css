@@ -4,12 +4,13 @@
   padding: 0.5rem;
 }
 
-.status > div {
-  display: flex;
-}
-
 .status > div:last-child {
   justify-content: flex-end;
+}
+
+.status__col {
+  display: flex;
+  flex: 1;
 }
 
 .status__col > div {
@@ -17,6 +18,10 @@
   justify-content: center;
   align-items: center;
   margin: 0 0.2rem;
+}
+
+.status__centre {
+  justify-content: center;
 }
 
 .status__signal-cellular > svg {

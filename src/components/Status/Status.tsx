@@ -9,7 +9,6 @@ import {
   // SignalCellularNone
 } from '../../assets/icons'
 import dayjs from 'dayjs'
-// import { useScreenContext } from '../../context/ScreenContext'
 
 // enum SignalCellular {
 //   none,
@@ -20,9 +19,10 @@ import dayjs from 'dayjs'
 
 interface StatusProps {
   sleepIn?: number
+  hostIp: string
 }
 
-const Status = ({sleepIn}: StatusProps): JSX.Element => {
+const Status = ({sleepIn, hostIp}: StatusProps): JSX.Element => {
   const sleepInCountRef = React.useRef(0)
 
   // const [battery, setBattery] = useState(100)
@@ -55,6 +55,9 @@ const Status = ({sleepIn}: StatusProps): JSX.Element => {
         <div className="status__time">
           <span>{dayjs.unix(time).format('HH:mm ddd, DD MMM')}</span>
         </div>
+      </div>
+      <div className="status__col status__centre">
+        <p>{hostIp}</p>
       </div>
       <div className="status__col">
         {/* <div className="status__signal-cellular">

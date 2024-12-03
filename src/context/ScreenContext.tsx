@@ -1,12 +1,5 @@
 import type {MutableRefObject} from 'react'
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useMemo,
-  useRef,
-  useState
-} from 'react'
+import React from 'react'
 import {Modal} from '../components'
 import interfacesFn, {type Interfaces} from './interfaces'
 import type {
@@ -39,14 +32,15 @@ export interface ScreenContextProps {
   setSleepIn: (time: number | undefined) => void
   playlist: Playlist
   systemDetails: Array<string>
+  hostIp: string
 }
 
-export const ScreenContext = createContext<ScreenContextProps | undefined>(
-  undefined
-)
+export const ScreenContext = React.createContext<
+  ScreenContextProps | undefined
+>(undefined)
 
 export const useScreenContext = (): ScreenContextProps => {
-  const context = useContext(ScreenContext)
+  const context = React.useContext(ScreenContext)
 
   if (context === undefined) {
     throw new Error(
@@ -75,29 +69,34 @@ export enum Screens {
 export const ScreenProvider = ({
   children
 }: React.PropsWithChildren): JSX.Element => {
-  const socket = useRef(new WebSocket('ws://localhost:8081'))
-  const interfaces = useRef(interfacesFn(socket.current))
+  const socket = React.useRef(
+    new WebSocket(`ws://${window.location.hostname}:8081`)
+  )
+  const interfaces = React.useRef(interfacesFn(socket.current))
 
-  const [screen, setScreen] = useState(Screens.home)
-  const [darkMode, setDarkMode] = useState<'light' | 'dark'>('dark')
-  const [modalState, setModalState] = useState<
+  const [screen, setScreen] = React.useState(Screens.home)
+  const [darkMode, setDarkMode] = React.useState<'light' | 'dark'>('dark')
+  const [modalState, setModalState] = React.useState<
     'info' | 'warn' | 'error' | undefined
   >()
-  const [modalMsg, setModalMsg] = useState('')
-  const [contacts, setContacts] = useState<Array<Contact>>([])
-  const [explorePath, setExplorePath] = useState<Array<string>>([])
-  const [exploredItems, setExploredItems] = useState<Array<ExploredItem>>(
-    []
-  )
-  const [usbDevices, setUsbDevices] = useState<Array<UsbDevice>>([])
-  const [playlist, setPlaylist] = useState<Playlist>({
+  const [modalMsg, setModalMsg] = React.useState('')
+  const [contacts, setContacts] = React.useState<Array<Contact>>([])
+  const [explorePath, setExplorePath] = React.useState<Array<string>>([])
+  const [exploredItems, setExploredItems] = React.useState<
+    Array<ExploredItem>
+  >([])
+  const [usbDevices, setUsbDevices] = React.useState<Array<UsbDevice>>([])
+  const [playlist, setPlaylist] = React.useState<Playlist>({
     music: [],
     video: []
   })
-  const [sleepIn, setSleepIn] = useState<number | undefined>()
-  const [systemDetails, setSystemDetails] = useState<Array<string>>([])
+  const [sleepIn, setSleepIn] = React.useState<number | undefined>()
+  const [systemDetails, setSystemDetails] = React.useState<Array<string>>(
+    []
+  )
+  const [hostIp, setHostIp] = React.useState('')
 
-  const modal = useMemo(
+  const modal = React.useMemo(
     () => ({
       info: (msg: string): void => {
         setModalState('info')
@@ -119,11 +118,15 @@ export const ScreenProvider = ({
     []
   )
 
-  const toggleDarkMode = useCallback((): void => {
+  const toggleDarkMode = React.useCallback((): void => {
     setDarkMode(darkMode === 'light' ? 'dark' : 'light')
   }, [darkMode])
 
-  const memoProviderValues = useMemo(
+  socket.current.addEventListener('open', () => {
+    interfaces.current.settings.getHostIp()
+  })
+
+  const memoProviderValues = React.useMemo(
     () => ({
       screen,
       setScreen,
@@ -138,7 +141,8 @@ export const ScreenProvider = ({
       sleepIn,
       setSleepIn,
       playlist,
-      systemDetails
+      systemDetails,
+      hostIp
     }),
     [
       screen,
@@ -154,7 +158,8 @@ export const ScreenProvider = ({
       sleepIn,
       setSleepIn,
       playlist,
-      systemDetails
+      systemDetails,
+      hostIp
     ]
   )
 
@@ -166,7 +171,8 @@ export const ScreenProvider = ({
         setExploredItems,
         setUsbDevices,
         setPlaylist,
-        setSystemDetails
+        setSystemDetails,
+        setHostIp
       })
     } catch {
       console.error('Message from server ', event.data)

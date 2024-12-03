@@ -22,7 +22,7 @@ import {Navigation} from './components'
 import {handleKeyPress} from './utils/navigation'
 
 const App = (): JSX.Element => {
-  const {screen, darkMode, sleepIn} = useScreenContext()
+  const {screen, darkMode, sleepIn, hostIp} = useScreenContext()
 
   const [activeVideo, setActiveVideo] = React.useState<
     Array<string> | undefined
@@ -37,7 +37,7 @@ const App = (): JSX.Element => {
 
   return (
     <main className={darkMode}>
-      <Status sleepIn={sleepIn} />
+      <Status sleepIn={sleepIn} hostIp={hostIp} />
       {screen === Screens.welcome && <p>Welcome [not implemented]</p>}
       {screen === Screens.home && <Home />}
       {screen === Screens.phone && <Phone />}
