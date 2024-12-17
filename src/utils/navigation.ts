@@ -10,10 +10,15 @@ enum Page {
   down = 'PageDown'
 }
 
-const focusAssign = (value: number): void => {
+const getNodes = (): NodeListOf<HTMLButtonElement | HTMLInputElement | HTMLTextAreaElement> => {
   const focusable: NodeListOf<HTMLButtonElement | HTMLInputElement | HTMLTextAreaElement> = document.querySelectorAll(
-    'button'
+    'button:not([disabled])'
   )
+  return focusable
+}
+
+const focusAssign = (value: number): void => {
+  const focusable = getNodes()
   
   if (document.activeElement?.nodeName !== 'BUTTON') {
     focusable[0].focus()  
@@ -47,9 +52,7 @@ const focusForward = (): void => {
 }
 
 const causeOnClick = (): void => {
-  const focusable: NodeListOf<HTMLButtonElement | HTMLInputElement | HTMLTextAreaElement> = document.querySelectorAll(
-    'button'
-  )
+  const focusable = getNodes()
   
   if (document.activeElement?.nodeName !== 'BUTTON') {
     focusable[0].focus()  

@@ -1,7 +1,7 @@
 import React from 'react'
 import {
   // Account,
-  // Chat,
+  Chat,
   ClockOutline,
   Cog,
   FolderOpenOutline,
@@ -32,11 +32,11 @@ const Home = (): JSX.Element => {
       //   icon: Phone,
       //   click: () => setScreen(Screens.phone)
       // },
-      // {
-      //   id: 'a2685411-5c21-4019-ac71-c9ebf744ac0d',
-      //   icon: Chat,
-      //   click: () => setScreen(Screens.messenger)
-      // },
+      {
+        id: 'a2685411-5c21-4019-ac71-c9ebf744ac0d',
+        icon: Chat,
+        click: () => setScreen(Screens.messenger)
+      }
       // {
       //   id: 'd4c13908-f8f5-4c7e-851a-705b1e3a76a1',
       //   icon: Account,

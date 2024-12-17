@@ -21,6 +21,11 @@ const ExplorerOptions = ({
 }: ExplorerOptionsProps): JSX.Element => {
   const {interfaces, explorePath} = useScreenContext()
 
+  const [confirmDeleteFolderContents, setConfirmDeleteFolderContents] =
+    React.useState(false)
+  const [confirmDeleteFolder, setConfirmDeleteFolder] =
+    React.useState(false)
+
   const handleAddFileToPlayList = (): void => {
     if (item) {
       interfaces.current.video.addToPlaylist(item.name, [
@@ -42,6 +47,25 @@ const ExplorerOptions = ({
     if (item) {
       interfaces.current.video.playDvd([...explorePath, item.name])
     }
+    setState('list')
+  }
+
+  const handleDeleteFolderContents = (): void => {
+    if (item) {
+      interfaces.current.settings.removeFolderContents(explorePath)
+    }
+    interfaces.current.explorer.list(explorePath)
+    setConfirmDeleteFolderContents(false)
+    setState('list')
+  }
+
+  const handleDeleteFolder = (): void => {
+    if (item) {
+      interfaces.current.settings.removeFolder(explorePath)
+    }
+    explorePath.pop()
+    interfaces.current.explorer.list(explorePath)
+    setConfirmDeleteFolder(false)
     setState('list')
   }
 
@@ -84,6 +108,36 @@ const ExplorerOptions = ({
                 onClick={handlePlayAsDvd}>
                 Play as DVD
               </button>
+            </li>
+            <li className="explorer__options__list__item">
+              <button
+                className="explorer__options__list__item-btn"
+                onClick={() => setConfirmDeleteFolderContents(true)}
+                disabled={confirmDeleteFolderContents}>
+                Delete folder contents
+              </button>
+              {confirmDeleteFolderContents && (
+                <button
+                  className="explorer__options__list__item-btn"
+                  onClick={handleDeleteFolderContents}>
+                  Confirm delete folder contents
+                </button>
+              )}
+            </li>
+            <li className="explorer__options__list__item">
+              <button
+                className="explorer__options__list__item-btn"
+                onClick={() => setConfirmDeleteFolder(true)}
+                disabled={confirmDeleteFolder}>
+                Delete folder
+              </button>
+              {confirmDeleteFolder && (
+                <button
+                  className="explorer__options__list__item-btn"
+                  onClick={handleDeleteFolder}>
+                  Confirm delete folder
+                </button>
+              )}
             </li>
           </>
         )}

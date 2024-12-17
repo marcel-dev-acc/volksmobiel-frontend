@@ -1,6 +1,7 @@
 import React from 'react'
 
 import './Messenger.css'
+import Message from './Message/Message'
 import Messages from './Messages/Messages'
 
 const Messenger = (): JSX.Element => {
@@ -11,7 +12,7 @@ const Messenger = (): JSX.Element => {
   return (
     <div className="messenger">
       {state === 'message-list' && <Messages setState={setState} />}
-      {state === 'message' && <p>Specific message</p>}
+      {state === 'message' && <Message setState={setState} />}
     </div>
   )
 }

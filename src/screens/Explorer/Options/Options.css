@@ -27,6 +27,8 @@
 
 .explorer__options__list__item {
   margin: 4px 0;
+  display: flex;
+  gap: 8px;
 }
 
 .explorer__options__list__item-btn {

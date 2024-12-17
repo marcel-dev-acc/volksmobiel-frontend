@@ -1,3 +1,13 @@
+interface CopyFileToDetails {
+  filePath: Array<string>
+  destination: Array<string>
+}
+
+interface CopyFolderContentsToDetails {
+  folderPath: Array<string>
+  destination: Array<string>
+}
+
 export interface Settings {
   powerOff: () => void
   powerOffAfterDelay: (time: number) => void
@@ -7,6 +17,10 @@ export interface Settings {
   unmountUsb: (deviceUuid: string) => void
   getSystemDetails: () => void
   getHostIp: () => void
+  copyFileTo: (details: CopyFileToDetails) => void
+  copyFolderContentsTo: (details: CopyFolderContentsToDetails) => void
+  removeFolderContents: (path: Array<string>) => void
+  removeFolder: (path: Array<string>) => void
 }
 
 const settings = (socket: WebSocket): Settings => ({
@@ -70,6 +84,42 @@ const settings = (socket: WebSocket): Settings => ({
         domain: 'system',
         topic: 'get-host-ip',
         value: ''
+      })
+    )
+  },
+  copyFileTo: (details: CopyFileToDetails): void => {
+    socket.send(
+      JSON.stringify({
+        domain: 'system',
+        topic: 'copy-file-to',
+        value: details
+      })
+    )
+  },
+  copyFolderContentsTo: (details: CopyFolderContentsToDetails): void => {
+    socket.send(
+      JSON.stringify({
+        domain: 'system',
+        topic: 'copy-folder-contents-to',
+        value: details
+      })
+    )
+  },
+  removeFolderContents: (path: Array<string>): void => {
+    socket.send(
+      JSON.stringify({
+        domain: 'system',
+        topic: 'remove-folder-contents',
+        value: path
+      })
+    )
+  },
+  removeFolder: (path: Array<string>): void => {
+    socket.send(
+      JSON.stringify({
+        domain: 'system',
+        topic: 'remove-folder',
+        value: path
       })
     )
   }

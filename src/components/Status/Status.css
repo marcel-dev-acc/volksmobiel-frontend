@@ -22,6 +22,13 @@
 
 .status__centre {
   justify-content: center;
+  display: none;
+}
+
+@media screen and (min-width: 500px) {
+  .status__centre {
+    display: flex;
+  }
 }
 
 .status__signal-cellular > svg {
