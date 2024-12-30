@@ -2,7 +2,8 @@ import React from 'react'
 
 import './Status.css'
 import {
-  BedClock
+  BedClock,
+  ContentCopy
   // SignalCellular1,
   // SignalCellular2,
   // SignalCellular3,
@@ -18,11 +19,18 @@ import dayjs from 'dayjs'
 // }
 
 interface StatusProps {
+  copySrc?: Array<string>
+  setCopySrc: (path: undefined) => void
   sleepIn?: number
   hostIp: string
 }
 
-const Status = ({sleepIn, hostIp}: StatusProps): JSX.Element => {
+const Status = ({
+  copySrc,
+  setCopySrc,
+  sleepIn,
+  hostIp
+}: StatusProps): JSX.Element => {
   const sleepInCountRef = React.useRef(0)
 
   // const [battery, setBattery] = useState(100)
@@ -71,6 +79,13 @@ const Status = ({sleepIn, hostIp}: StatusProps): JSX.Element => {
         {/* <div className="status__battery">
           <span>{battery}%</span>
         </div> */}
+        {copySrc !== undefined && (
+          <div className="status__copy-src">
+            <button onClick={() => setCopySrc(undefined)}>
+              <ContentCopy />
+            </button>
+          </div>
+        )}
         {sleepIn !== undefined && sleepInCount > 0 && (
           <div className="status__sleep-in">
             <BedClock />

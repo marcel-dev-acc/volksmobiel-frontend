@@ -19,7 +19,7 @@ const ExplorerOptions = ({
   type,
   setState
 }: ExplorerOptionsProps): JSX.Element => {
-  const {interfaces, explorePath} = useScreenContext()
+  const {interfaces, explorePath, copySrc, setCopySrc} = useScreenContext()
 
   const [confirmDeleteFolderContents, setConfirmDeleteFolderContents] =
     React.useState(false)
@@ -45,24 +45,37 @@ const ExplorerOptions = ({
 
   const handlePlayAsDvd = (): void => {
     if (item) {
-      interfaces.current.video.playDvd([...explorePath, item.name])
+      interfaces.current.video.playDvd(explorePath)
     }
     setState('list')
   }
 
-  const handleDeleteFolderContents = (): void => {
-    if (item) {
-      interfaces.current.settings.removeFolderContents(explorePath)
+  const handleCopySrc = (): void => {
+    setCopySrc(explorePath)
+    setState('list')
+  }
+
+  const handlePasteHere = (): void => {
+    if (copySrc) {
+      interfaces.current.settings.copyFolderContentsTo({
+        folderPath: copySrc,
+        destination: explorePath
+      })
     }
+    interfaces.current.explorer.list(explorePath)
+    setCopySrc(undefined)
+    setState('list')
+  }
+
+  const handleDeleteFolderContents = (): void => {
+    interfaces.current.settings.removeFolderContents(explorePath)
     interfaces.current.explorer.list(explorePath)
     setConfirmDeleteFolderContents(false)
     setState('list')
   }
 
   const handleDeleteFolder = (): void => {
-    if (item) {
-      interfaces.current.settings.removeFolder(explorePath)
-    }
+    interfaces.current.settings.removeFolder(explorePath)
     explorePath.pop()
     interfaces.current.explorer.list(explorePath)
     setConfirmDeleteFolder(false)
@@ -107,6 +120,22 @@ const ExplorerOptions = ({
                 className="explorer__options__list__item-btn"
                 onClick={handlePlayAsDvd}>
                 Play as DVD
+              </button>
+            </li>
+            {copySrc !== undefined && (
+              <li className="explorer__options__list__item">
+                <button
+                  className="explorer__options__list__item-btn"
+                  onClick={handlePasteHere}>
+                  Paste folder contents here
+                </button>
+              </li>
+            )}
+            <li className="explorer__options__list__item">
+              <button
+                className="explorer__options__list__item-btn"
+                onClick={handleCopySrc}>
+                Copy folder contents
               </button>
             </li>
             <li className="explorer__options__list__item">

@@ -31,7 +31,11 @@ const settings = (socket: WebSocket): Settings => ({
   },
   powerOffAfterDelay: (time: number): void => {
     socket.send(
-      JSON.stringify({domain: 'system', topic: 'power-off-after-delay', value: time.toString()})
+      JSON.stringify({
+        domain: 'system',
+        topic: 'power-off-after-delay',
+        value: time.toString()
+      })
     )
   },
   reboot: (): void => {
@@ -48,10 +52,7 @@ const settings = (socket: WebSocket): Settings => ({
       })
     )
   },
-  mountUsb: (
-    device: string,
-    deviceUuid: string
-  ): void => {
+  mountUsb: (device: string, deviceUuid: string): void => {
     socket.send(
       JSON.stringify({
         domain: 'system',

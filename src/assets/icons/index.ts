@@ -22,6 +22,8 @@ export {ReactComponent as ClockOutline} from './clock/clock-outline.svg'
 export {ReactComponent as Close} from './close/close.svg'
 export {ReactComponent as CloseCircle} from './close/close-circle.svg'
 
+export {ReactComponent as ContentCopy} from './content/content-copy.svg'
+
 export {ReactComponent as Cog} from './cog/cog.svg'
 
 export {ReactComponent as DockWindow} from './dock/dock-window.svg'

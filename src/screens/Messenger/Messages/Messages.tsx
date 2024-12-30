@@ -11,7 +11,7 @@ interface MessagesProps {
 const Messages = ({setState}: MessagesProps): JSX.Element => {
   return (
     <div className="messages">
-      <ul>
+      <ul className="messages__list">
         <li>
           <button onClick={() => setState('message')}>Joe Blogs</button>
         </li>

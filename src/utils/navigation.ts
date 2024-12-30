@@ -2,7 +2,7 @@ enum Arrows {
   down = 'ArrowDown',
   up = 'ArrowUp',
   left = 'ArrowLeft',
-  right = 'ArrowRight',
+  right = 'ArrowRight'
 }
 
 enum Page {
@@ -10,22 +10,24 @@ enum Page {
   down = 'PageDown'
 }
 
-const getNodes = (): NodeListOf<HTMLButtonElement | HTMLInputElement | HTMLTextAreaElement> => {
-  const focusable: NodeListOf<HTMLButtonElement | HTMLInputElement | HTMLTextAreaElement> = document.querySelectorAll(
-    'button:not([disabled])'
-  )
+const getNodes = (): NodeListOf<
+  HTMLButtonElement | HTMLInputElement | HTMLTextAreaElement
+> => {
+  const focusable: NodeListOf<
+    HTMLButtonElement | HTMLInputElement | HTMLTextAreaElement
+  > = document.querySelectorAll('button:not([disabled])')
   return focusable
 }
 
 const focusAssign = (value: number): void => {
   const focusable = getNodes()
-  
+
   if (document.activeElement?.nodeName !== 'BUTTON') {
-    focusable[0].focus()  
+    focusable[0].focus()
     return
   }
 
-  let index = 0;
+  let index = 0
   focusable.forEach((item, idx) => {
     if (item === document.activeElement) {
       index = idx
@@ -44,22 +46,22 @@ const focusAssign = (value: number): void => {
 }
 
 const focusBack = (): void => {
-  focusAssign(-1) 
+  focusAssign(-1)
 }
 
 const focusForward = (): void => {
-  focusAssign(1) 
+  focusAssign(1)
 }
 
 const causeOnClick = (): void => {
   const focusable = getNodes()
-  
+
   if (document.activeElement?.nodeName !== 'BUTTON') {
-    focusable[0].focus()  
+    focusable[0].focus()
     return
   }
 
-  let index = 0;
+  let index = 0
   focusable.forEach((item, idx) => {
     if (item === document.activeElement) {
       index = idx
@@ -90,4 +92,4 @@ export const handleKeyPress = (event: KeyboardEvent): void => {
       focusBack()
       break
   }
-};
+}

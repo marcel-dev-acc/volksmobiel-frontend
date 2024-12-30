@@ -2,3 +2,12 @@
   display: flex;
   flex: 1;
 }
+
+.messages__list {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  list-style-type: none;
+  padding: 0 8px;
+  margin: 0;
+}

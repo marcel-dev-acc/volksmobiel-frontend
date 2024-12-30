@@ -24,3 +24,14 @@ export interface Playlist {
     path: string
   }>
 }
+
+export interface Message {
+  id: string
+  foreignName: string
+  messages: Array<{
+    id: string
+    user: 'owner' | 'foreign'
+    text: string
+    time: number
+  }>
+}

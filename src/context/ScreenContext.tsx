@@ -5,6 +5,7 @@ import interfacesFn, {type Interfaces} from './interfaces'
 import type {
   Contact,
   ExploredItem,
+  Message,
   Playlist,
   UsbDevice
 } from './interfaces/types'
@@ -33,6 +34,11 @@ export interface ScreenContextProps {
   playlist: Playlist
   systemDetails: Array<string>
   hostIp: string
+  copySrc?: Array<string>
+  setCopySrc: React.Dispatch<
+    React.SetStateAction<Array<string> | undefined>
+  >
+  messages: Array<Message>
 }
 
 export const ScreenContext = React.createContext<
@@ -95,6 +101,8 @@ export const ScreenProvider = ({
     []
   )
   const [hostIp, setHostIp] = React.useState('')
+  const [copySrc, setCopySrc] = React.useState<Array<string>>()
+  const [messages, setMessages] = React.useState<Array<Message>>([])
 
   const modal = React.useMemo(
     () => ({
@@ -142,7 +150,10 @@ export const ScreenProvider = ({
       setSleepIn,
       playlist,
       systemDetails,
-      hostIp
+      hostIp,
+      copySrc,
+      setCopySrc,
+      messages
     }),
     [
       screen,
@@ -159,7 +170,10 @@ export const ScreenProvider = ({
       setSleepIn,
       playlist,
       systemDetails,
-      hostIp
+      hostIp,
+      copySrc,
+      setCopySrc,
+      messages
     ]
   )
 
@@ -172,7 +186,8 @@ export const ScreenProvider = ({
         setUsbDevices,
         setPlaylist,
         setSystemDetails,
-        setHostIp
+        setHostIp,
+        setMessages
       })
     } catch {
       console.error('Message from server ', event.data)

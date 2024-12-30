@@ -37,4 +37,11 @@
   width: 100%;
   font-weight: 800;
   border-radius: 8px;
+  font-size: 13.25px;
+}
+
+@media screen and (min-width: 900px) {
+  .explorer__options__list__item-btn {
+    font-size: 18px;
+  }
 }

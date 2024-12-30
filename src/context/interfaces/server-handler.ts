@@ -1,9 +1,9 @@
-import type {Contact, ExploredItem, Playlist, UsbDevice} from './types'
+import type {Contact, ExploredItem, Message, Playlist, UsbDevice} from './types'
 
 interface Value {
   [key: string]: unknown
 }
-interface Message {
+interface IncomingMessage {
   domain: string
   topic: string
   value: unknown
@@ -19,9 +19,10 @@ interface States {
   setPlaylist: React.Dispatch<React.SetStateAction<Playlist>>
   setSystemDetails: React.Dispatch<React.SetStateAction<Array<string>>>
   setHostIp: React.Dispatch<React.SetStateAction<string>>
+  setMessages: React.Dispatch<React.SetStateAction<Array<Message>>>
 }
 
-const serverHandler = (message: Message, states: States): void => {
+const serverHandler = (message: IncomingMessage, states: States): void => {
   switch (message.domain) {
     case 'contacts':
       switch (message.topic) {

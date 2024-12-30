@@ -35,6 +35,15 @@
   width: 20px;
 }
 
+.status__copy-src > button {
+  border-style: none;
+  background-color: unset;
+}
+
+.status__copy-src > button > svg {
+  width: 20px;
+}
+
 .status__sleep-in > svg {
   width: 20px;
 }
