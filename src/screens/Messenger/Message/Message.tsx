@@ -7,73 +7,141 @@ import {
   ArrowUpBoldCircleOutline
 } from '../../../assets/icons'
 import dayjs from 'dayjs'
+import type {Message as MessageInterface} from '../../../context/interfaces/types'
+import {useScreenContext} from '../../../context/ScreenContext'
+
+interface FullMessageProps {
+  message: string
+}
+
+const FullMessage = ({message}: FullMessageProps): JSX.Element => {
+  return (
+    <div className="full-message">
+      <p>{message}</p>
+    </div>
+  )
+}
 
 interface MessageProps {
   setState: React.Dispatch<
     React.SetStateAction<'message-list' | 'message'>
   >
+  messageDetails?: MessageInterface
 }
 
-const Message = ({setState}: MessageProps): JSX.Element => {
-  const messageDetails = {
-    id: 'uuid',
-    foreignName: 'Joe Bloggs',
-    messages: [
-      {
-        id: 'uuid',
-        user: 'owner', // owner / foreign
-        text: 'sdjfsdjkfs dkjfgkjdsfgks djfgksdjfgdskjfg sdkjfgksjdfg',
-        time: dayjs().unix()
-      },
-      {
-        id: 'uuid',
-        user: 'foreign', // owner / foreign
-        text: 'sdjfsdjkfs dkjfgkjdsfgks djfgksdjfgdskjfg sdkjfgksjdfg',
-        time: dayjs().unix()
-      }
-    ]
+const Message = ({
+  setState,
+  messageDetails
+}: MessageProps): JSX.Element => {
+  const {darkMode} = useScreenContext()
+
+  const [view, setView] = React.useState<'all' | 'detail'>('all')
+  const [activeMessage, setActiveMessage] = React.useState<string>()
+  const [listIndex, setListIndex] = React.useState(0)
+  const visibleItems = 3
+  const messageTruncLength = 40
+
+  const handleListUp = (): void => {
+    if (listIndex <= 0) {
+      return
+    }
+    setListIndex(listIndex - 1)
+  }
+
+  const handleListDown = (): void => {
+    if (
+      !messageDetails?.messages ||
+      listIndex + visibleItems >= messageDetails?.messages.length
+    ) {
+      return
+    }
+    setListIndex(listIndex + 1)
   }
 
   return (
     <div className="message">
-      <div className="message__navigation">
+      <div className="message__title">
         <button
           className="message__navigation-btn"
-          onClick={() => setState('message-list')}>
+          onClick={() => {
+            if (view === 'all') {
+              setState('message-list')
+            } else {
+              setView('all')
+            }
+          }}>
           <ArrowLeftBoldCircleOutline />
         </button>
+        <h1>{messageDetails?.foreignName}</h1>
       </div>
-      <div className="message__title">
-        <h1>{messageDetails.foreignName}</h1>
-        <button
-          className="message__navigation-btn"
-          onClick={() => undefined}>
-          <ArrowUpBoldCircleOutline />
-        </button>
-      </div>
-      <ul className="message__messages">
-        {messageDetails.messages.map(message => (
-          <li
-            key={message.id}
-            className={`message__messages__item message__${message.user}`}>
-            <div className="message__messages__message">
-              <p>{message.text}</p>
-            </div>
-            <div className="message__messages__message__footer">
-              <p>
-                <i>{dayjs.unix(message.time).format('HH:mm:ss')}</i>
-              </p>
-            </div>
-          </li>
-        ))}
-      </ul>
-      <div className="message__footer">
-        <button
-          className="message__navigation-btn"
-          onClick={() => undefined}>
-          <ArrowDownBoldCircleOutline />
-        </button>
-      </div>
+      {view === 'detail' && activeMessage && (
+        <FullMessage message={activeMessage} />
+      )}
+      {view === 'all' && (
+        <>
+          <div className="message__navigation">
+            <button
+              className="message__navigation-btn"
+              onClick={handleListUp}>
+              <ArrowUpBoldCircleOutline />
+            </button>
+          </div>
+          {listIndex + visibleItems > visibleItems && (
+            <i
+              className={`message__list__hint message__list__hint--${darkMode}`}>
+              Scroll up to see more...
+            </i>
+          )}
+          <ul className="message__messages">
+            {messageDetails?.messages
+              .filter(
+                (_, index) =>
+                  index >= listIndex && index < listIndex + visibleItems
+              )
+              .map(message => (
+                <li
+                  key={message.id}
+                  className={`message__messages__item message__${message.user}`}>
+                  <div className="message__messages__message">
+                    <span>
+                      {message.text.length > messageTruncLength
+                        ? `${message.text.substring(0, messageTruncLength)}...`
+                        : message.text}
+                    </span>
+                    {message.text.length > messageTruncLength && (
+                      <button
+                        onClick={() => {
+                          setActiveMessage(message.text)
+                          setView('detail')
+                        }}>
+                        Read more
+                      </button>
+                    )}
+                  </div>
+                  <div className="message__messages__message__footer">
+                    <p>
+                      <i>{dayjs.unix(message.time).format('HH:mm:ss')}</i>
+                    </p>
+                  </div>
+                </li>
+              ))}
+          </ul>
+          {messageDetails?.messages &&
+            listIndex + visibleItems < messageDetails?.messages.length && (
+              <i
+                className={`message__list__hint message__list__hint--${darkMode}`}>
+                Scroll down to see more...
+              </i>
+            )}
+          <div className="message__footer">
+            <button
+              className="message__navigation-btn"
+              onClick={handleListDown}>
+              <ArrowDownBoldCircleOutline />
+            </button>
+          </div>
+        </>
+      )}
     </div>
   )
 }

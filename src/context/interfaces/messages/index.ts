@@ -4,7 +4,9 @@ export interface Messages {
 
 const messages = (socket: WebSocket): Messages => ({
   list: (): void => {
-    socket.send(JSON.stringify({domain: 'messages', topic: 'list', value: ''}))
+    socket.send(
+      JSON.stringify({domain: 'messages', topic: 'list', value: ''})
+    )
   }
 })
 

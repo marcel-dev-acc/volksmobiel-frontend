@@ -7,7 +7,7 @@ import {
   FolderOpenOutline,
   // MusicCircleOutline,
   // MusicClefTreble,
-  // Phone,
+  Phone,
   // Snake,
   VideoBox
 } from '../../assets/icons'
@@ -27,11 +27,11 @@ const Home = (): JSX.Element => {
 
   const apps: App[][] = [
     [
-      // {
-      //   id: 'b6596337-6481-4a79-9644-7027bd00b008',
-      //   icon: Phone,
-      //   click: () => setScreen(Screens.phone)
-      // },
+      {
+        id: 'b6596337-6481-4a79-9644-7027bd00b008',
+        icon: Phone,
+        click: () => setScreen(Screens.phone)
+      },
       {
         id: 'a2685411-5c21-4019-ac71-c9ebf744ac0d',
         icon: Chat,

@@ -1,6 +1,19 @@
 .messages {
   display: flex;
   flex: 1;
+  flex-direction: column;
+}
+
+.messages__navigation {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 8px;
+}
+
+.messages__navigation-btn {
+  background-color: inherit;
+  border-style: none;
+  width: 40px;
 }
 
 .messages__list {
@@ -8,6 +21,34 @@
   flex-direction: column;
   flex: 1;
   list-style-type: none;
-  padding: 0 8px;
+  padding: 8px;
   margin: 0;
+}
+
+.messages__list__hint {
+  font-size: 12px;
+  text-align: center;
+}
+
+.messages__list__hint--light {
+  color: rgb(120, 120, 120);
+}
+
+.messages__list__hint--dark {
+  color: rgb(220, 220, 220);
+}
+
+.messages__list__item {
+  margin: 4px 0;
+  display: flex;
+  gap: 8px;
+}
+
+.messages__list__item-btn {
+  border-style: none;
+  padding: 8px 0;
+  width: 100%;
+  font-weight: 800;
+  border-radius: 8px;
+  font-size: 13.25px;
 }

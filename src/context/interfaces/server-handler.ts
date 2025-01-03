@@ -1,4 +1,10 @@
-import type {Contact, ExploredItem, Message, Playlist, UsbDevice} from './types'
+import type {
+  Contact,
+  ExploredItem,
+  Message,
+  Playlist,
+  UsbDevice
+} from './types'
 
 interface Value {
   [key: string]: unknown
