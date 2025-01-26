@@ -1,10 +1,9 @@
 import contacts, {type Contacts} from './contacts'
-import type {Explorer} from './explorer'
-import explorer from './explorer'
+import explorer, {type Explorer} from './explorer'
 import phone, {type Phone} from './phone'
 import settings, {type Settings} from './settings'
-import type {Video} from './video'
-import video from './video'
+import video, {type Video} from './video'
+import messages, {type Messages} from './messages'
 
 export interface Interfaces {
   socket: WebSocket
@@ -13,6 +12,7 @@ export interface Interfaces {
   settings: Settings
   video: Video
   explorer: Explorer
+  messages: Messages
 }
 
 const interfaces = (socket: WebSocket): Interfaces => ({
@@ -21,7 +21,8 @@ const interfaces = (socket: WebSocket): Interfaces => ({
   contacts: contacts(socket),
   settings: settings(socket),
   video: video(socket),
-  explorer: explorer(socket)
+  explorer: explorer(socket),
+  messages: messages(socket)
 })
 
 export default interfaces

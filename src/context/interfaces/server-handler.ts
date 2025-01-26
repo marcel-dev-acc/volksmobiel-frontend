@@ -110,6 +110,19 @@ const serverHandler = (message: IncomingMessage, states: States): void => {
       }
       break
 
+    case 'messages':
+      switch (message.topic) {
+        case 'get-messages':
+          states.setMessages(message.value as Array<Message>)
+          break
+        default:
+          console.warn(
+            '[MESSAGES] Server sent an unknown message, topic',
+            message.topic
+          )
+      }
+      break
+
     default:
       console.warn(
         'Server sent an unknown message, domain',

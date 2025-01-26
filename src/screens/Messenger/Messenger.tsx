@@ -3,16 +3,24 @@ import React from 'react'
 import './Messenger.css'
 import Message from './Message/Message'
 import Messages from './Messages/Messages'
-import {messages} from './mock-messages'
-// import { useScreenContext } from '../../context/ScreenContext'
+import {useScreenContext} from '../../context/ScreenContext'
 
 const Messenger = (): JSX.Element => {
-  // const {messages} = useScreenContext()
+  const {interfaces, messages} = useScreenContext()
+
+  const initRef = React.useRef(false)
 
   const [state, setState] = React.useState<'message-list' | 'message'>(
     'message-list'
   )
   const [activeId, setActiveId] = React.useState<string>()
+
+  React.useEffect(() => {
+    if (!initRef.current) {
+      initRef.current = true
+      interfaces.current.messages.list()
+    }
+  }, [interfaces])
 
   return (
     <div className="messenger">

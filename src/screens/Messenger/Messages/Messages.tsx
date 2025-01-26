@@ -53,6 +53,8 @@ const Messages = ({
       window.removeEventListener('resize', handleWindowResize)
   }, [])
 
+  console.log('MMM', messages)
+
   return (
     <div className="messages">
       <div className="messages__navigation">
