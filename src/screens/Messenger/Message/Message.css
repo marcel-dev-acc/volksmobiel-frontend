@@ -85,6 +85,7 @@
   border-style: none;
   color: inherit;
   font-size: inherit;
+  text-decoration: underline;
 }
 
 .message__messages__message__footer {

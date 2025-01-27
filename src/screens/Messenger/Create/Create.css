@@ -1,0 +1,51 @@
+.create-message {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 0 8px;
+}
+  
+.create-message__navigation-btn {
+  background-color: inherit;
+  border-style: none;
+  width: 40px;
+}
+
+.create-message__form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.create-message__form__input {
+  display: flex;
+  flex-direction: column;
+  margin: 8px 0;
+}
+
+.create-message__form__input > input {
+  margin-top: 2px;
+  padding: 4px;
+  background-color: rgb(255, 255, 255);
+  border-style: none;
+  border-radius: 8px;
+}
+
+.create-message__form__textarea {
+  padding: 4px;
+  background-color: rgb(255, 255, 255);
+  border-style: none;
+  flex: 1;
+  border-radius: 8px;
+}
+
+.create-message__form__btn {
+  background-color: rgb(255, 255, 255);
+  border-style: none;
+  padding: 8px 0;
+  width: 100%;
+  font-weight: 800;
+  border-radius: 8px;
+  font-size: 13.25px;
+  margin: 8px 0;
+}

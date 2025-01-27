@@ -1,0 +1,42 @@
+.keyboard {
+  position: fixed;
+  z-index: 999;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  flex-direction: column;
+}
+
+.keyboard__keys {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.keyboard__keys__row {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 4px 0;
+  padding: 4px 4px;
+}
+
+.keyboard__keys__key {
+  background-color: rgb(255, 255, 255);
+  border-style: none;
+  font-size: 16px;
+  padding: 4px 8px;
+}
+
+.keyboard__footer__keys {
+  display: flex;
+  justify-content: space-around;
+}
+
+.keyboard__navigation-btn {
+  fill: rgb(255, 255, 255);
+  background-color: inherit;
+  border-style: none;
+  width: 40px;
+}

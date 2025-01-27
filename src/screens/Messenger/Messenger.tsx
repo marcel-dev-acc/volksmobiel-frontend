@@ -4,15 +4,21 @@ import './Messenger.css'
 import Message from './Message/Message'
 import Messages from './Messages/Messages'
 import {useScreenContext} from '../../context/ScreenContext'
+import MessageOptions from './Options/Options'
+import CreateMessage from './Create/Create'
+
+export type State =
+  | 'message-list'
+  | 'message'
+  | 'message-options'
+  | 'create-message'
 
 const Messenger = (): JSX.Element => {
   const {interfaces, messages} = useScreenContext()
 
   const initRef = React.useRef(false)
 
-  const [state, setState] = React.useState<'message-list' | 'message'>(
-    'message-list'
-  )
+  const [state, setState] = React.useState<State>('message-list')
   const [activeId, setActiveId] = React.useState<string>()
 
   React.useEffect(() => {
@@ -39,6 +45,10 @@ const Messenger = (): JSX.Element => {
           )}
         />
       )}
+      {state === 'message-options' && (
+        <MessageOptions setState={setState} />
+      )}
+      {state === 'create-message' && <CreateMessage setState={setState} />}
     </div>
   )
 }

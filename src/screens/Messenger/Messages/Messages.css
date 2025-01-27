@@ -16,6 +16,10 @@
   width: 40px;
 }
 
+.messages__title-navigation {
+  justify-content: space-between;
+}
+
 .messages__list {
   display: flex;
   flex-direction: column;

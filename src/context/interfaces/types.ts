@@ -27,11 +27,13 @@ export interface Playlist {
 
 export interface Message {
   id: string
-  foreignName: string
+  foreignName?: string
+  phoneNumber: string
   messages: Array<{
     id: string
     user: 'owner' | 'foreign'
     text: string
-    time: number
+    sentAt?: number
+    receivedAt?: number
   }>
 }

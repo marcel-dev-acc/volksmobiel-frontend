@@ -1,6 +1,6 @@
 import type {MutableRefObject} from 'react'
 import React from 'react'
-import {Modal} from '../components'
+import {Keyboard, Modal} from '../components'
 import interfacesFn, {type Interfaces} from './interfaces'
 import type {
   Contact,
@@ -39,6 +39,11 @@ export interface ScreenContextProps {
     React.SetStateAction<Array<string> | undefined>
   >
   messages: Array<Message>
+  showKeyboard: boolean
+  setShowKeyboard: React.Dispatch<React.SetStateAction<boolean>>
+  keyboardMutator: MutableRefObject<
+    React.Dispatch<React.SetStateAction<string>> | undefined
+  >
 }
 
 export const ScreenContext = React.createContext<
@@ -80,6 +85,8 @@ export const ScreenProvider = ({
   )
   const interfaces = React.useRef(interfacesFn(socket.current))
 
+  const keyboardMutator = React.useRef()
+
   const [screen, setScreen] = React.useState(Screens.home)
   const [darkMode, setDarkMode] = React.useState<'light' | 'dark'>('dark')
   const [modalState, setModalState] = React.useState<
@@ -103,6 +110,7 @@ export const ScreenProvider = ({
   const [hostIp, setHostIp] = React.useState('')
   const [copySrc, setCopySrc] = React.useState<Array<string>>()
   const [messages, setMessages] = React.useState<Array<Message>>([])
+  const [showKeyboard, setShowKeyboard] = React.useState(false)
 
   const modal = React.useMemo(
     () => ({
@@ -153,7 +161,10 @@ export const ScreenProvider = ({
       hostIp,
       copySrc,
       setCopySrc,
-      messages
+      messages,
+      showKeyboard,
+      setShowKeyboard,
+      keyboardMutator
     }),
     [
       screen,
@@ -173,7 +184,10 @@ export const ScreenProvider = ({
       hostIp,
       copySrc,
       setCopySrc,
-      messages
+      messages,
+      showKeyboard,
+      setShowKeyboard,
+      keyboardMutator
     ]
   )
 
@@ -197,6 +211,7 @@ export const ScreenProvider = ({
   return (
     <ScreenContext.Provider value={memoProviderValues}>
       {modalState && <Modal state={modalState} msg={modalMsg} />}
+      {showKeyboard && <Keyboard />}
       {children}
     </ScreenContext.Provider>
   )

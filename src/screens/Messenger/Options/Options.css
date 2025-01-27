@@ -1,0 +1,47 @@
+.message-options {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 0 8px;
+}
+  
+.message-options__options__navigation-btn {
+  background-color: inherit;
+  border-style: none;
+  width: 40px;
+}
+
+.message-options__options__title {
+  font-size: 16px;
+  text-align: center;
+}
+
+.message-options__options__list {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  list-style-type: none;
+  padding: 8px;
+  margin: 0;
+}
+
+.message-options__options__list__item {
+  margin: 4px 0;
+  display: flex;
+  gap: 8px;
+}
+
+.message-options__options__list__item-btn {
+  border-style: none;
+  padding: 8px 0;
+  width: 100%;
+  font-weight: 800;
+  border-radius: 8px;
+  font-size: 13.25px;
+}
+
+@media screen and (min-width: 900px) {
+  .message-options__options__list__item-btn {
+    font-size: 18px;
+  }
+}

@@ -15,14 +15,17 @@ const getNodes = (): NodeListOf<
 > => {
   const focusable: NodeListOf<
     HTMLButtonElement | HTMLInputElement | HTMLTextAreaElement
-  > = document.querySelectorAll('button:not([disabled])')
+  > = document.querySelectorAll('button:not([disabled]), input:not([disabled]), textarea:not([disabled])')
   return focusable
 }
 
 const focusAssign = (value: number): void => {
   const focusable = getNodes()
 
-  if (document.activeElement?.nodeName !== 'BUTTON') {
+  if (
+    document.activeElement?.nodeName === undefined ||
+    !['BUTTON', 'INPUT', 'TEXTAREA'].includes(document.activeElement.nodeName)
+  ) {
     focusable[0].focus()
     return
   }
@@ -42,6 +45,7 @@ const focusAssign = (value: number): void => {
   } else {
     move.value = index + value < 0 ? focusable.length - 1 : index + value
   }
+
   focusable[move.value].focus()
 }
 

@@ -9,6 +9,7 @@ import {
 import dayjs from 'dayjs'
 import type {Message as MessageInterface} from '../../../context/interfaces/types'
 import {useScreenContext} from '../../../context/ScreenContext'
+import type {State} from '../Messenger'
 
 interface FullMessageProps {
   message: string
@@ -23,9 +24,7 @@ const FullMessage = ({message}: FullMessageProps): JSX.Element => {
 }
 
 interface MessageProps {
-  setState: React.Dispatch<
-    React.SetStateAction<'message-list' | 'message'>
-  >
+  setState: React.Dispatch<React.SetStateAction<State>>
   messageDetails?: MessageInterface
 }
 
@@ -39,7 +38,7 @@ const Message = ({
   const [activeMessage, setActiveMessage] = React.useState<string>()
   const [listIndex, setListIndex] = React.useState(0)
   const visibleItems = 3
-  const messageTruncLength = 40
+  const messageTruncLength = 50
 
   const handleListUp = (): void => {
     if (listIndex <= 0) {
@@ -119,9 +118,22 @@ const Message = ({
                     )}
                   </div>
                   <div className="message__messages__message__footer">
-                    <p>
-                      <i>{dayjs.unix(message.time).format('HH:mm:ss')}</i>
-                    </p>
+                    {message.receivedAt && (
+                      <p>
+                        <i>
+                          {dayjs
+                            .unix(message.receivedAt)
+                            .format('HH:mm:ss')}
+                        </i>
+                      </p>
+                    )}
+                    {message.sentAt && (
+                      <p>
+                        <i>
+                          {dayjs.unix(message.sentAt).format('HH:mm:ss')}
+                        </i>
+                      </p>
+                    )}
                   </div>
                 </li>
               ))}

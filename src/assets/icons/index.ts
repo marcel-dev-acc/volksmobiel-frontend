@@ -3,6 +3,9 @@ export {ReactComponent as Account} from './account/account.svg'
 export {ReactComponent as AlterOctagon} from './alert/alert-octagon.svg'
 export {ReactComponent as Alert} from './alert/alert.svg'
 
+export {ReactComponent as Alphabetical} from './alphabetical/alphabetical.svg'
+export {ReactComponent as AlphabeticalVariant} from './alphabetical/alphabetical-variant.svg'
+
 export {ReactComponent as ArrowDownBoldCircleOutline} from './arrow/arrow-down-bold-circle-outline.svg'
 export {ReactComponent as ArrowLeftBoldCircleOutline} from './arrow/arrow-left-bold-circle-outline.svg'
 export {ReactComponent as ArrowUpBoldCircleOutline} from './arrow/arrow-up-bold-circle-outline.svg'
@@ -39,10 +42,14 @@ export {ReactComponent as HomeCircleOutline} from './home/home-circle-outline.sv
 
 export {ReactComponent as Information} from './information/information.svg'
 
+export {ReactComponent as KeyboardCloseOutline} from './keyboard/keyboard-close-outline.svg'
+
 export {ReactComponent as Minus} from './minus/minus.svg'
 
 export {ReactComponent as MusicCircleOutline} from './music/music-circle-outline.svg'
 export {ReactComponent as MusicClefTreble} from './music/music-clef-treble.svg'
+
+export {ReactComponent as Numeric} from './numeric/numeric.svg'
 
 export {ReactComponent as Phone} from './phone/phone.svg'
 export {ReactComponent as PhoneHangUp} from './phone/phone-hangup.svg'
@@ -61,6 +68,8 @@ export {ReactComponent as SignalCellular2} from './signal-cellular/signal-cellul
 export {ReactComponent as SignalCellular3} from './signal-cellular/signal-cellular-3.svg'
 
 export {ReactComponent as Snake} from './snake/snake.svg'
+
+export {ReactComponent as Symbol} from './symbol/symbol.svg'
 
 export {ReactComponent as ThemeLightDark} from './theme/theme-light-dark.svg'
 

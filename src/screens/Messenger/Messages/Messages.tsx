@@ -4,15 +4,15 @@ import './Messages.css'
 import type {Message} from '../../../context/interfaces/types'
 import {
   ArrowDownBoldCircleOutline,
-  ArrowUpBoldCircleOutline
+  ArrowUpBoldCircleOutline,
+  Plus
 } from '../../../assets/icons'
 import {useScreenContext} from '../../../context/ScreenContext'
+import type {State} from '../Messenger'
 
 interface MessagesProps {
   messages: Array<Message>
-  setState: React.Dispatch<
-    React.SetStateAction<'message-list' | 'message'>
-  >
+  setState: React.Dispatch<React.SetStateAction<State>>
   setActiveId: React.Dispatch<React.SetStateAction<string | undefined>>
 }
 
@@ -53,11 +53,14 @@ const Messages = ({
       window.removeEventListener('resize', handleWindowResize)
   }, [])
 
-  console.log('MMM', messages)
-
   return (
     <div className="messages">
-      <div className="messages__navigation">
+      <div className="messages__navigation messages__title-navigation">
+        <button
+          className="messages__navigation-btn"
+          onClick={() => setState('message-options')}>
+          <Plus />
+        </button>
         <button
           className="messages__navigation-btn"
           onClick={handleListUp}>
@@ -84,11 +87,14 @@ const Messages = ({
                   setActiveId(message.id)
                   setState('message')
                 }}>
-                <p>
-                  {message.foreignName.length > nameTruncLength
-                    ? `${message.foreignName.substring(0, nameTruncLength - 3)}...`
-                    : message.foreignName}
-                </p>
+                {message.foreignName && (
+                  <p>
+                    {message.foreignName.length > nameTruncLength
+                      ? `${message.foreignName.substring(0, nameTruncLength - 3)}...`
+                      : message.foreignName}
+                  </p>
+                )}
+                {!message.foreignName && <p>{message.phoneNumber}</p>}
               </button>
             </li>
           ))}
