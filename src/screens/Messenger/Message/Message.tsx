@@ -7,7 +7,7 @@ import {
   ArrowUpBoldCircleOutline
 } from '../../../assets/icons'
 import dayjs from 'dayjs'
-import type {Message as MessageInterface} from '../../../context/interfaces/types'
+import type {Message as MessageInterface} from '../../../context/types'
 import {useScreenContext} from '../../../context/ScreenContext'
 import type {State} from '../Messenger'
 

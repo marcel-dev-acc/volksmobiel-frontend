@@ -4,7 +4,7 @@
   flex-direction: column;
   padding: 0 8px;
 }
-  
+
 .create-message__navigation-btn {
   background-color: inherit;
   border-style: none;
@@ -25,10 +25,11 @@
 
 .create-message__form__input > input {
   margin-top: 2px;
-  padding: 4px;
-  background-color: rgb(255, 255, 255);
+  padding: 8px;
   border-style: none;
-  border-radius: 8px;
+  border-bottom-style: solid;
+  border-bottom-width: 4px;
+  border-top-right-radius: 8px;
 }
 
 .create-message__form__textarea {

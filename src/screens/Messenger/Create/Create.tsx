@@ -4,6 +4,7 @@ import './Create.css'
 import {ArrowLeftBoldCircleOutline} from '../../../assets/icons'
 import type {State} from '../Messenger'
 import {useScreenContext} from '../../../context/ScreenContext'
+import useMessages from '../../../hooks/messages'
 
 interface CreateMessageProps {
   setState: React.Dispatch<React.SetStateAction<State>>
@@ -12,9 +13,18 @@ interface CreateMessageProps {
 const CreateMessage = ({setState}: CreateMessageProps): JSX.Element => {
   const {showKeyboard, setShowKeyboard, keyboardMutator} =
     useScreenContext()
+  const messages = useMessages()
 
   const [number, setNumber] = React.useState('+')
   const [message, setMessage] = React.useState('')
+
+  const handleSendMessage = (): void => {
+    messages.send({
+      number,
+      message
+    })
+    setState('message-list')
+  }
 
   return (
     <div className="create-message">
@@ -60,7 +70,7 @@ const CreateMessage = ({setState}: CreateMessageProps): JSX.Element => {
         />
         <button
           className="create-message__form__btn"
-          onClick={() => setState('message-list')}
+          onClick={handleSendMessage}
           disabled={showKeyboard}>
           Send
         </button>

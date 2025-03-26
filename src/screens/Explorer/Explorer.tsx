@@ -4,7 +4,7 @@ import {useState} from 'react'
 import './Explorer.css'
 import ExplorerList from './List/List'
 import ExplorerOptions from './Options/Options'
-import type {ExploredItem} from '../../context/interfaces/types'
+import type {ExploredItem} from '../../context/types'
 
 export type State = 'list' | 'options'
 

@@ -3,9 +3,11 @@ import React from 'react'
 import './UsbDevices.css'
 import {useScreenContext} from '../../context/ScreenContext'
 import {Minus, Plus, Usb} from '../../assets/icons'
+import useSettings from '../../hooks/settings'
 
 const UsbDevices = (): JSX.Element => {
-  const {usbDevices, interfaces} = useScreenContext()
+  const {usbDevices} = useScreenContext()
+  const {listUsbDevices, mountUsb, unmountUsb} = useSettings()
 
   const initRef = React.useRef(false)
 
@@ -15,17 +17,17 @@ const UsbDevices = (): JSX.Element => {
     deviceUuid: string
   ): void => {
     if (mounted) {
-      interfaces.current.settings.unmountUsb(deviceUuid)
+      unmountUsb(deviceUuid)
     } else {
-      interfaces.current.settings.mountUsb(device, deviceUuid)
+      mountUsb(device, deviceUuid)
     }
-    interfaces.current.settings.listUsb()
+    listUsbDevices()
   }
 
   React.useEffect(() => {
     if (!initRef.current) {
       initRef.current = true
-      interfaces.current.settings.listUsb()
+      listUsbDevices()
     }
   }, [])
 

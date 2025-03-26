@@ -13,7 +13,8 @@ import {
   VideoBox
 } from '../../../assets/icons'
 import type {State} from '../Explorer'
-import type {ExploredItem} from '../../../context/interfaces/types'
+import type {ExploredItem} from '../../../context/types'
+import useExplorer from '../../../hooks/explorer'
 
 interface ExplorerProps {
   setActiveVideo: (filePathArray?: Array<string>) => void
@@ -28,8 +29,9 @@ const ExplorerList = ({
   setType,
   setItem
 }: ExplorerProps): JSX.Element => {
-  const {interfaces, explorePath, exploredItems, darkMode, setScreen} =
+  const {explorePath, exploredItems, darkMode, setScreen} =
     useScreenContext()
+  const explorer = useExplorer()
 
   const initRef = useRef(false)
 
@@ -56,11 +58,11 @@ const ExplorerList = ({
 
   const handleFolderClick = (item?: string): void => {
     if (item) {
-      interfaces.current.explorer.list([...explorePath, item])
+      explorer.list([...explorePath, item])
     } else {
       const listToPop = [...explorePath]
       listToPop.pop()
-      interfaces.current.explorer.list(listToPop)
+      explorer.list(listToPop)
     }
     setListIndex(0)
   }
@@ -73,13 +75,13 @@ const ExplorerList = ({
   useEffect(() => {
     if (!initRef.current && explorePath.length > 0) {
       initRef.current = true
-      interfaces.current.explorer.list(explorePath)
+      explorer.list(explorePath)
     }
     if (!initRef.current) {
       initRef.current = true
-      interfaces.current.explorer.list('home')
+      explorer.list(['home'])
     }
-  }, [interfaces])
+  }, [])
 
   const handleWindowResize = (): void => {
     setNameTruncLength(Math.floor(window.innerWidth * 0.5 * 0.1))

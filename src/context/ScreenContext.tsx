@@ -1,15 +1,14 @@
 import type {MutableRefObject} from 'react'
 import React from 'react'
 import {Keyboard, Modal} from '../components'
-import interfacesFn, {type Interfaces} from './interfaces'
 import type {
   Contact,
   ExploredItem,
   Message,
   Playlist,
   UsbDevice
-} from './interfaces/types'
-import serverHandler from './interfaces/server-handler'
+} from './types'
+import axios from 'axios'
 
 interface ModalHandler {
   info: (msg: string) => void
@@ -19,31 +18,41 @@ interface ModalHandler {
 }
 
 export interface ScreenContextProps {
+  // References
+  keyboardMutator: MutableRefObject<
+    React.Dispatch<React.SetStateAction<string>> | undefined
+  >
+  // State
   screen: Screens
-  setScreen: (screen: Screens) => void
+  setScreen: React.Dispatch<React.SetStateAction<Screens>>
   darkMode: 'light' | 'dark'
-  toggleDarkMode: () => void
-  modal: ModalHandler
-  interfaces: MutableRefObject<Interfaces>
   contacts: Array<Contact>
+  setContacts: React.Dispatch<React.SetStateAction<Contact[]>>
   explorePath: Array<string>
+  setExplorePath: React.Dispatch<React.SetStateAction<string[]>>
   exploredItems: Array<ExploredItem>
+  setExploredItems: React.Dispatch<React.SetStateAction<ExploredItem[]>>
   usbDevices: Array<UsbDevice>
+  setUsbDevices: React.Dispatch<React.SetStateAction<UsbDevice[]>>
+  playlist: Playlist
+  setPlaylist: React.Dispatch<React.SetStateAction<Playlist>>
   sleepIn: number | undefined
   setSleepIn: (time: number | undefined) => void
-  playlist: Playlist
   systemDetails: Array<string>
+  setSystemDetails: React.Dispatch<React.SetStateAction<string[]>>
   hostIp: string
+  setHostIp: React.Dispatch<React.SetStateAction<string>>
   copySrc?: Array<string>
   setCopySrc: React.Dispatch<
     React.SetStateAction<Array<string> | undefined>
   >
   messages: Array<Message>
+  setMessages: React.Dispatch<React.SetStateAction<Message[]>>
   showKeyboard: boolean
   setShowKeyboard: React.Dispatch<React.SetStateAction<boolean>>
-  keyboardMutator: MutableRefObject<
-    React.Dispatch<React.SetStateAction<string>> | undefined
-  >
+  // Handlers
+  modal: ModalHandler
+  toggleDarkMode: () => void
 }
 
 export const ScreenContext = React.createContext<
@@ -80,10 +89,7 @@ export enum Screens {
 export const ScreenProvider = ({
   children
 }: React.PropsWithChildren): JSX.Element => {
-  const socket = React.useRef(
-    new WebSocket(`ws://${window.location.hostname}:8081`)
-  )
-  const interfaces = React.useRef(interfacesFn(socket.current))
+  const initPolling = React.useRef(false)
 
   const keyboardMutator = React.useRef()
 
@@ -93,6 +99,7 @@ export const ScreenProvider = ({
     'info' | 'warn' | 'error' | undefined
   >()
   const [modalMsg, setModalMsg] = React.useState('')
+
   const [contacts, setContacts] = React.useState<Array<Contact>>([])
   const [explorePath, setExplorePath] = React.useState<Array<string>>([])
   const [exploredItems, setExploredItems] = React.useState<
@@ -138,75 +145,89 @@ export const ScreenProvider = ({
     setDarkMode(darkMode === 'light' ? 'dark' : 'light')
   }, [darkMode])
 
-  socket.current.addEventListener('open', () => {
-    interfaces.current.settings.getHostIp()
-  })
-
   const memoProviderValues = React.useMemo(
     () => ({
+      // References
+      keyboardMutator,
+      // State
       screen,
       setScreen,
       darkMode,
-      toggleDarkMode,
-      modal,
-      interfaces,
       contacts,
+      setContacts,
       explorePath,
+      setExplorePath,
       exploredItems,
+      setExploredItems,
       usbDevices,
+      setUsbDevices,
+      playlist,
+      setPlaylist,
       sleepIn,
       setSleepIn,
-      playlist,
       systemDetails,
+      setSystemDetails,
       hostIp,
+      setHostIp,
       copySrc,
       setCopySrc,
       messages,
+      setMessages,
       showKeyboard,
       setShowKeyboard,
-      keyboardMutator
+      // Handlers
+      modal,
+      toggleDarkMode
     }),
     [
+      // References
+      keyboardMutator,
+      // State
       screen,
       setScreen,
       darkMode,
-      toggleDarkMode,
-      modal,
-      interfaces,
       contacts,
+      setContacts,
       explorePath,
+      setExplorePath,
       exploredItems,
+      setExploredItems,
       usbDevices,
+      setUsbDevices,
+      playlist,
+      setPlaylist,
       sleepIn,
       setSleepIn,
-      playlist,
       systemDetails,
+      setSystemDetails,
       hostIp,
+      setHostIp,
       copySrc,
       setCopySrc,
       messages,
+      setMessages,
       showKeyboard,
       setShowKeyboard,
-      keyboardMutator
+      // Handlers
+      modal,
+      toggleDarkMode
     ]
   )
 
-  socket.current.addEventListener('message', event => {
-    try {
-      serverHandler(JSON.parse(event.data), {
-        setContacts,
-        setExplorePath,
-        setExploredItems,
-        setUsbDevices,
-        setPlaylist,
-        setSystemDetails,
-        setHostIp,
-        setMessages
-      })
-    } catch {
-      console.error('Message from server ', event.data)
+  const handleQueuePolling = async (): Promise<void> => {
+    const queue = await axios.get('http://0.0.0.0:5000/polling/queue')
+    console.log(queue.data)
+  }
+
+  React.useEffect(() => {
+    if (!initPolling.current) {
+      initPolling.current = true
+      const phonePollingInterval = setInterval(handleQueuePolling, 500)
+      return (): void => {
+        clearInterval(phonePollingInterval)
+      }
     }
-  })
+  }, [])
 
   return (
     <ScreenContext.Provider value={memoProviderValues}>

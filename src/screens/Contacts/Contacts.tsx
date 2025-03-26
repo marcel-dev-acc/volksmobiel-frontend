@@ -9,7 +9,8 @@ import {
   ArrowUpBoldCircleOutline,
   Plus
 } from '../../assets/icons'
-import type {Contact} from '../../context/interfaces/types'
+import type {Contact} from '../../context/types'
+import useContacts from '../../hooks/contacts'
 
 const Contacts = (): JSX.Element => {
   const initialForm: Omit<Contact, 'id'> = {
@@ -21,7 +22,8 @@ const Contacts = (): JSX.Element => {
 
   const visibleItems = 5
 
-  const {interfaces, contacts} = useScreenContext()
+  const {contacts} = useScreenContext()
+  const contactsHook = useContacts()
 
   const initRef = useRef(false)
 
@@ -62,17 +64,17 @@ const Contacts = (): JSX.Element => {
     ) {
       return
     }
-    interfaces.current.contacts.create(form)
-    interfaces.current.contacts.get()
+    contactsHook.create(form)
+    contactsHook.get()
     setState('contact-list')
   }
 
   useEffect(() => {
     if (!initRef.current) {
       initRef.current = true
-      interfaces.current.contacts.get()
+      contactsHook.get()
     }
-  }, [interfaces])
+  }, [])
 
   return (
     <div className="contacts">
@@ -134,7 +136,7 @@ const Contacts = (): JSX.Element => {
           <div className="contacts__form__back">
             <button
               onClick={() => {
-                interfaces.current.contacts.get()
+                contactsHook.get()
                 setState('contact-list')
               }}>
               <ArrowLeftBoldCircleOutline />

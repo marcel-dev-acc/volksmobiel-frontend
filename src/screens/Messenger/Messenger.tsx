@@ -6,6 +6,7 @@ import Messages from './Messages/Messages'
 import {useScreenContext} from '../../context/ScreenContext'
 import MessageOptions from './Options/Options'
 import CreateMessage from './Create/Create'
+import useMessages from '../../hooks/messages'
 
 export type State =
   | 'message-list'
@@ -14,7 +15,8 @@ export type State =
   | 'create-message'
 
 const Messenger = (): JSX.Element => {
-  const {interfaces, messages} = useScreenContext()
+  const {messages, screen} = useScreenContext()
+  const messagesHook = useMessages()
 
   const initRef = React.useRef(false)
 
@@ -24,9 +26,9 @@ const Messenger = (): JSX.Element => {
   React.useEffect(() => {
     if (!initRef.current) {
       initRef.current = true
-      interfaces.current.messages.list()
+      messagesHook.get()
     }
-  }, [interfaces])
+  }, [screen])
 
   return (
     <div className="messenger">

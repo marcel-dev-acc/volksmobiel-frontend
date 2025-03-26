@@ -6,9 +6,11 @@ import {
   ArrowDownBoldCircleOutline,
   ArrowUpBoldCircleOutline
 } from '../../assets/icons'
+import useSettings from '../../hooks/settings'
 
 const SystemDetails = (): JSX.Element => {
-  const {interfaces, systemDetails, darkMode} = useScreenContext()
+  const {systemDetails, darkMode} = useScreenContext()
+  const {listHostnameDetails, listNetworkInterfaces} = useSettings()
 
   const visibleItems = 8
 
@@ -33,7 +35,8 @@ const SystemDetails = (): JSX.Element => {
   React.useEffect(() => {
     if (!initRef.current) {
       initRef.current = true
-      interfaces.current.settings.getSystemDetails()
+      listHostnameDetails()
+      listNetworkInterfaces()
     }
   }, [])
 

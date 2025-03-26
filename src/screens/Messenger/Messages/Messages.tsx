@@ -1,7 +1,7 @@
 import React from 'react'
 
 import './Messages.css'
-import type {Message} from '../../../context/interfaces/types'
+import type {Message} from '../../../context/types'
 import {
   ArrowDownBoldCircleOutline,
   ArrowUpBoldCircleOutline,

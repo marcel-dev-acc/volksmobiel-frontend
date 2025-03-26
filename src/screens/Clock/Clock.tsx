@@ -1,20 +1,21 @@
 import React from 'react'
 
-import {useState} from 'react'
 import './Clock.css'
 import {BedClock} from '../../assets/icons'
 import {useScreenContext} from '../../context/ScreenContext'
+import useSettings from '../../hooks/settings'
 
 type states = 'navigation' | 'set-system-time' | 'set-sleep'
 
 const Clock = (): JSX.Element => {
-  const {setSleepIn, interfaces} = useScreenContext()
+  const {setSleepIn} = useScreenContext()
+  const {shutdownAfterDelay} = useSettings()
 
-  const [state, setState] = useState<states>('navigation')
+  const [state, setState] = React.useState<states>('navigation')
 
   const handleSleepTimer = (time: number): void => {
     setSleepIn(time)
-    interfaces.current.settings.powerOffAfterDelay(time)
+    shutdownAfterDelay(time)
   }
 
   return (

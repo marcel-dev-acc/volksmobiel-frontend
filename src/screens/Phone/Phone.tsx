@@ -7,8 +7,8 @@ import {
   PhoneHangUp,
   Phone as PhoneIcon
 } from '../../assets/icons'
-import {useScreenContext} from '../../context/ScreenContext'
 import dayjs from 'dayjs'
+import usePhone from '../../hooks/phone'
 
 const Phone = (): JSX.Element => {
   const pad = [
@@ -18,7 +18,7 @@ const Phone = (): JSX.Element => {
     ['*', 0, '#']
   ]
 
-  const {interfaces} = useScreenContext()
+  const {startCall, endCall} = usePhone()
 
   const [number, setNumber] = useState('0044')
   const [status, setStatus] = useState<'call' | 'hang-up'>('call')
@@ -38,10 +38,10 @@ const Phone = (): JSX.Element => {
 
   const handleCallPress = (): void => {
     if (status === 'call') {
-      interfaces.current.phone.startCall(number)
+      startCall(number)
       setStatus('hang-up')
     } else {
-      interfaces.current.phone.endCall(number)
+      endCall(number)
       setStatus('call')
     }
   }

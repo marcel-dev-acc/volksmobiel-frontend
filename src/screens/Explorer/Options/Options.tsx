@@ -4,7 +4,10 @@ import type {State} from '../Explorer'
 import './Options.css'
 import {ArrowLeftBoldCircleOutline} from '../../../assets/icons'
 import {useScreenContext} from '../../../context/ScreenContext'
-import type {ExploredItem} from '../../../context/interfaces/types'
+import type {ExploredItem} from '../../../context/types'
+import useVideo from '../../../hooks/video'
+import useSettings from '../../../hooks/settings'
+import useExplorer from '../../../hooks/explorer'
 
 export type OptionsState = 'menu' | 'playlist'
 
@@ -19,7 +22,11 @@ const ExplorerOptions = ({
   type,
   setState
 }: ExplorerOptionsProps): JSX.Element => {
-  const {interfaces, explorePath, copySrc, setCopySrc} = useScreenContext()
+  const {explorePath, copySrc, setCopySrc} = useScreenContext()
+  const {addToPlaylist, autoPlay, playDvd} = useVideo()
+  const {copyFolderContentsTo, removeFolderContents, removeFolder} =
+    useSettings()
+  const explorer = useExplorer()
 
   const [confirmDeleteFolderContents, setConfirmDeleteFolderContents] =
     React.useState(false)
@@ -28,24 +35,21 @@ const ExplorerOptions = ({
 
   const handleAddFileToPlayList = (): void => {
     if (item) {
-      interfaces.current.video.addToPlaylist(item.name, [
-        ...explorePath,
-        item.name
-      ])
+      addToPlaylist(item.name, [...explorePath, item.name])
     }
     setState('list')
   }
 
   const handleAutoPlay = (): void => {
     if (item) {
-      interfaces.current.video.autoPlay([...explorePath, item.name])
+      autoPlay([...explorePath, item.name])
     }
     setState('list')
   }
 
   const handlePlayAsDvd = (): void => {
     if (item) {
-      interfaces.current.video.playDvd(explorePath)
+      playDvd(explorePath)
     }
     setState('list')
   }
@@ -57,27 +61,27 @@ const ExplorerOptions = ({
 
   const handlePasteHere = (): void => {
     if (copySrc) {
-      interfaces.current.settings.copyFolderContentsTo({
+      copyFolderContentsTo({
         folderPath: copySrc,
         destination: explorePath
       })
     }
-    interfaces.current.explorer.list(explorePath)
+    explorer.list(explorePath)
     setCopySrc(undefined)
     setState('list')
   }
 
   const handleDeleteFolderContents = (): void => {
-    interfaces.current.settings.removeFolderContents(explorePath)
-    interfaces.current.explorer.list(explorePath)
+    removeFolderContents(explorePath)
+    explorer.list(explorePath)
     setConfirmDeleteFolderContents(false)
     setState('list')
   }
 
   const handleDeleteFolder = (): void => {
-    interfaces.current.settings.removeFolder(explorePath)
+    removeFolder(explorePath)
     explorePath.pop()
-    interfaces.current.explorer.list(explorePath)
+    explorer.list(explorePath)
     setConfirmDeleteFolder(false)
     setState('list')
   }

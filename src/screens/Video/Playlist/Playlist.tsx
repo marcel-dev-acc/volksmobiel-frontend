@@ -3,21 +3,23 @@ import React from 'react'
 import './Playlist.css'
 import {useScreenContext} from '../../../context/ScreenContext'
 import {Close} from '../../../assets/icons'
+import useVideo from '../../../hooks/video'
 
 const VideoPlaylist = (): JSX.Element => {
-  const {interfaces, playlist} = useScreenContext()
+  const {playlist} = useScreenContext()
+  const {playPlaylist, removeFromPlaylist, getPlaylist} = useVideo()
 
   const initRef = React.useRef(false)
 
   const [nameTruncLength, setNameTruncLength] = React.useState(20)
 
   const handlePlayPlaylist = (): void => {
-    interfaces.current.video.playPlaylist()
+    playPlaylist()
   }
 
   const handleRemoveFromPlaylist = (id: string): void => {
-    interfaces.current.video.removeFromPlaylist(id)
-    interfaces.current.video.getPlaylist()
+    removeFromPlaylist(id)
+    getPlaylist()
   }
 
   const handleWindowResize = (): void => {
@@ -27,7 +29,7 @@ const VideoPlaylist = (): JSX.Element => {
   React.useEffect(() => {
     if (!initRef.current) {
       initRef.current = true
-      interfaces.current.video.getPlaylist()
+      getPlaylist()
     }
 
     handleWindowResize()

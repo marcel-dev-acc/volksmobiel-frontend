@@ -3,6 +3,7 @@ import React, {useEffect} from 'react'
 import './Player.css'
 import {Play} from '../../../assets/icons'
 import {Screens, useScreenContext} from '../../../context/ScreenContext'
+import useVideo from '../../../hooks/video'
 
 interface VideoPlayerProps {
   activeVideo?: Array<string>
@@ -15,13 +16,14 @@ const VideoPlayer = ({
   activeVideo,
   setActiveVideo
 }: VideoPlayerProps): JSX.Element => {
-  const {interfaces, setScreen} = useScreenContext()
+  const {setScreen} = useScreenContext()
+  const video = useVideo()
 
   const [title, setTitle] = React.useState('')
 
   const handlePlayClick = (): void => {
     if (activeVideo) {
-      interfaces.current.video.play(activeVideo)
+      video.play(activeVideo)
       setActiveVideo(undefined)
     }
   }

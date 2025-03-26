@@ -10,16 +10,18 @@ import {
 } from '../../assets/icons'
 import {Screens, useScreenContext} from '../../context/ScreenContext'
 import './Settings.css'
+import useSettings from '../../hooks/settings'
 
 const Settings = (): JSX.Element => {
-  const {interfaces, toggleDarkMode, setScreen} = useScreenContext()
+  const {toggleDarkMode, setScreen} = useScreenContext()
+  const {shutdown, restart} = useSettings()
 
   const handlePowerOff = (): void => {
-    interfaces.current.settings.powerOff()
+    shutdown()
   }
 
   const handleReboot = (): void => {
-    interfaces.current.settings.reboot()
+    restart()
   }
 
   const handleToggleDisplayOutput = (): void => {

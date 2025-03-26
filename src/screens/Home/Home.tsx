@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  // Account,
+  Account,
   Chat,
   ClockOutline,
   Cog,
@@ -36,17 +36,12 @@ const Home = (): JSX.Element => {
         id: 'a2685411-5c21-4019-ac71-c9ebf744ac0d',
         icon: Chat,
         click: () => setScreen(Screens.messenger)
+      },
+      {
+        id: 'd4c13908-f8f5-4c7e-851a-705b1e3a76a1',
+        icon: Account,
+        click: () => setScreen(Screens.contacts)
       }
-      // {
-      //   id: 'd4c13908-f8f5-4c7e-851a-705b1e3a76a1',
-      //   icon: Account,
-      //   click: () => setScreen(Screens.contacts)
-      // },
-      // {
-      //   id: '6796c35a-edfe-4989-9a3c-b40f439147ae',
-      //   icon: FolderOpenOutline,
-      //   click: () => setScreen(Screens.explorer)
-      // }
     ],
     [
       {
